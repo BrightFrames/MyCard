@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, User, Link as LinkIcon, Briefcase, Image as ImageIcon, Clock, Smartphone, Settings } from 'lucide-react';
+import { ArrowLeft, User, Link as LinkIcon, Briefcase, Image as ImageIcon, Clock, Smartphone, Settings, Palette } from 'lucide-react';
 import { MOCK_CARDS } from '@/lib/mock-data';
 // Sub-components (Placeholders for now, will implement next)
 import BasicInfoEditor from './BasicInfoEditor';
@@ -11,6 +11,7 @@ import ServicesManager from './ServicesManager';
 import GalleryManager from './GalleryManager';
 import BusinessHours from './BusinessHours';
 import ContactInfoEditor from './ContactInfoEditor';
+import ThemeEditor from './ThemeEditor';
 
 const CardManager = () => {
     const { id } = useParams();
@@ -42,6 +43,9 @@ const CardManager = () => {
                     <TabsTrigger value="links" className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary flex gap-2">
                         <LinkIcon className="w-4 h-4" /> Links
                     </TabsTrigger>
+                    <TabsTrigger value="appearance" className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary flex gap-2">
+                        <Palette className="w-4 h-4" /> Appearance
+                    </TabsTrigger>
                     <TabsTrigger value="services" className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary flex gap-2">
                         <Briefcase className="w-4 h-4" /> Services
                     </TabsTrigger>
@@ -66,6 +70,9 @@ const CardManager = () => {
                         </TabsContent>
                         <TabsContent value="links">
                             <LinksManager />
+                        </TabsContent>
+                        <TabsContent value="appearance">
+                            <ThemeEditor />
                         </TabsContent>
                         <TabsContent value="services">
                             <ServicesManager />

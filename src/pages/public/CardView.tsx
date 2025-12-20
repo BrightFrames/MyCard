@@ -1,8 +1,7 @@
 
 import { useParams } from 'react-router-dom';
 import { MOCK_CARDS } from '@/lib/mock-data';
-import ModernCard from './templates/ModernCard';
-import ClassicCard from './templates/ClassicCard';
+import { THEMES } from '@/lib/themes';
 import { Button } from '@/components/ui/button';
 
 const CardView = () => {
@@ -20,18 +19,16 @@ const CardView = () => {
         );
     }
 
-    return (
-        <div className="animate-in fade-in zoom-in duration-500">
-            {/* Template Switcher */}
-            {card.templateId === 'modern-1' && <ModernCard data={card.data} />}
-            {card.templateId === 'classic-1' && <ClassicCard data={card.data} />}
+    // Check for preview query param ?theme=... or use card's theme
+    const searchParams = new URLSearchParams(window.location.search);
+    const themeId = searchParams.get('theme') || card.templateId || 'minimal';
 
-            {/* Save Contact dummy button */}
-            <div className="mt-8 px-4 w-full max-w-md mx-auto">
-                <Button className="w-full h-12 text-lg shadow-xl shadow-blue-500/20" size="lg">
-                    Save Contact
-                </Button>
-            </div>
+    // Find component in registry
+    const ThemeComponent = THEMES.find(t => t.id === themeId)?.component || THEMES[0].component;
+
+    return (
+        <div className="animate-in fade-in zoom-in duration-500 h-screen w-full">
+            <ThemeComponent />
         </div>
     );
 };

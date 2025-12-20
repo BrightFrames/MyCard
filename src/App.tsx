@@ -31,6 +31,9 @@ import MyCards from "./pages/user/MyCards";
 import CardManager from "./pages/user/vcard/CardManager";
 import EnquiriesList from "./pages/user/EnquiriesList";
 
+
+import LandingPage from "./pages/public/LandingPage";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -39,7 +42,8 @@ const App = () => (
       <Toaster />
       <BrowserRouter>
         <Routes>
-          {/* Public Card Routes */}
+          {/* Public Routes */}
+          <Route path="/" element={<LandingPage />} />
           <Route path="/c" element={<PublicLayout />}>
             <Route path=":id" element={<CardView />} />
           </Route>
@@ -79,8 +83,8 @@ const App = () => (
             <Route path="profile" element={<ProfileSettings />} />
           </Route>
 
-          {/* Fallback / Landing - Redirecting to login for now */}
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
