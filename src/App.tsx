@@ -1,22 +1,35 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
+
+import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { DashboardLayout } from "./components/layout/DashboardLayout";
-import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import ForgotPassword from "./pages/ForgotPassword";
-import MenuPage from "./pages/MenuPage";
-import TablesPage from "./pages/TablesPage";
-import InventoryPage from "./pages/InventoryPage";
-import ReportsPage from "./pages/ReportsPage";
-import UsersPage from "./pages/UsersPage";
-import PromosPage from "./pages/PromosPage";
-import PaymentsPage from "./pages/PaymentsPage";
-import SettingsPage from "./pages/SettingsPage";
-import NotFound from "./pages/NotFound";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import AdminLayout from "./layouts/AdminLayout";
+import DashboardLayout from "./layouts/DashboardLayout";
+import PublicLayout from "./layouts/PublicLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import UserManagement from "./pages/admin/UserManagement";
+import TemplateManager from "./pages/admin/TemplateManager";
+import UserDashboard from "./pages/user/UserDashboard";
+import ProfileSettings from "./pages/user/ProfileSettings";
+import CardView from "./pages/public/CardView";
+import LoginPage from "./pages/auth/LoginPage";
+
+import VCardManagement from "./pages/admin/vCardManagement";
+import PlansPricing from "./pages/admin/PlansPricing";
+import PaymentManagement from "./pages/admin/PaymentManagement";
+import EnquiriesModule from "./pages/admin/EnquiriesModule";
+import ContentFeatures from "./pages/admin/ContentFeatures";
+import MediaStorage from "./pages/admin/MediaStorage";
+
+import DomainBranding from "./pages/admin/DomainBranding";
+import PWASettings from "./pages/admin/PWASettings";
+import ReportsAnalytics from "./pages/admin/ReportsAnalytics";
+import SupportMaintenance from "./pages/admin/SupportMaintenance";
+import SecurityCompliance from "./pages/admin/SecurityCompliance";
+
+import MyCards from "./pages/user/MyCards";
+import CardManager from "./pages/user/vcard/CardManager";
+import EnquiriesList from "./pages/user/EnquiriesList";
 
 const queryClient = new QueryClient();
 
@@ -24,24 +37,50 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
-      <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route element={<DashboardLayout />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/menu" element={<MenuPage />} />
-            <Route path="/tables" element={<TablesPage />} />
-            <Route path="/inventory" element={<InventoryPage />} />
-            <Route path="/reports" element={<ReportsPage />} />
-            <Route path="/users" element={<UsersPage />} />
-            <Route path="/promos" element={<PromosPage />} />
-            <Route path="/payments" element={<PaymentsPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
+          {/* Public Card Routes */}
+          <Route path="/c" element={<PublicLayout />}>
+            <Route path=":id" element={<CardView />} />
           </Route>
-          <Route path="*" element={<NotFound />} />
+
+          {/* Auth Routes */}
+          <Route path="/login" element={<PublicLayout />}>
+            <Route index element={<LoginPage />} />
+          </Route>
+
+          {/* Admin Routes */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="users" element={<UserManagement />} />
+            <Route path="templates" element={<TemplateManager />} />
+            <Route path="vcards" element={<VCardManagement />} />
+            <Route path="plans" element={<PlansPricing />} />
+            <Route path="payments" element={<PaymentManagement />} />
+            <Route path="enquiries" element={<EnquiriesModule />} />
+            <Route path="content" element={<ContentFeatures />} />
+            <Route path="media" element={<MediaStorage />} />
+            <Route path="domains" element={<DomainBranding />} />
+            <Route path="pwa" element={<PWASettings />} />
+            <Route path="reports" element={<ReportsAnalytics />} />
+            <Route path="support" element={<SupportMaintenance />} />
+            <Route path="security" element={<SecurityCompliance />} />
+            <Route path="settings" element={<div className="p-4">Settings Module (Coming Soon)</div>} />
+          </Route>
+
+          {/* User Dashboard Routes */}
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route index element={<UserDashboard />} />
+            <Route path="cards" element={<MyCards />} />
+            <Route path="cards/:id/edit" element={<CardManager />} />
+            <Route path="cards/new" element={<CardManager />} /> {/* Reusing editor for new for now */}
+            <Route path="enquiries" element={<EnquiriesList />} />
+            <Route path="billing" element={<div className="p-6"><h2 className="text-2xl font-bold">Billing & Plans</h2><p className="text-muted-foreground">Manage your subscription.</p></div>} />
+            <Route path="profile" element={<ProfileSettings />} />
+          </Route>
+
+          {/* Fallback / Landing - Redirecting to login for now */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
