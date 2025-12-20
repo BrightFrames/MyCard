@@ -1,140 +1,114 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Eye, MousePointerClick, MessageSquare, ArrowUpRight, Zap, Target, MoreHorizontal } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Eye, MousePointerClick, MessageSquare, ArrowUpRight, ArrowDownRight, MoreHorizontal, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
-    LineChart,
-    Line,
+    Area,
+    AreaChart,
+    ResponsiveContainer,
+    Tooltip,
     XAxis,
     YAxis,
-    CartesianGrid,
-    Tooltip,
-    ResponsiveContainer,
-    Area,
-    AreaChart
+    CartesianGrid
 } from 'recharts';
 
 const UserDashboard = () => {
-    // Mock Data representing "Growth"
     const data = [
-        { name: 'Jan', views: 400 },
-        { name: 'Feb', views: 300 },
-        { name: 'Mar', views: 600 },
-        { name: 'Apr', views: 800 },
-        { name: 'May', views: 500 },
-        { name: 'Jun', views: 900 },
-        { name: 'Jul', views: 1000 },
+        { name: 'Mon', views: 240, clicks: 140 },
+        { name: 'Tue', views: 139, clicks: 90 },
+        { name: 'Wed', views: 980, clicks: 400 },
+        { name: 'Thu', views: 390, clicks: 200 },
+        { name: 'Fri', views: 480, clicks: 210 },
+        { name: 'Sat', views: 380, clicks: 150 },
+        { name: 'Sun', views: 430, clicks: 180 },
     ];
 
-    const StatCard = ({ icon: Icon, label, value, growth, color }: any) => (
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between h-[160px] relative overflow-hidden group hover:shadow-md transition-all">
-            <div className={`p-3 rounded-xl w-fit mb-4 ${color}`}>
-                <Icon className="w-6 h-6 text-white" />
-            </div>
-            <div>
-                <p className="text-sm font-medium text-slate-500 mb-1">{label}</p>
-                <h3 className="text-3xl font-bold text-slate-800 tracking-tight">{value}</h3>
-            </div>
-            {growth && (
-                <div className="absolute top-6 right-6 flex items-center gap-1 text-sm font-bold text-green-500 bg-green-50 px-2 py-1 rounded-lg">
-                    <span>{growth}</span>
-                    <ArrowUpRight className="w-3 h-3" />
-                </div>
-            )}
-            {/* Decoration */}
-            <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-slate-50 rounded-full opacity-50 group-hover:scale-110 transition-transform" />
-        </div>
-    );
-
     return (
-        <div className="space-y-8 animate-fade-in pb-10">
-            {/* Greeting Section */}
-            <div>
-                <h2 className="text-2xl font-bold text-slate-800">Growing At Superhuman Rate 🚀</h2>
-                <p className="text-slate-500 mt-1">Check your dashboard activity.</p>
+        <div className="space-y-8 max-w-7xl mx-auto animate-fade-in-up">
+            <div className="flex justify-between items-end">
+                <div>
+                    <h2 className="text-2xl font-bold tracking-tight text-gray-900">Dashboard</h2>
+                    <p className="text-sm text-gray-500 mt-1">Overview of your digital card performance.</p>
+                </div>
+                <div className="flex gap-2">
+                    <Button variant="outline" size="sm" className="h-8">Last 7 Days</Button>
+                    <Button size="sm" className="h-8 bg-indigo-600 hover:bg-indigo-700">Export Report</Button>
+                </div>
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <StatCard
-                    icon={Eye}
-                    label="Total Views"
-                    value="31,512"
-                    growth="+27%"
-                    color="bg-blue-500"
-                />
-                <StatCard
-                    icon={MousePointerClick}
-                    label="Total Clicks"
-                    value="23,500"
-                    growth="+47%"
-                    color="bg-indigo-500"
-                />
-                <StatCard
-                    icon={Target}
-                    label="Conversion Rate"
-                    value="34.3%"
-                    growth="+57%"
-                    color="bg-purple-500"
-                />
-                <StatCard
-                    icon={MessageSquare}
-                    label="Avg Enquiries"
-                    value="12,454"
-                    growth="+47%"
-                    color="bg-pink-500"
-                />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {[
+                    { label: "Total Views", value: "24.5k", change: "+12%", trend: "up", icon: Eye },
+                    { label: "Link Clicks", value: "12.2k", change: "+4%", trend: "up", icon: MousePointerClick },
+                    { label: "Enquiries", value: "342", change: "-2%", trend: "down", icon: MessageSquare },
+                    { label: "Avg. Duration", value: "1m 20s", change: "+8%", trend: "up", icon: Activity },
+                ].map((stat, i) => (
+                    <Card key={i} className="border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-4">
+                            <span className="text-sm font-medium text-gray-500">{stat.label}</span>
+                            <stat.icon className="h-4 w-4 text-gray-400" />
+                        </CardHeader>
+                        <CardContent className="p-4 pt-0">
+                            <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
+                            <p className={`text-xs flex items-center mt-1 font-medium ${stat.trend === 'up' ? 'text-emerald-600' : 'text-rose-600'}`}>
+                                {stat.trend === 'up' ? <ArrowUpRight className="h-3 w-3 mr-1" /> : <ArrowDownRight className="h-3 w-3 mr-1" />}
+                                {stat.change}
+                                <span className="text-gray-400 ml-1 font-normal">vs last week</span>
+                            </p>
+                        </CardContent>
+                    </Card>
+                ))}
             </div>
 
-            {/* Main Content Area: Chart + Side Panel */}
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-                {/* Main Graph (Takes up 2/3) */}
-                <Card className="xl:col-span-2 border-none shadow-sm rounded-2xl overflow-hidden bg-white">
-                    <div className="p-6 flex justify-between items-center border-b border-slate-50">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Main Chart */}
+                <Card className="col-span-2 border-gray-200 shadow-sm">
+                    <CardHeader className="flex flex-row items-center justify-between p-6">
                         <div>
-                            <p className="text-sm font-medium text-slate-500">Total Profile Activity</p>
-                            <h3 className="text-2xl font-bold text-slate-800 mt-1">2,430 Views</h3>
-                            <p className="text-xs font-bold text-green-500 flex items-center mt-1">
-                                <ArrowUpRight className="w-3 h-3 mr-1" /> $15,686.65 <span className="text-slate-400 font-normal ml-1">estimated value</span>
-                            </p>
+                            <CardTitle className="text-base font-semibold text-gray-900">Traffic Overview</CardTitle>
+                            <p className="text-sm text-gray-500">Views vs Clicks over time</p>
                         </div>
-                        <Button variant="outline" size="sm" className="rounded-lg text-slate-500">
-                            Last Year <ArrowUpRight className="w-3 h-3 ml-2 rotate-90" />
-                        </Button>
-                    </div>
-                    <CardContent className="p-6 pt-10">
-                        <div className="h-[350px] w-full">
+                    </CardHeader>
+                    <CardContent className="p-6 pt-0">
+                        <div className="h-[300px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
-                                <AreaChart data={data}>
+                                <AreaChart data={data} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
                                     <defs>
                                         <linearGradient id="colorViews" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#4318FF" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#4318FF" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.1} />
+                                            <stop offset="95%" stopColor="#4f46e5" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
                                     <XAxis
                                         dataKey="name"
                                         axisLine={false}
                                         tickLine={false}
-                                        tick={{ fill: '#A3AED0', fontSize: 12 }}
+                                        tick={{ fill: '#6B7280', fontSize: 12 }}
                                         dy={10}
                                     />
                                     <YAxis
                                         axisLine={false}
                                         tickLine={false}
-                                        tick={{ fill: '#A3AED0', fontSize: 12 }}
+                                        tick={{ fill: '#6B7280', fontSize: 12 }}
                                     />
                                     <Tooltip
-                                        contentStyle={{ backgroundColor: '#1B2559', color: '#fff', borderRadius: '12px', border: 'none' }}
-                                        itemStyle={{ color: '#fff' }}
+                                        contentStyle={{ backgroundColor: '#fff', border: '1px solid #E5E7EB', borderRadius: '8px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                                     />
                                     <Area
                                         type="monotone"
                                         dataKey="views"
-                                        stroke="#4318FF"
-                                        strokeWidth={4}
+                                        stroke="#4f46e5"
+                                        strokeWidth={2}
                                         fillOpacity={1}
                                         fill="url(#colorViews)"
+                                    />
+                                    <Area
+                                        type="monotone"
+                                        dataKey="clicks"
+                                        stroke="#10B981"
+                                        strokeWidth={2}
+                                        fill="none"
                                     />
                                 </AreaChart>
                             </ResponsiveContainer>
@@ -142,96 +116,36 @@ const UserDashboard = () => {
                     </CardContent>
                 </Card>
 
-                {/* Right Side Stack */}
-                <div className="space-y-6">
-                    {/* Upgrade/Promo Card */}
-                    <div className="bg-[#4318FF] rounded-2xl p-6 relative overflow-hidden text-white flex flex-col justify-between min-h-[200px]">
-                        <div className="relative z-10">
-                            <h3 className="font-bold text-xl mb-1">Get more out of<br />MyCard Pro</h3>
-                            <p className="text-white/80 text-sm mb-4">Unlock advanced analytics & remove branding.</p>
-                            <Button className="bg-white text-[#4318FF] hover:bg-white/90 font-bold rounded-xl shadow-lg border-none">
-                                Upgrade Plan
-                            </Button>
-                        </div>
-                        {/* Decorative Circles */}
-                        <div className="absolute -right-8 -top-8 w-40 h-40 bg-white/10 rounded-full" />
-                        <div className="absolute right-4 bottom-4 w-20 h-20 bg-white/10 rounded-full blur-2xl" />
-                    </div>
-
-                    {/* Mini Stats List */}
-                    <Card className="border-none shadow-sm rounded-2xl bg-white p-6">
-                        <div className="flex justify-between items-center mb-6">
-                            <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-600 font-bold">
-                                SK
-                            </div>
-                            <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
-                                <MoreHorizontal className="w-4 h-4" />
-                            </Button>
-                        </div>
-
-                        <h4 className="font-bold text-slate-800 text-lg mb-2">In the last 30 days</h4>
-                        <p className="text-sm text-slate-500 mb-6">
-                            Yearly growth of your profile reach is increasing.
-                        </p>
-
-                        <div className="space-y-4">
-                            <div className="flex justify-between items-center text-sm">
-                                <span className="text-slate-500">Organic Reach</span>
-                                <span className="font-bold text-slate-800">25.2%</span>
-                            </div>
-                            <div className="flex justify-between items-center text-sm">
-                                <span className="text-slate-500">Direct Links</span>
-                                <span className="font-bold text-slate-800">45.2%</span>
-                            </div>
-                            <Button variant="outline" className="w-full mt-2 rounded-xl border-indigo-100 text-indigo-600 hover:bg-indigo-50">
-                                Check Data
-                            </Button>
-                        </div>
-                    </Card>
-                </div>
-            </div>
-
-            {/* Bottom Section: Top Funnels mimic */}
-            <Card className="border-none shadow-sm rounded-2xl bg-white overflow-hidden">
-                <div className="p-6 border-b border-slate-50 flex justify-between items-center">
-                    <h3 className="font-bold text-lg text-slate-800">Top Performing Cards</h3>
-                    <Button variant="ghost" size="sm" className="text-indigo-600 hover:text-indigo-700">See all</Button>
-                </div>
-                <div className="p-0">
-                    <table className="w-full text-left">
-                        <thead className="bg-slate-50/50">
-                            <tr>
-                                <th className="p-4 pl-6 text-xs font-semibold text-slate-400 uppercase">Card Name</th>
-                                <th className="p-4 text-xs font-semibold text-slate-400 uppercase">Template</th>
-                                <th className="p-4 text-xs font-semibold text-slate-400 uppercase">Views</th>
-                                <th className="p-4 text-xs font-semibold text-slate-400 uppercase">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-50">
-                            {[1, 2, 3].map(i => (
-                                <tr key={i} className="group hover:bg-slate-50/50 transition-colors">
-                                    <td className="p-4 pl-6 flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-sm">
-                                            UI
+                {/* Top Performing Cards List */}
+                <Card className="col-span-1 border-gray-200 shadow-sm flex flex-col">
+                    <CardHeader className="p-6 pb-4">
+                        <CardTitle className="text-base font-semibold text-gray-900">Top Cards</CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-0 flex-1">
+                        <div className="divide-y divide-gray-100">
+                            {[1, 2, 3, 4, 5].map((i) => (
+                                <div key={i} className="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors cursor-pointer group">
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-9 w-9 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 group-hover:bg-white group-hover:shadow-sm transition-all border border-transparent group-hover:border-gray-200">
+                                            C{i}
                                         </div>
                                         <div>
-                                            <p className="font-bold text-slate-700 text-sm">Personal Brand {i}</p>
-                                            <p className="text-xs text-slate-400">Created 2 days ago</p>
+                                            <p className="text-sm font-medium text-gray-900">Personal Brand {i}</p>
+                                            <p className="text-xs text-gray-500">{1000 + i * 25} views</p>
                                         </div>
-                                    </td>
-                                    <td className="p-4 text-sm font-medium text-slate-600">Modern Light</td>
-                                    <td className="p-4 text-sm font-medium text-slate-600">1,20{i}</td>
-                                    <td className="p-4">
-                                        <span className="px-3 py-1 bg-green-50 text-green-600 text-xs font-bold rounded-lg border border-green-100">
-                                            Active
-                                        </span>
-                                    </td>
-                                </tr>
+                                    </div>
+                                    <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <MoreHorizontal className="w-4 h-4" />
+                                    </Button>
+                                </div>
                             ))}
-                        </tbody>
-                    </table>
-                </div>
-            </Card>
+                        </div>
+                        <div className="p-4 border-t border-gray-100 mt-auto">
+                            <Button variant="outline" className="w-full text-xs h-8">View All Cards</Button>
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     );
 };
