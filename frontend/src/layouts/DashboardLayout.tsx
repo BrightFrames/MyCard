@@ -12,7 +12,13 @@ import {
     ChevronDown,
     Zap,
     Menu,
-    X
+    X,
+    Store,
+    ShoppingCart,
+    Package,
+    Gift,
+    Image,
+    Receipt
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -23,11 +29,18 @@ import { useState } from 'react';
 const DashboardLayout = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const navItems = [
-        { to: "/dashboard", icon: LayoutDashboard, label: "Overview", end: true },
-        { to: "/dashboard/cards", icon: Smartphone, label: "My vCards" },
+        { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard", end: true },
+        { to: "/dashboard/cards", icon: Smartphone, label: "Business Cards" },
+        { to: "/dashboard/stores", icon: Store, label: "Stores" },
+        { to: "/dashboard/order-nfc", icon: ShoppingCart, label: "Order NFC Card" },
+        { to: "/dashboard/orders", icon: Package, label: "My Orders" },
+        { to: "/dashboard/nfc-cards", icon: CreditCard, label: "My NFC Cards" },
+        { to: "/dashboard/referral", icon: Gift, label: "Referral" },
+        { to: "/dashboard/media", icon: Image, label: "Media" },
+        { to: "/dashboard/billing", icon: Receipt, label: "Plans" },
+        { to: "/dashboard/transactions", icon: CreditCard, label: "Transactions" },
         { to: "/dashboard/enquiries", icon: MessageSquare, label: "Enquiries" },
-        { to: "/dashboard/billing", icon: CreditCard, label: "Billing & Plan" },
-        { to: "/dashboard/profile", icon: UserCircle, label: "Settings" },
+        { to: "/dashboard/profile", icon: UserCircle, label: "My Account" },
     ];
 
     return (
@@ -67,28 +80,31 @@ const DashboardLayout = () => {
 
                 <div className="p-4">
                     <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-2">Menu</div>
-                    <nav className="space-y-1">
-                        {navItems.map((item) => (
-                            <NavLink
-                                key={item.to}
-                                to={item.to}
-                                end={item.end}
-                                className={({ isActive }) =>
-                                    `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
-                                        ? 'bg-indigo-50 text-indigo-700'
-                                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 group'
-                                    }`
-                                }
-                            >
-                                {({ isActive }) => (
-                                    <>
-                                        <item.icon size={18} className={isActive ? "text-indigo-600" : "text-gray-400 group-hover:text-gray-600"} />
-                                        {item.label}
-                                    </>
-                                )}
-                            </NavLink>
-                        ))}
-                    </nav>
+                    <ScrollArea className="h-[calc(100vh-380px)]">
+                        <nav className="space-y-1 pr-4">
+                            {navItems.map((item) => (
+                                <NavLink
+                                    key={item.to}
+                                    to={item.to}
+                                    end={item.end}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className={({ isActive }) =>
+                                        `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
+                                            ? 'bg-indigo-50 text-indigo-700'
+                                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 group'
+                                        }`
+                                    }
+                                >
+                                    {({ isActive }) => (
+                                        <>
+                                            <item.icon size={18} className={isActive ? "text-indigo-600" : "text-gray-400 group-hover:text-gray-600"} />
+                                            {item.label}
+                                        </>
+                                    )}
+                                </NavLink>
+                            ))}
+                        </nav>
+                    </ScrollArea>
                 </div>
 
                 {/* Bottom Section */}
@@ -119,6 +135,11 @@ const DashboardLayout = () => {
                         </div>
                         <Settings className="w-4 h-4 text-gray-400" />
                     </div>
+
+                    <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900 w-full group">
+                        <LogOut size={18} className="text-gray-400 group-hover:text-gray-600" />
+                        Logout
+                    </button>
                 </div>
             </aside>
 

@@ -1,4 +1,5 @@
 import { Outlet, NavLink } from 'react-router-dom';
+import { useState } from 'react';
 import {
     LayoutDashboard,
     Users,
@@ -16,7 +17,9 @@ import {
     LogOut,
     Search,
     Bell,
-    Layers
+    Layers,
+    Menu,
+    X
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -25,6 +28,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 
 const AdminLayout = () => {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const navItems = [
         {
             title: "Overview", items: [
@@ -54,16 +58,34 @@ const AdminLayout = () => {
     ];
 
     return (
-        <div className="flex h-screen bg-gray-50/50 font-sans text-slate-900">
+        <div className="flex h-screen bg-gray-50/50 font-sans text-slate-900 relative">
+            {/* Mobile Overlay */}
+            {isMobileMenuOpen && (
+                <div 
+                    className="fixed inset-0 bg-black/50 z-40 md:hidden"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                />
+            )}
+
             {/* Sidebar */}
-            <aside className="w-64 bg-slate-900 text-slate-300 hidden md:flex flex-col flex-shrink-0">
-                <div className="h-16 flex items-center px-6 border-b border-slate-800">
+            <aside className={`w-64 bg-slate-900 text-slate-300 md:flex flex-col flex-shrink-0 fixed md:relative inset-y-0 left-0 z-50 transform transition-transform duration-300 ease-in-out md:transform-none ${
+                isMobileMenuOpen ? 'translate-x-0 flex' : '-translate-x-full hidden md:flex'
+            }`}>
+                <div className="h-16 flex items-center justify-between px-6 border-b border-slate-800">
                     <div className="flex items-center gap-3 font-bold text-lg text-white">
                         <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                             <span className="text-white font-bold">G</span>
                         </div>
                         GoBix Admin
                     </div>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="md:hidden text-slate-400 hover:text-white hover:bg-slate-800"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                        <X className="w-5 h-5" />
+                    </Button>
                 </div>
 
                 <ScrollArea className="flex-1 py-4">
@@ -77,6 +99,7 @@ const AdminLayout = () => {
                                             key={item.to}
                                             to={item.to}
                                             end={item.end}
+                                            onClick={() => setIsMobileMenuOpen(false)}
                                             className={({ isActive }) =>
                                                 `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
                                                     ? 'bg-blue-600 text-white shadow-md'
@@ -108,17 +131,27 @@ const AdminLayout = () => {
             {/* Main Content */}
             <main className="flex-1 flex flex-col overflow-hidden relative">
                 {/* Header */}
-                <header className="h-16 px-8 flex items-center justify-between bg-white border-b border-gray-200 sticky top-0 z-20">
-                    <div className="w-full max-w-sm relative hidden md:block">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-                        <Input
-                            placeholder="Global Search..."
-                            className="pl-9 bg-gray-50 border-gray-200 focus:bg-white focus:border-blue-500 transition-all h-9 text-sm w-full"
-                        />
+                <header className="h-16 px-4 md:px-8 flex items-center justify-between bg-white border-b border-gray-200 sticky top-0 z-20">
+                    <div className="flex items-center gap-3 flex-1">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="md:hidden text-gray-500 hover:text-gray-900 flex-shrink-0"
+                            onClick={() => setIsMobileMenuOpen(true)}
+                        >
+                            <Menu className="w-5 h-5" />
+                        </Button>
+                        <div className="w-full max-w-sm relative hidden md:block">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+                            <Input
+                                placeholder="Global Search..."
+                                className="pl-9 bg-gray-50 border-gray-200 focus:bg-white focus:border-blue-500 transition-all h-9 text-sm w-full"
+                            />
+                        </div>
                     </div>
 
-                    <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-2 px-3 py-1.5 bg-green-50 text-green-700 rounded-full text-xs font-semibold border border-green-100">
+                    <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                        <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-green-50 text-green-700 rounded-full text-xs font-semibold border border-green-100">
                             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                             System Stable
                         </div>
@@ -132,7 +165,7 @@ const AdminLayout = () => {
                     </div>
                 </header>
 
-                <div className="flex-1 overflow-auto p-8 bg-gray-50">
+                <div className="flex-1 overflow-auto p-4 md:p-8 bg-gray-50">
                     <Outlet />
                 </div>
             </main>

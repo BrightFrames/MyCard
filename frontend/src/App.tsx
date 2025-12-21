@@ -30,6 +30,13 @@ import SecurityCompliance from "./pages/admin/SecurityCompliance";
 import MyCards from "./pages/user/MyCards";
 import CardManager from "./pages/user/vcard/CardManager";
 import EnquiriesList from "./pages/user/EnquiriesList";
+import Stores from "./pages/user/Stores";
+import OrderNFC from "./pages/user/OrderNFC";
+import MyOrders from "./pages/user/MyOrders";
+import MyNFCCards from "./pages/user/MyNFCCards";
+import Referral from "./pages/user/Referral";
+import Media from "./pages/user/Media";
+import Transactions from "./pages/user/Transactions";
 
 
 import LandingPage from "./pages/public/LandingPage";
@@ -77,9 +84,16 @@ const App = () => (
             <Route index element={<UserDashboard />} />
             <Route path="cards" element={<MyCards />} />
             <Route path="cards/:id/edit" element={<CardManager />} />
-            <Route path="cards/new" element={<CardManager />} /> {/* Reusing editor for new for now */}
-            <Route path="enquiries" element={<EnquiriesList />} />
+            <Route path="cards/new" element={<CardManager />} />
+            <Route path="stores" element={<Stores />} />
+            <Route path="order-nfc" element={<OrderNFC />} />
+            <Route path="orders" element={<MyOrders />} />
+            <Route path="nfc-cards" element={<MyNFCCards />} />
+            <Route path="referral" element={<Referral />} />
+            <Route path="media" element={<Media />} />
             <Route path="billing" element={<div className="p-6"><h2 className="text-2xl font-bold">Billing & Plans</h2><p className="text-muted-foreground">Manage your subscription.</p></div>} />
+            <Route path="transactions" element={<Transactions />} />
+            <Route path="enquiries" element={<EnquiriesList />} />
             <Route path="profile" element={<ProfileSettings />} />
           </Route>
 

@@ -1,6 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Eye, MousePointerClick, MessageSquare, ArrowUpRight, ArrowDownRight, MoreHorizontal, Activity } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Eye, MousePointerClick, MessageSquare, ArrowUpRight, ArrowDownRight, MoreHorizontal, Activity, CreditCard, Smartphone, Store, Calendar, ChevronUp, ChevronDown, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import {
     Area,
     AreaChart,
@@ -8,10 +9,18 @@ import {
     Tooltip,
     XAxis,
     YAxis,
-    CartesianGrid
+    CartesianGrid,
+    PieChart,
+    Pie,
+    Cell,
+    Legend
 } from 'recharts';
 
 const UserDashboard = () => {
+    const [isPlanSectionOpen, setIsPlanSectionOpen] = useState(true);
+    const [isActivityOpen, setIsActivityOpen] = useState(true);
+    const [isPlatformsOpen, setIsPlatformsOpen] = useState(true);
+
     const data = [
         { name: 'Mon', views: 240, clicks: 140 },
         { name: 'Tue', views: 139, clicks: 90 },
@@ -20,6 +29,17 @@ const UserDashboard = () => {
         { name: 'Fri', views: 480, clicks: 210 },
         { name: 'Sat', views: 380, clicks: 150 },
         { name: 'Sun', views: 430, clicks: 180 },
+    ];
+
+    const platformData = [
+        { name: 'vCards', value: 1, color: '#4f46e5' },
+    ];
+
+    const recentActivity = [
+        { action: 'Card viewed', detail: 'Personal Brand 1', time: '2 hours ago' },
+        { action: 'Link clicked', detail: 'LinkedIn profile', time: '5 hours ago' },
+        { action: 'New enquiry', detail: 'Contact form submission', time: '1 day ago' },
+        { action: 'Card shared', detail: 'Via WhatsApp', time: '2 days ago' },
     ];
 
     return (
@@ -59,6 +79,70 @@ const UserDashboard = () => {
                     </Card>
                 ))}
             </div>
+
+            {/* Plan & Account Summary Section - NEW */}
+            <Card className="border-gray-200 shadow-sm">
+                <CardHeader className="flex flex-row items-center justify-between p-4 cursor-pointer" onClick={() => setIsPlanSectionOpen(!isPlanSectionOpen)}>
+                    <div>
+                        <CardTitle className="text-base font-semibold text-gray-900">Account Overview</CardTitle>
+                        <CardDescription className="text-sm">Your subscription and resource usage</CardDescription>
+                    </div>
+                    {isPlanSectionOpen ? <ChevronUp className="h-5 w-5 text-gray-400" /> : <ChevronDown className="h-5 w-5 text-gray-400" />}
+                </CardHeader>
+                {isPlanSectionOpen && (
+                    <CardContent className="p-4 pt-0">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            {/* Current Plan Card */}
+                            <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 border border-indigo-200 rounded-xl p-4 hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <CreditCard className="h-5 w-5 text-indigo-600" />
+                                    <span className="text-xs font-semibold text-indigo-900 uppercase tracking-wide">Current Plan</span>
+                                </div>
+                                <h3 className="text-xl font-bold text-indigo-900 mb-1">Professional</h3>
+                                <Button size="sm" variant="outline" className="w-full mt-2 bg-white text-indigo-700 border-indigo-200 hover:bg-indigo-50 text-xs h-7">
+                                    Show details
+                                </Button>
+                            </div>
+
+                            {/* Business Cards Count */}
+                            <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200 rounded-xl p-4 hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <Smartphone className="h-5 w-5 text-emerald-600" />
+                                    <span className="text-xs font-semibold text-emerald-900 uppercase tracking-wide">Business Cards</span>
+                                </div>
+                                <h3 className="text-xl font-bold text-emerald-900 mb-1">1</h3>
+                                <Button size="sm" variant="outline" className="w-full mt-2 bg-white text-emerald-700 border-emerald-200 hover:bg-emerald-50 text-xs h-7">
+                                    Show details
+                                </Button>
+                            </div>
+
+                            {/* Stores Count */}
+                            <div className="bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-200 rounded-xl p-4 hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <Store className="h-5 w-5 text-amber-600" />
+                                    <span className="text-xs font-semibold text-amber-900 uppercase tracking-wide">Stores</span>
+                                </div>
+                                <h3 className="text-xl font-bold text-amber-900 mb-1">0</h3>
+                                <Button size="sm" variant="outline" className="w-full mt-2 bg-white text-amber-700 border-amber-200 hover:bg-amber-50 text-xs h-7">
+                                    Show details
+                                </Button>
+                            </div>
+
+                            {/* Remaining Days */}
+                            <div className="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-xl p-4 hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <Calendar className="h-5 w-5 text-purple-600" />
+                                    <span className="text-xs font-semibold text-purple-900 uppercase tracking-wide">Remaining Days</span>
+                                </div>
+                                <h3 className="text-xl font-bold text-purple-900 mb-1">466</h3>
+                                <Button size="sm" variant="outline" className="w-full mt-2 bg-white text-purple-700 border-purple-200 hover:bg-purple-50 text-xs h-7">
+                                    Show details
+                                </Button>
+                            </div>
+                        </div>
+                    </CardContent>
+                )}
+            </Card>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Main Chart */}
@@ -146,6 +230,79 @@ const UserDashboard = () => {
                     </CardContent>
                 </Card>
             </div>
+
+            {/* Recent Activity Section - NEW */}
+            <Card className="border-gray-200 shadow-sm">
+                <CardHeader className="flex flex-row items-center justify-between p-4 cursor-pointer" onClick={() => setIsActivityOpen(!isActivityOpen)}>
+                    <div>
+                        <CardTitle className="text-base font-semibold text-gray-900">Recent Activity</CardTitle>
+                        <CardDescription className="text-sm">Latest interactions with your cards</CardDescription>
+                    </div>
+                    {isActivityOpen ? <ChevronUp className="h-5 w-5 text-gray-400" /> : <ChevronDown className="h-5 w-5 text-gray-400" />}
+                </CardHeader>
+                {isActivityOpen && (
+                    <CardContent className="p-4 pt-0">
+                        <div className="space-y-3">
+                            {recentActivity.map((activity, idx) => (
+                                <div key={idx} className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                                    <div className="h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0">
+                                        <Activity className="h-4 w-4 text-indigo-600" />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-sm font-medium text-gray-900">{activity.action}</p>
+                                        <p className="text-xs text-gray-500 truncate">{activity.detail}</p>
+                                    </div>
+                                    <span className="text-xs text-gray-400 whitespace-nowrap">{activity.time}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </CardContent>
+                )}
+            </Card>
+
+            {/* Platforms Section - NEW */}
+            <Card className="border-gray-200 shadow-sm">
+                <CardHeader className="flex flex-row items-center justify-between p-4 cursor-pointer" onClick={() => setIsPlatformsOpen(!isPlatformsOpen)}>
+                    <div>
+                        <CardTitle className="text-base font-semibold text-gray-900">Platforms</CardTitle>
+                        <CardDescription className="text-sm">Distribution of your digital presence</CardDescription>
+                    </div>
+                    {isPlatformsOpen ? <ChevronUp className="h-5 w-5 text-gray-400" /> : <ChevronDown className="h-5 w-5 text-gray-400" />}
+                </CardHeader>
+                {isPlatformsOpen && (
+                    <CardContent className="p-4 pt-0">
+                        <div className="flex flex-col items-center">
+                            <div className="h-[200px] w-full">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <PieChart>
+                                        <Pie
+                                            data={platformData}
+                                            cx="50%"
+                                            cy="50%"
+                                            innerRadius={60}
+                                            outerRadius={80}
+                                            paddingAngle={0}
+                                            dataKey="value"
+                                        >
+                                            {platformData.map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill={entry.color} />
+                                            ))}
+                                        </Pie>
+                                        <Tooltip 
+                                            contentStyle={{ backgroundColor: '#fff', border: '1px solid #E5E7EB', borderRadius: '8px' }}
+                                        />
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </div>
+                            <div className="flex items-center gap-2 mt-4">
+                                <div className="h-3 w-3 rounded-full bg-indigo-600"></div>
+                                <span className="text-sm text-gray-600">vCards</span>
+                                <span className="text-sm font-semibold text-gray-900 ml-1">1</span>
+                            </div>
+                        </div>
+                    </CardContent>
+                )}
+            </Card>
         </div>
     );
 };
