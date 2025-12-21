@@ -66,7 +66,7 @@ const AdminLayout = () => {
     ];
 
     return (
-        <div className="flex h-screen bg-gray-50/50 font-sans text-slate-900 relative">
+        <div className="flex h-screen bg-background font-sans text-foreground relative selection:bg-primary/20 selection:text-primary">
             {/* Mobile Overlay */}
             {isMobileMenuOpen && (
                 <div
@@ -76,9 +76,9 @@ const AdminLayout = () => {
             )}
 
             {/* Sidebar */}
-            <aside className={`w-64 bg-slate-900 text-slate-300 md:flex flex-col flex-shrink-0 fixed md:relative inset-y-0 left-0 z-50 transform transition-transform duration-300 ease-in-out md:transform-none ${isMobileMenuOpen ? 'translate-x-0 flex' : '-translate-x-full hidden md:flex'
+            <aside className={`w-64 bg-sidebar-background text-sidebar-foreground border-r border-sidebar-border md:flex flex-col flex-shrink-0 fixed md:relative inset-y-0 left-0 z-50 transform transition-transform duration-300 ease-in-out md:transform-none ${isMobileMenuOpen ? 'translate-x-0 flex' : '-translate-x-full hidden md:flex'
                 }`}>
-                <div className="h-16 flex items-center justify-between px-6 border-b border-slate-800">
+                <div className="h-16 flex items-center justify-between px-6 border-b border-sidebar-border">
                     <div className="flex items-center gap-3 font-bold text-lg text-white">
                         <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                             <span className="text-white font-bold">G</span>
@@ -109,8 +109,8 @@ const AdminLayout = () => {
                                             onClick={() => setIsMobileMenuOpen(false)}
                                             className={({ isActive }) =>
                                                 `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
-                                                    ? 'bg-blue-600 text-white shadow-md'
-                                                    : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                                                    ? 'bg-sidebar-primary text-sidebar-primary-foreground shadow-sm'
+                                                    : 'text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'
                                                 }`
                                             }
                                         >
@@ -124,10 +124,10 @@ const AdminLayout = () => {
                     </nav>
                 </ScrollArea>
 
-                <div className="p-4 border-t border-slate-800 bg-slate-900">
+                <div className="p-4 border-t border-sidebar-border bg-sidebar-background">
                     <Button
                         variant="ghost"
-                        className="w-full justify-start text-slate-400 hover:text-white hover:bg-slate-800"
+                        className="w-full justify-start text-sidebar-foreground/70 hover:text-sidebar-accent-foreground hover:bg-sidebar-accent"
                     >
                         <LogOut size={18} className="mr-2" />
                         Sign Out
@@ -138,21 +138,21 @@ const AdminLayout = () => {
             {/* Main Content */}
             <main className="flex-1 flex flex-col overflow-hidden relative">
                 {/* Header */}
-                <header className="h-16 px-4 md:px-8 flex items-center justify-between bg-white border-b border-gray-200 sticky top-0 z-20">
+                <header className="h-16 px-4 md:px-8 flex items-center justify-between bg-background/80 backdrop-blur-md border-b border-border sticky top-0 z-20">
                     <div className="flex items-center gap-3 flex-1">
                         <Button
                             variant="ghost"
                             size="icon"
-                            className="md:hidden text-gray-500 hover:text-gray-900 flex-shrink-0"
+                            className="md:hidden text-muted-foreground hover:text-foreground flex-shrink-0"
                             onClick={() => setIsMobileMenuOpen(true)}
                         >
                             <Menu className="w-5 h-5" />
                         </Button>
                         <div className="w-full max-w-sm relative hidden md:block">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
                             <Input
                                 placeholder="Global Search..."
-                                className="pl-9 bg-gray-50 border-gray-200 focus:bg-white focus:border-blue-500 transition-all h-9 text-sm w-full"
+                                className="pl-9 bg-secondary/50 border-transparent focus:bg-background focus:border-primary transition-all h-9 text-sm w-full"
                             />
                         </div>
                     </div>
@@ -172,11 +172,11 @@ const AdminLayout = () => {
                     </div>
                 </header>
 
-                <div className="flex-1 overflow-auto p-4 md:p-8 bg-gray-50">
+                <div className="flex-1 overflow-auto p-4 md:p-8 bg-background">
                     <Outlet />
                 </div>
             </main>
-        </div>
+        </div >
     );
 };
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Satisfy&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,118 +6,84 @@
 
 @layer base {
   :root {
-    /* Warm, restaurant-friendly palette */
-    --background: 40 33% 98%;
-    --foreground: 20 20% 15%;
+    /* Base - Modern Lite (Default for some system preferences, but we prioritize dark) */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
 
     --card: 0 0% 100%;
-    --card-foreground: 20 20% 15%;
+    --card-foreground: 240 10% 3.9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 20 20% 15%;
+    --popover-foreground: 240 10% 3.9%;
 
-    /* Coral/Terracotta primary - warm and inviting */
-    --primary: 220 60% 45%;
+    /* Vivid Violet/Indigo Primary */
+    --primary: 265 85% 55%;
     --primary-foreground: 0 0% 100%;
 
-    /* Warm cream secondary */
-    --secondary: 40 30% 94%;
-    --secondary-foreground: 20 20% 25%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
 
-    --muted: 40 20% 92%;
-    --muted-foreground: 20 10% 45%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
 
-    /* Soft coral accent */
-    --accent: 15 80% 55%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 265 85% 96%;
+    --accent-foreground: 265 85% 55%;
 
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
 
-    /* Forest green for success */
-    --success: 145 63% 42%;
-    --success-foreground: 0 0% 100%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 265 85% 55%;
 
-    /* Warm warning */
-    --warning: 38 92% 50%;
-    --warning-foreground: 20 20% 15%;
-
-    --border: 40 20% 88%;
-    --input: 40 20% 88%;
-    --ring: 220 60% 45%;
-
-    --radius: 0.75rem;
-
-    /* Sidebar - deep navy */
-    --sidebar-background: 220 35% 18%;
-    --sidebar-foreground: 220 15% 75%;
-    --sidebar-primary: 220 60% 55%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 30% 25%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 220 25% 25%;
-    --sidebar-ring: 220 60% 55%;
-
-    /* Chart colors */
-    --chart-1: 220 60% 45%;
-    --chart-2: 15 80% 55%;
-    --chart-3: 145 63% 42%;
-    --chart-4: 38 92% 50%;
-    --chart-5: 280 60% 50%;
-
-    /* Custom tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(220 60% 45%), hsl(220 70% 55%));
-    --gradient-accent: linear-gradient(135deg, hsl(15 80% 55%), hsl(25 85% 60%));
-    --gradient-success: linear-gradient(135deg, hsl(145 63% 42%), hsl(150 60% 50%));
-    --shadow-sm: 0 1px 2px 0 hsl(20 20% 15% / 0.03);
-    --shadow-md: 0 4px 6px -1px hsl(20 20% 15% / 0.05), 0 2px 4px -2px hsl(20 20% 15% / 0.05);
-    --shadow-lg: 0 10px 15px -3px hsl(20 20% 15% / 0.08), 0 4px 6px -4px hsl(20 20% 15% / 0.05);
-    --shadow-card: 0 1px 3px hsl(20 20% 15% / 0.04), 0 1px 2px -1px hsl(20 20% 15% / 0.04);
+    --radius: 1rem;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+    --gradient-dark: linear-gradient(to bottom right, #000000, #0f0f15);
   }
 
-  .dark {
-    --background: 220 35% 12%;
-    --foreground: 40 20% 95%;
+  /* FORCED DARK MODE DEFAULT OR DARK CLASS */
+  .dark, :root { 
+    /* Deep Black / Obsidian Background */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
 
-    --card: 220 30% 15%;
-    --card-foreground: 40 20% 95%;
+    --card: 240 10% 6%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 220 30% 15%;
-    --popover-foreground: 40 20% 95%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 220 60% 55%;
-    --primary-foreground: 0 0% 100%;
+    /* Electric Violet & Neon Accents */
+    --primary: 265 85% 65%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 220 25% 22%;
-    --secondary-foreground: 40 20% 90%;
+    --secondary: 240 5% 15%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 220 25% 20%;
-    --muted-foreground: 40 15% 60%;
+    --muted: 240 5% 15%;
+    --muted-foreground: 240 5% 65%;
 
-    --accent: 15 75% 50%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 265 85% 65%; 
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62% 45%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
 
-    --success: 145 55% 40%;
-    --success-foreground: 0 0% 100%;
-
-    --warning: 38 85% 45%;
-    --warning-foreground: 20 20% 15%;
-
-    --border: 220 25% 25%;
-    --input: 220 25% 25%;
-    --ring: 220 60% 55%;
-
-    --sidebar-background: 220 40% 10%;
-    --sidebar-foreground: 220 15% 75%;
-    --sidebar-primary: 220 60% 55%;
+    --border: 240 5% 15%;
+    --input: 240 5% 15%;
+    --ring: 265 85% 65%;
+    
+    /* Custom Sidebar for Dashboard */
+    --sidebar-background: 240 10% 4%;
+    --sidebar-foreground: 240 5% 80%;
+    --sidebar-primary: 265 85% 65%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 30% 18%;
+    --sidebar-accent: 240 5% 15%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 220 25% 18%;
-    --sidebar-ring: 220 60% 55%;
+    --sidebar-border: 240 5% 15%;
+    --sidebar-ring: 265 85% 65%;
   }
 }
 
@@ -125,80 +91,43 @@
   * {
     @apply border-border;
   }
-
-  html {
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  }
-
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground antialiased font-sans selection:bg-primary/30 selection:text-primary-foreground;
   }
-}
-
-@layer components {
-  .card-elevated {
-    @apply bg-card rounded-xl shadow-card border border-border/50;
-  }
-
-  .stat-card {
-    @apply card-elevated p-5 transition-all duration-200 hover:shadow-md;
-  }
-
-  .nav-link {
-    @apply flex items-center gap-3 px-4 py-2.5 rounded-lg text-sidebar-foreground/80 transition-all duration-200;
-  }
-
-  .nav-link:hover {
-    @apply bg-sidebar-accent text-sidebar-accent-foreground;
-  }
-
-  .nav-link.active {
-    @apply bg-sidebar-primary text-sidebar-primary-foreground font-medium;
-  }
-
-  .badge-success {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success;
-  }
-
-  .badge-warning {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning/10 text-warning;
-  }
-
-  .badge-pending {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground;
+  html {
+     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   }
 }
 
 @layer utilities {
-  .animate-fade-in {
-    animation: fade-in 0.4s ease-out forwards;
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400;
+  }
+  
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10 shadow-xl;
   }
 
-  .animate-slide-up {
-    animation: slide-up 0.4s ease-out forwards;
+  .glass-card {
+    @apply bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl hover:bg-black/60 transition-all duration-300;
   }
 
-  .animate-scale-in {
-    animation: scale-in 0.3s ease-out forwards;
+  .glow-effect {
+    @apply relative after:absolute after:inset-0 after:bg-gradient-to-r after:from-indigo-500 after:to-purple-500 after:blur-xl after:opacity-20 after:-z-10;
   }
-
-  .stagger-1 { animation-delay: 0.05s; }
-  .stagger-2 { animation-delay: 0.1s; }
-  .stagger-3 { animation-delay: 0.15s; }
-  .stagger-4 { animation-delay: 0.2s; }
 }
 
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Animations */
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(2deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
 }
 
-@keyframes slide-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }
 
-@keyframes scale-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+.animate-float-delayed {
+  animation: float 6s ease-in-out 3s infinite;
 }
