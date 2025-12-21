@@ -65,14 +65,28 @@ const App = () => (
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
             <Route path="users" element={<UserManagement />} />
-            <Route path="templates" element={<TemplateManager />} />
-            <Route path="vcards" element={<VCardManagement />} />
+            <Route path="themes" element={<div className="p-8">Themes Module (Dummy)</div>} />
             <Route path="plans" element={<PlansPricing />} />
+            <Route path="customers" element={<div className="p-8">Customers Management (Dummy)</div>} />
+            <Route path="vcards" element={<VCardManagement />} />
+            <Route path="domains" element={<DomainBranding />} />
+            <Route path="nfc-cards" element={<div className="p-8">NFC Cards Management (Dummy)</div>} />
+            <Route path="referrals" element={<div className="p-8">Referral System (Dummy)</div>} />
+            <Route path="plugins" element={<div className="p-8">Plugins Module (Dummy)</div>} />
             <Route path="payments" element={<PaymentManagement />} />
+            <Route path="coupons" element={<div className="p-8">Coupons Module (Dummy)</div>} />
+            <Route path="web-templates" element={<div className="p-8">Web Templates Module (Dummy)</div>} />
+            <Route path="blogs" element={<div className="p-8">Blog Management (Dummy)</div>} />
+            <Route path="iap" element={<div className="p-8">In-App Purchases (Dummy)</div>} />
+            <Route path="transactions" element={<div className="p-8">Transactions Log (Dummy)</div>} />
+            <Route path="translations" element={<div className="p-8">Translations Module (Dummy)</div>} />
+            <Route path="marketing" element={<div className="p-8">Marketing Tools (Dummy)</div>} />
+            <Route path="notifications" element={<div className="p-8">Web Notifications (Dummy)</div>} />
+
+            {/* Kept existing routes that might still be useful or can be hidden */}
             <Route path="enquiries" element={<EnquiriesModule />} />
             <Route path="content" element={<ContentFeatures />} />
             <Route path="media" element={<MediaStorage />} />
-            <Route path="domains" element={<DomainBranding />} />
             <Route path="pwa" element={<PWASettings />} />
             <Route path="reports" element={<ReportsAnalytics />} />
             <Route path="support" element={<SupportMaintenance />} />

@@ -13,7 +13,9 @@ import {
     Leaf,
     Dumbbell,
     Facebook,
-    Twitter
+    Twitter,
+    Briefcase,
+    Folder
 } from 'lucide-react';
 
 // --- Theme Components ---
@@ -359,7 +361,87 @@ export const ThemeIndustrial = () => (
     </div>
 );
 
+export const ThemeMonochrome = () => (
+    <div className="h-full bg-white text-slate-900 font-sans overflow-hidden flex flex-col items-center pt-12 px-6 relative">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+
+        {/* Header Actions */}
+        <div className="absolute top-4 right-4 flex gap-2">
+            <Button size="sm" variant="ghost" className="h-8 rounded-full text-xs font-bold gap-1 hover:bg-slate-100">
+                <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span> Subscribe
+            </Button>
+        </div>
+        <div className="absolute top-4 left-4">
+            {/* Home Icon generic */}
+            <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center hover:bg-slate-100 transition-colors cursor-pointer">
+                <Globe size={14} />
+            </div>
+        </div>
+
+        {/* Profile */}
+        <div className="relative mb-4">
+            <div className="w-24 h-24 rounded-full p-1 border border-slate-200 bg-white">
+                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=200&h=200&fit=crop" alt="Profile" className="w-full h-full rounded-full object-cover" />
+            </div>
+            <div className="absolute bottom-0 right-0 w-6 h-6 bg-black rounded-full text-white flex items-center justify-center border-2 border-white text-[10px]">✨</div>
+        </div>
+
+        <h3 className="text-2xl font-bold mb-1 tracking-tight">Jono Santoso</h3>
+        <p className="text-xs text-slate-500 text-center max-w-[280px] leading-relaxed mb-6">
+            Hi call me Jono. I'm a digital creator that constantly exploring new frontiers in the digital landscape.
+        </p>
+
+        {/* Social Icons */}
+        <div className="flex justify-center gap-5 mb-8">
+            <Mail size={20} className="hover:scale-110 transition-transform cursor-pointer" />
+            <Linkedin size={20} className="hover:scale-110 transition-transform cursor-pointer" />
+            <div className="w-5 h-5 bg-black text-white flex items-center justify-center rounded-[4px] text-[10px] font-bold hover:scale-110 transition-transform cursor-pointer">X</div>
+            <Instagram size={20} className="hover:scale-110 transition-transform cursor-pointer" />
+        </div>
+
+        {/* Links Grid */}
+        <div className="grid grid-cols-2 gap-3 w-full max-w-sm mb-6">
+            <div className="bg-slate-50 hover:bg-slate-100 border border-slate-200 p-4 rounded-2xl transition-all cursor-pointer group relative overflow-hidden">
+                <ArrowRight size={16} className="absolute top-4 right-4 text-slate-400 group-hover:text-black group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
+                <div className="mb-8 text-slate-400 group-hover:text-slate-900 transition-colors"><Briefcase size={20} /></div> {/* Replaced missing Briefcase with a div if needed, but imported Lucide icons are safe to assume if I add import. Waiting for import step. */}
+                <div className="font-bold text-sm leading-tight">My<br />Personal<br />Website</div>
+            </div>
+            <div className="bg-slate-50 hover:bg-slate-100 border border-slate-200 p-4 rounded-2xl transition-all cursor-pointer group relative overflow-hidden">
+                <ArrowRight size={16} className="absolute top-4 right-4 text-slate-400 group-hover:text-black group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
+                <div className="mb-8 text-slate-400 group-hover:text-slate-900 transition-colors"><Folder size={20} /></div>
+                <div className="font-bold text-sm leading-tight">My<br />Portfolio</div>
+            </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="w-full max-w-sm space-y-3 mb-6">
+            <div className="border border-slate-200 rounded-2xl p-4 flex items-center justify-between bg-white hover:border-black transition-colors cursor-pointer group">
+                <div>
+                    <div className="font-bold text-sm">Get Them</div>
+                    <div className="text-[10px] text-slate-500">New e-book out!</div>
+                </div>
+                <Button size="sm" className="rounded-full bg-black text-white hover:bg-slate-800 h-8 px-4 text-xs">Buy Now</Button>
+            </div>
+
+            <Button variant="outline" className="w-full rounded-xl h-12 border-slate-200 font-bold hover:bg-slate-50 justify-between px-4 group">
+                <span>Sign-up for my newsletter</span>
+                <Mail size={16} className="text-slate-400 group-hover:text-black transition-colors" />
+            </Button>
+        </div>
+
+        {/* Support */}
+        <div className="w-full max-w-sm text-center">
+            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Support</div>
+            <Button className="w-full rounded-xl h-12 bg-black text-white hover:bg-slate-800 font-bold shadow-lg shadow-slate-200 gap-2">
+                Buy me a coffee ☕
+            </Button>
+        </div>
+    </div>
+);
+
 export const THEMES = [
+    { id: 'monochrome', name: 'Monochrome', component: ThemeMonochrome, category: 'Premium' },
     { id: 'elegant', name: 'Elegant Floral', component: ThemeElegant, category: 'Premium' },
     { id: 'industrial', name: 'Urban Industrial', component: ThemeIndustrial, category: 'Premium' },
     { id: 'photographer', name: 'Photographer', component: ThemePhotographer, category: 'Basic' },
