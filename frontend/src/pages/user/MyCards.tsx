@@ -1,101 +1,152 @@
 import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Smartphone, Plus, MoreHorizontal, Copy, Edit, Eye, Trash2 } from 'lucide-react';
+import { Input } from "@/components/ui/input";
+import { Smartphone, Plus, MoreVertical, Eye, Edit, Trash2, Search } from 'lucide-react';
 import { MOCK_CARDS } from "@/lib/mock-data";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
+import { useState } from "react";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 const MyCards = () => {
     const navigate = useNavigate();
+    const [search, setSearch] = useState("");
+    const [entriesPerPage, setEntriesPerPage] = useState("10");
     const userCards = MOCK_CARDS.filter(c => c.userId === 'u2');
 
-    const handleCopyLink = (slug: string) => {
-        navigator.clipboard.writeText(`https://mycard.com/c/${slug}`);
-        toast.success("Card link copied!");
-    };
-
     return (
-        <div className="space-y-6 animate-fade-in">
+        <div className="space-y-6 max-w-7xl mx-auto">
             <div className="flex justify-between items-center">
                 <div>
-                    <h2 className="text-3xl font-bold tracking-tight text-foreground">My vCards</h2>
-                    <p className="text-muted-foreground mt-1">Manage your digital business cards.</p>
+                    <p className="text-sm text-gray-500 uppercase tracking-wide mb-1">Overview</p>
+                    <h2 className="text-3xl font-bold tracking-tight text-gray-900">Business Cards</h2>
                 </div>
-                <Button onClick={() => navigate('/dashboard/cards/new')}>
-                    <Plus className="w-4 h-4 mr-2" /> Create New Card
+                <Button onClick={() => navigate('/dashboard/cards/new')} className="bg-indigo-600 hover:bg-indigo-700">
+                    Create new vcard
                 </Button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {userCards.map(card => (
-                    <Card key={card.id} className="card-elevated border-none group hover:ring-2 hover:ring-primary/20 transition-all">
-                        <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
-                            <div className="flex items-center gap-3">
-                                {card.data.avatarUrl ? (
-                                    <img src={card.data.avatarUrl} alt="" className="w-10 h-10 rounded-full object-cover border border-border" />
-                                ) : (
-                                    <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-primary font-bold">
-                                        {card.data.name.charAt(0)}
-                                    </div>
-                                )}
-                                <div>
-                                    <CardTitle className="text-base">{card.data.name}</CardTitle>
-                                    <CardDescription className="text-xs truncate max-w-[150px]">{card.data.title}</CardDescription>
-                                </div>
-                            </div>
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                                        <MoreHorizontal className="w-4 h-4" />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
-                                    <DropdownMenuItem onClick={() => navigate(`/dashboard/cards/${card.id}/edit`)}>
-                                        <Edit className="w-4 h-4 mr-2" /> Edit
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => window.open(`/c/${card.slug}`, '_blank')}>
-                                        <Eye className="w-4 h-4 mr-2" /> Preview
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => handleCopyLink(card.slug)}>
-                                        <Copy className="w-4 h-4 mr-2" /> Copy Link
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem className="text-destructive focus:text-destructive">
-                                        <Trash2 className="w-4 h-4 mr-2" /> Delete
-                                    </DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                        </CardHeader>
-                        <CardContent className="space-y-4 mt-2">
-                            <div className="flex justify-between text-sm">
-                                <span className="text-muted-foreground">Status</span>
-                                <Badge className="bg-green-100 text-green-700 hover:bg-green-100 border-none">Active</Badge>
-                            </div>
-                            <div className="flex justify-between text-sm">
-                                <span className="text-muted-foreground">Views</span>
-                                <span className="font-medium">{card.stats.views}</span>
-                            </div>
-                            <div className="p-2 bg-muted/40 rounded-lg flex items-center justify-between text-xs text-muted-foreground font-mono">
-                                <span className="truncate">mycard.com/c/{card.slug}</span>
-                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyLink(card.slug)}>
-                                    <Copy className="w-3 h-3" />
-                                </Button>
-                            </div>
-                        </CardContent>
-                        <CardFooter className="pt-2">
-                            <Button className="w-full" variant="outline" onClick={() => navigate(`/dashboard/cards/${card.id}/edit`)}>
-                                <Edit className="w-4 h-4 mr-2" /> Edit Card
-                            </Button>
-                        </CardFooter>
-                    </Card>
-                ))}
-            </div>
+            <Card className="border-gray-200 shadow-sm">
+                <div className="p-6">
+                    <div className="flex items-center justify-between mb-6">
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm text-gray-600">Show</span>
+                            <Select value={entriesPerPage} onValueChange={setEntriesPerPage}>
+                                <SelectTrigger className="w-20 h-9">
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="10">10</SelectItem>
+                                    <SelectItem value="25">25</SelectItem>
+                                    <SelectItem value="50">50</SelectItem>
+                                </SelectContent>
+                            </Select>
+                            <span className="text-sm text-gray-600">entries</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm text-gray-600">Search:</span>
+                            <Input
+                                type="search"
+                                placeholder=""
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                className="w-48 h-9"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="overflow-x-auto">
+                        <Table>
+                            <TableHeader>
+                                <TableRow className="bg-gray-50">
+                                    <TableHead className="font-semibold text-gray-700">#</TableHead>
+                                    <TableHead className="font-semibold text-gray-700">Date</TableHead>
+                                    <TableHead className="font-semibold text-gray-700">Type</TableHead>
+                                    <TableHead className="font-semibold text-gray-700">Name</TableHead>
+                                    <TableHead className="font-semibold text-gray-700">Views</TableHead>
+                                    <TableHead className="font-semibold text-gray-700">Status</TableHead>
+                                    <TableHead className="font-semibold text-gray-700">Actions</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {userCards.map((card, idx) => (
+                                    <TableRow key={card.id} className="hover:bg-gray-50">
+                                        <TableCell className="font-medium text-gray-900">{idx + 1}</TableCell>
+                                        <TableCell className="text-gray-600">Nov 24, 2025 08:05 AM</TableCell>
+                                        <TableCell>
+                                            <Badge className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1">
+                                                BUSINESS
+                                            </Badge>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div>
+                                                <p className="font-medium text-gray-900">{card.data.name}</p>
+                                                <p className="text-sm text-gray-500">{card.data.title}</p>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="font-medium text-gray-900">{card.stats.views}</TableCell>
+                                        <TableCell>
+                                            <Badge className="bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1">
+                                                Enabled
+                                            </Badge>
+                                        </TableCell>
+                                        <TableCell>
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild>
+                                                    <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
+                                                        Actions
+                                                        <MoreVertical className="w-4 h-4 ml-1" />
+                                                    </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent align="end">
+                                                    <DropdownMenuItem onClick={() => navigate(`/dashboard/cards/${card.id}/edit`)}>
+                                                        <Edit className="w-4 h-4 mr-2" /> Edit
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem onClick={() => window.open(`/c/${card.slug}`, '_blank')}>
+                                                        <Eye className="w-4 h-4 mr-2" /> View
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem className="text-red-600 focus:text-red-600">
+                                                        <Trash2 className="w-4 h-4 mr-2" /> Delete
+                                                    </DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </div>
+
+                    <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
+                        <p className="text-sm text-gray-600">Showing 1 to {userCards.length} of {userCards.length} entries</p>
+                        <div className="flex items-center gap-2">
+                            <Button variant="outline" size="sm" disabled className="text-gray-400">Previous</Button>
+                            <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700">1</Button>
+                            <Button variant="outline" size="sm" disabled className="text-gray-400">Next</Button>
+                        </div>
+                    </div>
+                </div>
+            </Card>
         </div>
     );
 };

@@ -37,7 +37,7 @@ const DashboardLayout = () => {
         { to: "/dashboard/nfc-cards", icon: CreditCard, label: "My NFC Cards" },
         { to: "/dashboard/referral", icon: Gift, label: "Referral" },
         { to: "/dashboard/media", icon: Image, label: "Media" },
-        { to: "/dashboard/billing", icon: Receipt, label: "Plans" },
+        { to: "/dashboard/plans", icon: Receipt, label: "Plans" },
         { to: "/dashboard/transactions", icon: CreditCard, label: "Transactions" },
         { to: "/dashboard/enquiries", icon: MessageSquare, label: "Enquiries" },
         { to: "/dashboard/profile", icon: UserCircle, label: "My Account" },

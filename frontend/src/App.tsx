@@ -37,6 +37,7 @@ import MyNFCCards from "./pages/user/MyNFCCards";
 import Referral from "./pages/user/Referral";
 import Media from "./pages/user/Media";
 import Transactions from "./pages/user/Transactions";
+import PlansPage from "./pages/user/PlansPage";
 
 
 import LandingPage from "./pages/public/LandingPage";
@@ -91,6 +92,7 @@ const App = () => (
             <Route path="nfc-cards" element={<MyNFCCards />} />
             <Route path="referral" element={<Referral />} />
             <Route path="media" element={<Media />} />
+            <Route path="plans" element={<PlansPage />} />
             <Route path="billing" element={<div className="p-6"><h2 className="text-2xl font-bold">Billing & Plans</h2><p className="text-muted-foreground">Manage your subscription.</p></div>} />
             <Route path="transactions" element={<Transactions />} />
             <Route path="enquiries" element={<EnquiriesList />} />
