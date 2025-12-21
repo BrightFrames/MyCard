@@ -4,10 +4,14 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Globe, Check, X, Palette } from 'lucide-react';
+import { Globe, Check, X, Palette, ChevronDown, ChevronUp } from 'lucide-react';
 import { toast } from "sonner";
+import { useState } from "react";
 
 const DomainBranding = () => {
+    const [isDomainsOpen, setIsDomainsOpen] = useState(true);
+    const [isBrandingOpen, setIsBrandingOpen] = useState(true);
+
     return (
         <div className="space-y-6 animate-fade-in">
             <div className="flex justify-between items-center">
@@ -20,13 +24,24 @@ const DomainBranding = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Domain Requests */}
                 <Card className="card-elevated border-none">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <Globe className="w-5 h-5" /> Domain Requests
-                        </CardTitle>
-                        <CardDescription>Approve or reject custom domain connections.</CardDescription>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                        <div>
+                            <CardTitle className="flex items-center gap-2">
+                                <Globe className="w-5 h-5" /> Domain Requests
+                            </CardTitle>
+                            <CardDescription>Approve or reject custom domain connections.</CardDescription>
+                        </div>
+                        <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => setIsDomainsOpen(!isDomainsOpen)}
+                            className="h-8 w-8 p-0"
+                        >
+                            {isDomainsOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                        </Button>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    {isDomainsOpen && (
+                        <CardContent className="space-y-4">
                         {[1, 2].map(i => (
                             <div key={i} className="flex items-center justify-between p-3 border border-border rounded-lg">
                                 <div>
@@ -52,17 +67,30 @@ const DomainBranding = () => {
                             <Button variant="ghost" size="sm">Manage</Button>
                         </div>
                     </CardContent>
+                    )}
                 </Card>
 
                 {/* Branding Controls */}
                 <Card className="card-elevated border-none">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <Palette className="w-5 h-5" /> Branding Settings
-                        </CardTitle>
-                        <CardDescription>Control watermarks and footers.</CardDescription>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                        <div>
+                            <CardTitle className="flex items-center gap-2">
+                                <Palette className="w-5 h-5" /> Branding Settings
+                            </CardTitle>
+                            <CardDescription>Control watermarks and footers.</CardDescription>
+                        </div>
+                        <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => setIsBrandingOpen(!isBrandingOpen)}
+                            className="h-8 w-8 p-0"
+                        >
+                            {isBrandingOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                        </Button>
                     </CardHeader>
-                    <CardContent className="space-y-6">
+                    {isBrandingOpen && (
+                        <>
+                            <CardContent className="space-y-6">
                         <div className="flex items-center justify-between">
                             <div className="space-y-0.5">
                                 <Label className="text-base">Allow "Hide Branding"</Label>
@@ -82,6 +110,8 @@ const DomainBranding = () => {
                     <CardFooter>
                         <Button>Save Branding</Button>
                     </CardFooter>
+                        </>
+                    )}
                 </Card>
             </div>
         </div>

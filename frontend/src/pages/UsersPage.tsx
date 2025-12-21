@@ -72,7 +72,7 @@ const UsersPage = () => {
         </div>
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="gap-2">
+            <Button className="gap-2 w-full sm:w-auto">
               <Plus className="w-4 h-4" />
               Add User
             </Button>
@@ -179,17 +179,19 @@ const UsersPage = () => {
           </div>
         </div>
 
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>User</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Last Active</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+        <div className="overflow-x-auto">
+          <div className="min-w-[640px]">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>User</TableHead>
+                  <TableHead>Role</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Last Active</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
             {filteredUsers.map((user, index) => (
               <motion.tr
                 key={user.id}
@@ -233,7 +235,9 @@ const UsersPage = () => {
               </motion.tr>
             ))}
           </TableBody>
-        </Table>
+            </Table>
+          </div>
+        </div>
       </motion.div>
     </div>
   );

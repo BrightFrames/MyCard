@@ -3,9 +3,13 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter }
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
-import { Smartphone, Download, Settings } from 'lucide-react';
+import { Smartphone, Download, Settings, ChevronDown, ChevronUp } from 'lucide-react';
+import { useState } from "react";
 
 const PWASettings = () => {
+    const [isPwaOpen, setIsPwaOpen] = useState(true);
+    const [isSmtpOpen, setIsSmtpOpen] = useState(true);
+
     return (
         <div className="space-y-6 animate-fade-in">
             <div className="flex justify-between items-center">
@@ -18,13 +22,25 @@ const PWASettings = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* PWA Settings */}
                 <Card className="card-elevated border-none">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <Smartphone className="w-5 h-5" /> PWA Configuration
-                        </CardTitle>
-                        <CardDescription>Manage installable app features.</CardDescription>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                        <div>
+                            <CardTitle className="flex items-center gap-2">
+                                <Smartphone className="w-5 h-5" /> PWA Configuration
+                            </CardTitle>
+                            <CardDescription>Manage installable app features.</CardDescription>
+                        </div>
+                        <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => setIsPwaOpen(!isPwaOpen)}
+                            className="h-8 w-8 p-0"
+                        >
+                            {isPwaOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                        </Button>
                     </CardHeader>
-                    <CardContent className="space-y-6">
+                    {isPwaOpen && (
+                        <>
+                            <CardContent className="space-y-6">
                         <div className="flex items-center justify-between">
                             <div className="space-y-0.5">
                                 <Label className="text-base">Enable PWA</Label>
@@ -47,17 +63,31 @@ const PWASettings = () => {
                     <CardFooter>
                         <Button>Update PWA Config</Button>
                     </CardFooter>
+                        </>
+                    )}
                 </Card>
 
                 {/* SMTP / System Settings */}
                 <Card className="card-elevated border-none">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <Settings className="w-5 h-5" /> SMTP Settings
-                        </CardTitle>
-                        <CardDescription>Configure email delivery service.</CardDescription>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                        <div>
+                            <CardTitle className="flex items-center gap-2">
+                                <Settings className="w-5 h-5" /> SMTP Settings
+                            </CardTitle>
+                            <CardDescription>Configure email delivery service.</CardDescription>
+                        </div>
+                        <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => setIsSmtpOpen(!isSmtpOpen)}
+                            className="h-8 w-8 p-0"
+                        >
+                            {isSmtpOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                        </Button>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    {isSmtpOpen && (
+                        <>
+                            <CardContent className="space-y-4">
                         <div className="space-y-2">
                             <Label>SMTP Host</Label>
                             <Input placeholder="smtp.example.com" />
@@ -85,6 +115,8 @@ const PWASettings = () => {
                         <Button variant="outline">Test Connection</Button>
                         <Button className="ml-2">Save SMTP</Button>
                     </CardFooter>
+                        </>
+                    )}
                 </Card>
             </div>
         </div>

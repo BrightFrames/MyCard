@@ -1,8 +1,13 @@
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ShieldCheck, Lock, Activity } from 'lucide-react';
+import { ShieldCheck, Lock, Activity, ChevronDown, ChevronUp } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 const SecurityCompliance = () => {
+    const [isActivityOpen, setIsActivityOpen] = useState(true);
+    const [isSecurityOpen, setIsSecurityOpen] = useState(true);
+
     return (
         <div className="space-y-6 animate-fade-in">
             <div className="flex justify-between items-center">
@@ -14,13 +19,24 @@ const SecurityCompliance = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Card className="card-elevated border-none md:col-span-2">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <Activity className="w-5 h-5" /> Recent User Activity
-                        </CardTitle>
-                        <CardDescription>Login history and major actions.</CardDescription>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                        <div>
+                            <CardTitle className="flex items-center gap-2">
+                                <Activity className="w-5 h-5" /> Recent User Activity
+                            </CardTitle>
+                            <CardDescription>Login history and major actions.</CardDescription>
+                        </div>
+                        <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => setIsActivityOpen(!isActivityOpen)}
+                            className="h-8 w-8 p-0"
+                        >
+                            {isActivityOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                        </Button>
                     </CardHeader>
-                    <CardContent>
+                    {isActivityOpen && (
+                        <CardContent>
                         <div className="overflow-x-auto">
                             <table className="w-full text-left">
                                 <thead>
@@ -44,16 +60,28 @@ const SecurityCompliance = () => {
                             </table>
                         </div>
                     </CardContent>
+                    )}
                 </Card>
 
                 <Card className="card-elevated border-none">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <ShieldCheck className="w-5 h-5" /> Security Health
-                        </CardTitle>
-                        <CardDescription>Current system status.</CardDescription>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                        <div>
+                            <CardTitle className="flex items-center gap-2">
+                                <ShieldCheck className="w-5 h-5" /> Security Health
+                            </CardTitle>
+                            <CardDescription>Current system status.</CardDescription>
+                        </div>
+                        <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => setIsSecurityOpen(!isSecurityOpen)}
+                            className="h-8 w-8 p-0"
+                        >
+                            {isSecurityOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                        </Button>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    {isSecurityOpen && (
+                        <CardContent className="space-y-4">
                         <div className="flex items-center justify-between">
                             <span className="text-sm">Firewall Status</span>
                             <Badge className="bg-green-100 text-green-700 hover:bg-green-100 border-none">Active</Badge>
@@ -67,6 +95,7 @@ const SecurityCompliance = () => {
                             <Badge variant="outline" className="text-orange-600 border-orange-200">Disabled</Badge>
                         </div>
                     </CardContent>
+                    )}
                 </Card>
             </div>
         </div>

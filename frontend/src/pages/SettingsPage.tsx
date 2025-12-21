@@ -41,31 +41,33 @@ const SettingsPage = () => {
         transition={{ delay: 0.1 }}
       >
         <Tabs defaultValue="profile" className="space-y-6">
-          <TabsList className="bg-secondary/50">
-            <TabsTrigger value="profile" className="gap-2">
-              <User className="w-4 h-4" />
-              Profile
-            </TabsTrigger>
-            <TabsTrigger value="notifications" className="gap-2">
-              <Bell className="w-4 h-4" />
-              Notifications
-            </TabsTrigger>
-            <TabsTrigger value="security" className="gap-2">
-              <Shield className="w-4 h-4" />
-              Security
-            </TabsTrigger>
-            <TabsTrigger value="restaurant" className="gap-2">
-              <Building className="w-4 h-4" />
-              Restaurant
-            </TabsTrigger>
-          </TabsList>
+          <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+            <TabsList className="bg-secondary/50 inline-flex md:flex w-auto md:w-full min-w-max">
+              <TabsTrigger value="profile" className="gap-2 whitespace-nowrap">
+                <User className="w-4 h-4" />
+                <span className="hidden sm:inline">Profile</span>
+              </TabsTrigger>
+              <TabsTrigger value="notifications" className="gap-2 whitespace-nowrap">
+                <Bell className="w-4 h-4" />
+                <span className="hidden sm:inline">Notifications</span>
+              </TabsTrigger>
+              <TabsTrigger value="security" className="gap-2 whitespace-nowrap">
+                <Shield className="w-4 h-4" />
+                <span className="hidden sm:inline">Security</span>
+              </TabsTrigger>
+              <TabsTrigger value="restaurant" className="gap-2 whitespace-nowrap">
+                <Building className="w-4 h-4" />
+                <span className="hidden sm:inline">Restaurant</span>
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
           <TabsContent value="profile" className="space-y-6">
-            <div className="card-elevated p-6">
-              <h2 className="text-lg font-semibold text-foreground mb-6">Profile Information</h2>
+            <div className="card-elevated p-4 md:p-6">
+              <h2 className="text-base md:text-lg font-semibold text-foreground mb-6">Profile Information</h2>
               
-              <div className="flex items-center gap-6 mb-6">
-                <Avatar className="w-20 h-20">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-6">
+                <Avatar className="w-16 h-16 sm:w-20 sm:h-20">
                   <AvatarFallback className="bg-primary text-primary-foreground text-xl font-semibold">
                     VS
                   </AvatarFallback>
@@ -95,8 +97,8 @@ const SettingsPage = () => {
                 </div>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-border flex justify-end">
-                <Button onClick={handleSave} className="gap-2">
+              <div className="mt-6 pt-6 border-t border-border flex flex-col sm:flex-row justify-end gap-3">
+                <Button onClick={handleSave} className="gap-2 w-full sm:w-auto">
                   <Save className="w-4 h-4" />
                   Save Changes
                 </Button>
@@ -105,7 +107,7 @@ const SettingsPage = () => {
           </TabsContent>
 
           <TabsContent value="notifications" className="space-y-6">
-            <div className="card-elevated p-6">
+            <div className="card-elevated p-4 md:p-6">
               <h2 className="text-lg font-semibold text-foreground mb-6">Notification Preferences</h2>
               
               <div className="space-y-6">
@@ -162,8 +164,8 @@ const SettingsPage = () => {
                 </div>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-border flex justify-end">
-                <Button onClick={handleSave} className="gap-2">
+              <div className="mt-6 pt-6 border-t border-border flex flex-col sm:flex-row justify-end gap-3">
+                <Button onClick={handleSave} className="gap-2 w-full sm:w-auto">
                   <Save className="w-4 h-4" />
                   Save Preferences
                 </Button>
@@ -172,7 +174,7 @@ const SettingsPage = () => {
           </TabsContent>
 
           <TabsContent value="security" className="space-y-6">
-            <div className="card-elevated p-6">
+            <div className="card-elevated p-4 md:p-6">
               <h2 className="text-lg font-semibold text-foreground mb-6">Change Password</h2>
               
               <div className="space-y-4 max-w-md">
@@ -190,24 +192,24 @@ const SettingsPage = () => {
                 </div>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-border flex justify-end">
-                <Button onClick={handleSave} className="gap-2">
+              <div className="mt-6 pt-6 border-t border-border flex flex-col sm:flex-row justify-end gap-3">
+                <Button onClick={handleSave} className="gap-2 w-full sm:w-auto">
                   <Save className="w-4 h-4" />
                   Update Password
                 </Button>
               </div>
             </div>
 
-            <div className="card-elevated p-6">
-              <h2 className="text-lg font-semibold text-foreground mb-4">Two-Factor Authentication</h2>
-              <p className="text-muted-foreground mb-4">Add an extra layer of security to your account.</p>
-              <Button variant="outline">Enable 2FA</Button>
+            <div className="card-elevated p-4 md:p-6">
+              <h2 className="text-base md:text-lg font-semibold text-foreground mb-4">Two-Factor Authentication</h2>
+              <p className="text-sm md:text-base text-muted-foreground mb-4">Add an extra layer of security to your account.</p>
+              <Button variant="outline" className="w-full sm:w-auto">Enable 2FA</Button>
             </div>
           </TabsContent>
 
           <TabsContent value="restaurant" className="space-y-6">
-            <div className="card-elevated p-6">
-              <h2 className="text-lg font-semibold text-foreground mb-6">Restaurant Details</h2>
+            <div className="card-elevated p-4 md:p-6">
+              <h2 className="text-base md:text-lg font-semibold text-foreground mb-6">Restaurant Details</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
@@ -232,8 +234,8 @@ const SettingsPage = () => {
                 </div>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-border flex justify-end">
-                <Button onClick={handleSave} className="gap-2">
+              <div className="mt-6 pt-6 border-t border-border flex flex-col sm:flex-row justify-end gap-3">
+                <Button onClick={handleSave} className="gap-2 w-full sm:w-auto">
                   <Save className="w-4 h-4" />
                   Save Changes
                 </Button>

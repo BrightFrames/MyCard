@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { Download } from 'lucide-react';
+import { Download, ChevronDown, ChevronUp } from 'lucide-react';
 import {
     LineChart,
     Line,
@@ -13,6 +13,7 @@ import {
     Bar,
     Legend
 } from 'recharts';
+import { useState } from "react";
 
 const data = [
     { name: 'Mon', views: 4000, clicks: 2400 },
@@ -25,6 +26,9 @@ const data = [
 ];
 
 const ReportsAnalytics = () => {
+    const [isTrafficOpen, setIsTrafficOpen] = useState(true);
+    const [isConversionOpen, setIsConversionOpen] = useState(true);
+
     return (
         <div className="space-y-6 animate-fade-in">
             <div className="flex justify-between items-center">
@@ -41,11 +45,22 @@ const ReportsAnalytics = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card className="card-elevated border-none">
-                    <CardHeader>
-                        <CardTitle>Traffic Overview</CardTitle>
-                        <CardDescription>Total views vs clicks over the last week.</CardDescription>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                        <div>
+                            <CardTitle>Traffic Overview</CardTitle>
+                            <CardDescription>Total views vs clicks over the last week.</CardDescription>
+                        </div>
+                        <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => setIsTrafficOpen(!isTrafficOpen)}
+                            className="h-8 w-8 p-0"
+                        >
+                            {isTrafficOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                        </Button>
                     </CardHeader>
-                    <CardContent className="h-[300px]">
+                    {isTrafficOpen && (
+                        <CardContent className="h-[300px]">
                         <ResponsiveContainer width="100%" height="100%">
                             <LineChart data={data}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
@@ -61,14 +76,26 @@ const ReportsAnalytics = () => {
                             </LineChart>
                         </ResponsiveContainer>
                     </CardContent>
+                    )}
                 </Card>
 
                 <Card className="card-elevated border-none">
-                    <CardHeader>
-                        <CardTitle>Conversion & Growth</CardTitle>
-                        <CardDescription>New user registrations vs upgrades.</CardDescription>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                        <div>
+                            <CardTitle>Conversion & Growth</CardTitle>
+                            <CardDescription>New user registrations vs upgrades.</CardDescription>
+                        </div>
+                        <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => setIsConversionOpen(!isConversionOpen)}
+                            className="h-8 w-8 p-0"
+                        >
+                            {isConversionOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                        </Button>
                     </CardHeader>
-                    <CardContent className="h-[300px]">
+                    {isConversionOpen && (
+                        <CardContent className="h-[300px]">
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={data}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
@@ -84,6 +111,7 @@ const ReportsAnalytics = () => {
                             </BarChart>
                         </ResponsiveContainer>
                     </CardContent>
+                    )}
                 </Card>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MessageSquare, Ban, Filter } from 'lucide-react';
+import { MessageSquare, Ban, Filter, ChevronDown, ChevronUp } from 'lucide-react';
 import { toast } from "sonner";
 import {
     DropdownMenu,
@@ -9,8 +9,11 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useState } from "react";
 
 const EnquiriesModule = () => {
+    const [isTableOpen, setIsTableOpen] = useState(true);
+
     return (
         <div className="space-y-6 animate-fade-in">
             <div className="flex justify-between items-center">
@@ -24,7 +27,20 @@ const EnquiriesModule = () => {
             </div>
 
             <Card className="card-elevated border-none">
-                <div className="overflow-x-auto">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                    <CardTitle className="text-lg font-semibold">Messages</CardTitle>
+                    <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => setIsTableOpen(!isTableOpen)}
+                        className="h-8 w-8 p-0"
+                    >
+                        {isTableOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                    </Button>
+                </CardHeader>
+                {isTableOpen && (
+                    <CardContent className="p-0">
+                        <div className="overflow-x-auto">
                     <table className="w-full text-left">
                         <thead>
                             <tr className="bg-muted/50 border-b border-border">
@@ -57,6 +73,8 @@ const EnquiriesModule = () => {
                         </tbody>
                     </table>
                 </div>
+                    </CardContent>
+                )}
             </Card>
         </div>
     );

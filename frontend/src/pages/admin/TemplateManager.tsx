@@ -1,11 +1,14 @@
 
 import { MOCK_TEMPLATES } from '@/lib/mock-data';
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Plus } from 'lucide-react';
+import { Plus, ChevronDown, ChevronUp } from 'lucide-react';
+import { useState } from "react";
 
 const TemplateManager = () => {
+    const [isTemplatesOpen, setIsTemplatesOpen] = useState(true);
+
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
@@ -19,7 +22,21 @@ const TemplateManager = () => {
                 </Button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                    <CardTitle className="text-lg font-semibold">Template Gallery</CardTitle>
+                    <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => setIsTemplatesOpen(!isTemplatesOpen)}
+                        className="h-8 w-8 p-0"
+                    >
+                        {isTemplatesOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                    </Button>
+                </CardHeader>
+                {isTemplatesOpen && (
+                    <CardContent>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {MOCK_TEMPLATES.map((template) => (
                     <Card key={template.id} className="overflow-hidden hover:shadow-lg transition-shadow">
                         <div className="aspect-video bg-gray-100 relative">
@@ -41,7 +58,10 @@ const TemplateManager = () => {
                         </CardFooter>
                     </Card>
                 ))}
-            </div>
+                        </div>
+                    </CardContent>
+                )}
+            </Card>
         </div>
     );
 };

@@ -38,11 +38,12 @@ export function RecentOrdersTable({ orders }: RecentOrdersTableProps) {
       transition={{ duration: 0.4, delay: 0.3 }}
       className="card-elevated overflow-hidden"
     >
-      <div className="p-5 border-b border-border">
-        <h2 className="text-lg font-semibold text-foreground">Recent Orders</h2>
+      <div className="p-4 md:p-5 border-b border-border">
+        <h2 className="text-base md:text-lg font-semibold text-foreground">Recent Orders</h2>
       </div>
-      <div className="overflow-x-auto">
-        <Table>
+      <div className="overflow-x-auto -mx-px">
+        <div className="min-w-[640px]">
+          <Table>
           <TableHeader>
             <TableRow className="hover:bg-transparent">
               <TableHead className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -105,6 +106,7 @@ export function RecentOrdersTable({ orders }: RecentOrdersTableProps) {
             ))}
           </TableBody>
         </Table>
+        </div>
       </div>
     </motion.div>
   );

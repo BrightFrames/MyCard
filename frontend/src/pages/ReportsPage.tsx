@@ -54,9 +54,9 @@ const ReportsPage = () => {
           <h1 className="text-2xl font-bold text-foreground">Reports</h1>
           <p className="text-muted-foreground">Analytics and insights for your restaurant</p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <Select defaultValue="week">
-            <SelectTrigger className="w-40">
+            <SelectTrigger className="w-full sm:w-40">
               <Calendar className="w-4 h-4 mr-2" />
               <SelectValue />
             </SelectTrigger>
@@ -67,7 +67,7 @@ const ReportsPage = () => {
               <SelectItem value="year">This Year</SelectItem>
             </SelectContent>
           </Select>
-          <Button variant="outline" className="gap-2">
+          <Button variant="outline" className="gap-2 w-full sm:w-auto">
             <Download className="w-4 h-4" />
             Export
           </Button>
@@ -116,9 +116,9 @@ const ReportsPage = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="card-elevated p-5"
+          className="card-elevated p-4 md:p-5"
         >
-          <h2 className="text-lg font-semibold text-foreground mb-4">Revenue Trend</h2>
+          <h2 className="text-base md:text-lg font-semibold text-foreground mb-4">Revenue Trend</h2>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={revenueData}>
@@ -155,9 +155,9 @@ const ReportsPage = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="card-elevated p-5"
+          className="card-elevated p-4 md:p-5"
         >
-          <h2 className="text-lg font-semibold text-foreground mb-4">Sales by Category</h2>
+          <h2 className="text-base md:text-lg font-semibold text-foreground mb-4">Sales by Category</h2>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -194,9 +194,9 @@ const ReportsPage = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="card-elevated p-5"
+        className="card-elevated p-4 md:p-5"
       >
-        <h2 className="text-lg font-semibold text-foreground mb-4">Orders by Day</h2>
+        <h2 className="text-base md:text-lg font-semibold text-foreground mb-4">Orders by Day</h2>
         <div className="h-72">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={revenueData}>

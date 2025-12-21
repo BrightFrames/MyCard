@@ -68,7 +68,7 @@ const PromosPage = () => {
         </div>
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="gap-2">
+            <Button className="gap-2 w-full sm:w-auto">
               <Plus className="w-4 h-4" />
               Create Code
             </Button>
@@ -181,18 +181,20 @@ const PromosPage = () => {
           </div>
         </div>
 
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Code</TableHead>
-              <TableHead>Discount</TableHead>
-              <TableHead>Usage</TableHead>
-              <TableHead>Valid Until</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+        <div className="overflow-x-auto">
+          <div className="min-w-[640px]">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Code</TableHead>
+                  <TableHead>Discount</TableHead>
+                  <TableHead>Usage</TableHead>
+                  <TableHead>Valid Until</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
             {filteredCodes.map((promo, index) => (
               <motion.tr
                 key={promo.id}
@@ -247,7 +249,9 @@ const PromosPage = () => {
               </motion.tr>
             ))}
           </TableBody>
-        </Table>
+            </Table>
+          </div>
+        </div>
       </motion.div>
     </div>
   );

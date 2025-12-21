@@ -1,8 +1,9 @@
 import { MOCK_CARDS } from '@/lib/mock-data';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card } from "@/components/ui/card";
-import { MoreHorizontal, ExternalLink, Eye, Ban, Trash2, CheckCircle2 } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { MoreHorizontal, ExternalLink, Eye, Ban, Trash2, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
+import { useState } from "react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -15,6 +16,8 @@ import { toast } from "sonner";
 import { Link } from 'react-router-dom';
 
 const VCardManagement = () => {
+    const [isTableOpen, setIsTableOpen] = useState(true);
+
     return (
         <div className="space-y-6 animate-fade-in">
             <div className="flex justify-between items-center">
@@ -25,7 +28,20 @@ const VCardManagement = () => {
             </div>
 
             <Card className="card-elevated border-none overflow-hidden">
-                <div className="overflow-x-auto">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                    <CardTitle className="text-lg font-semibold">Digital Cards</CardTitle>
+                    <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => setIsTableOpen(!isTableOpen)}
+                        className="h-8 w-8 p-0"
+                    >
+                        {isTableOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                    </Button>
+                </CardHeader>
+                {isTableOpen && (
+                    <CardContent className="p-0">
+                        <div className="overflow-x-auto">
                     <table className="w-full text-left">
                         <thead>
                             <tr className="bg-muted/50 border-b border-border">
@@ -106,6 +122,8 @@ const VCardManagement = () => {
                         </tbody>
                     </table>
                 </div>
+                    </CardContent>
+                )}
             </Card>
         </div>
     );

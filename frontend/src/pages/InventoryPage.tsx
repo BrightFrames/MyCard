@@ -54,7 +54,7 @@ const InventoryPage = () => {
           <h1 className="text-2xl font-bold text-foreground">Inventory</h1>
           <p className="text-muted-foreground">Track and manage your stock levels</p>
         </div>
-        <Button className="gap-2">
+        <Button className="gap-2 w-full sm:w-auto">
           <Plus className="w-4 h-4" />
           Add Item
         </Button>
@@ -93,65 +93,69 @@ const InventoryPage = () => {
           </div>
         </div>
 
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Item Name</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead>Stock Level</TableHead>
-              <TableHead>Last Updated</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredItems.map((item, index) => {
-              const stockPercentage = (item.stock / (item.minStock * 2)) * 100;
-              const isLow = item.stock < item.minStock;
+        <div className="overflow-x-auto">
+          <div className="min-w-[640px]">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Item Name</TableHead>
+                  <TableHead>Category</TableHead>
+                  <TableHead>Stock Level</TableHead>
+                  <TableHead>Last Updated</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredItems.map((item, index) => {
+                  const stockPercentage = (item.stock / (item.minStock * 2)) * 100;
+                  const isLow = item.stock < item.minStock;
 
-              return (
-                <motion.tr
-                  key={item.id}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 + index * 0.03 }}
-                  className="border-b border-border last:border-0 hover:bg-secondary/30"
-                >
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">{item.name}</span>
-                      {isLow && (
-                        <AlertTriangle className="w-4 h-4 text-destructive" />
-                      )}
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">{item.category}</TableCell>
-                  <TableCell>
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-between text-sm">
-                        <span className={cn("font-medium", isLow && "text-destructive")}>
-                          {item.stock} {item.unit}
-                        </span>
-                        <span className="text-muted-foreground text-xs">
-                          min: {item.minStock}
-                        </span>
-                      </div>
-                      <Progress
-                        value={Math.min(stockPercentage, 100)}
-                        className={cn("h-2", isLow && "[&>div]:bg-destructive")}
-                      />
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">{item.lastUpdated}</TableCell>
-                  <TableCell className="text-right">
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <Edit className="w-4 h-4" />
-                    </Button>
-                  </TableCell>
-                </motion.tr>
-              );
-            })}
-          </TableBody>
-        </Table>
+                  return (
+                    <motion.tr
+                      key={item.id}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 + index * 0.03 }}
+                      className="border-b border-border last:border-0 hover:bg-secondary/30"
+                    >
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium">{item.name}</span>
+                          {isLow && (
+                            <AlertTriangle className="w-4 h-4 text-destructive" />
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-muted-foreground">{item.category}</TableCell>
+                      <TableCell>
+                        <div className="space-y-1">
+                          <div className="flex items-center justify-between text-sm">
+                            <span className={cn("font-medium", isLow && "text-destructive")}>
+                              {item.stock} {item.unit}
+                            </span>
+                            <span className="text-muted-foreground text-xs">
+                              min: {item.minStock}
+                            </span>
+                          </div>
+                          <Progress
+                            value={Math.min(stockPercentage, 100)}
+                            className={cn("h-2", isLow && "[&>div]:bg-destructive")}
+                          />
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-muted-foreground">{item.lastUpdated}</TableCell>
+                      <TableCell className="text-right">
+                        <Button variant="ghost" size="icon" className="h-8 w-8">
+                          <Edit className="w-4 h-4" />
+                        </Button>
+                      </TableCell>
+                    </motion.tr>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
       </motion.div>
     </div>
   );

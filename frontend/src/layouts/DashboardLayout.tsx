@@ -10,14 +10,18 @@ import {
     Search,
     Bell,
     ChevronDown,
-    Zap
+    Zap,
+    Menu,
+    X
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
+import { useState } from 'react';
 
 const DashboardLayout = () => {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const navItems = [
         { to: "/dashboard", icon: LayoutDashboard, label: "Overview", end: true },
         { to: "/dashboard/cards", icon: Smartphone, label: "My vCards" },
@@ -28,8 +32,30 @@ const DashboardLayout = () => {
 
     return (
         <div className="flex h-screen bg-gray-50/50 font-sans text-slate-900">
+            {/* Mobile Menu Overlay */}
+            {isMobileMenuOpen && (
+                <div 
+                    className="fixed inset-0 bg-black/50 z-40 md:hidden"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                />
+            )}
+
             {/* Sidebar - Clean Light Theme */}
-            <aside className="w-64 bg-white border-r border-gray-200 hidden md:flex flex-col z-10">
+            <aside className={`
+                w-64 bg-white border-r border-gray-200 flex-col z-50
+                fixed md:static inset-y-0 left-0
+                transform transition-transform duration-300 ease-in-out
+                ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+                md:flex
+            `}>
+                {/* Mobile Close Button */}
+                <button
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="absolute top-4 right-4 md:hidden p-2 hover:bg-gray-100 rounded-lg"
+                >
+                    <X className="w-5 h-5 text-gray-600" />
+                </button>
+
                 <div className="h-16 flex items-center px-6 border-b border-gray-100">
                     <div className="flex items-center gap-2 font-bold text-xl tracking-tight text-indigo-600">
                         <div className="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center">
@@ -99,8 +125,18 @@ const DashboardLayout = () => {
             {/* Main Content */}
             <main className="flex-1 flex flex-col overflow-hidden relative">
                 {/* Header */}
-                <header className="h-16 px-8 flex items-center justify-between bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-20">
-                    <div className="w-full max-w-md relative hidden md:block">
+                <header className="h-16 px-4 md:px-8 flex items-center justify-between bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-20">
+                    {/* Mobile Menu Button */}
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="md:hidden text-gray-600"
+                        onClick={() => setIsMobileMenuOpen(true)}
+                    >
+                        <Menu className="w-5 h-5" />
+                    </Button>
+
+                    <div className="w-full max-w-md relative hidden lg:block">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
                         <Input
                             placeholder="Type to search..."
@@ -108,14 +144,14 @@ const DashboardLayout = () => {
                         />
                     </div>
 
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 md:gap-4 ml-auto">
                         <Button variant="ghost" size="icon" className="text-gray-500 hover:text-gray-900 hover:bg-gray-100/50">
                             <Bell className="w-5 h-5" />
                         </Button>
                     </div>
                 </header>
 
-                <div className="flex-1 overflow-auto p-8 bg-gray-50/50">
+                <div className="flex-1 overflow-auto p-4 md:p-8 bg-gray-50/50">
                     <Outlet />
                 </div>
             </main>

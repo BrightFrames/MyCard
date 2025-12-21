@@ -67,7 +67,7 @@ const PaymentsPage = () => {
           <h1 className="text-2xl font-bold text-foreground">Payments</h1>
           <p className="text-muted-foreground">Track all payment transactions</p>
         </div>
-        <Button variant="outline" className="gap-2">
+        <Button variant="outline" className="gap-2 w-full sm:w-auto">
           <Download className="w-4 h-4" />
           Export
         </Button>
@@ -151,19 +151,21 @@ const PaymentsPage = () => {
           </Select>
         </div>
 
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Order ID</TableHead>
-              <TableHead>Customer</TableHead>
-              <TableHead>Amount</TableHead>
-              <TableHead>Method</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+        <div className="overflow-x-auto">
+          <div className="min-w-[768px]">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Order ID</TableHead>
+                  <TableHead>Customer</TableHead>
+                  <TableHead>Amount</TableHead>
+                  <TableHead>Method</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Date</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
             {filteredPayments.map((payment, index) => {
               const MethodIcon = methodIcons[payment.method];
               return (
@@ -206,7 +208,9 @@ const PaymentsPage = () => {
               );
             })}
           </TableBody>
-        </Table>
+            </Table>
+          </div>
+        </div>
       </motion.div>
     </div>
   );

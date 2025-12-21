@@ -3,9 +3,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Check, Edit, Plus, Trash } from 'lucide-react';
+import { Check, Edit, Plus, Trash, ChevronDown, ChevronUp } from 'lucide-react';
+import { useState } from "react";
 
 const PlansPricing = () => {
+    const [isPlansOpen, setIsPlansOpen] = useState(true);
+    const [isSettingsOpen, setIsSettingsOpen] = useState(true);
+
     const plans = [
         {
             name: "Beginner",
@@ -40,7 +44,21 @@ const PlansPricing = () => {
                 </Button>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <Card className="card-elevated border-none">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                    <CardTitle className="text-lg font-semibold">Subscription Plans</CardTitle>
+                    <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => setIsPlansOpen(!isPlansOpen)}
+                        className="h-8 w-8 p-0"
+                    >
+                        {isPlansOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                    </Button>
+                </CardHeader>
+                {isPlansOpen && (
+                    <CardContent>
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {plans.map((plan, idx) => (
                     <Card key={idx} className="card-elevated border-none flex flex-col">
                         <CardHeader>
@@ -94,22 +112,39 @@ const PlansPricing = () => {
                         </CardFooter>
                     </Card>
                 ))}
-            </div>
+                        </div>
+                    </CardContent>
+                )}
+            </Card>
 
             <Card className="card-elevated border-none mt-8">
-                <CardHeader>
-                    <CardTitle>Global Plan Settings</CardTitle>
-                    <CardDescription>Configure currency and general plan behavior.</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4 md:w-1/2">
-                    <div className="grid gap-2">
-                        <Label>Currency Symbol</Label>
-                        <Input placeholder="$" defaultValue="$" />
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                    <div>
+                        <CardTitle>Global Plan Settings</CardTitle>
+                        <CardDescription>Configure currency and general plan behavior.</CardDescription>
                     </div>
-                </CardContent>
-                <CardFooter>
-                    <Button>Save Settings</Button>
-                </CardFooter>
+                    <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+                        className="h-8 w-8 p-0"
+                    >
+                        {isSettingsOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                    </Button>
+                </CardHeader>
+                {isSettingsOpen && (
+                    <>
+                        <CardContent className="space-y-4 md:w-1/2">
+                            <div className="grid gap-2">
+                                <Label>Currency Symbol</Label>
+                                <Input placeholder="$" defaultValue="$" />
+                            </div>
+                        </CardContent>
+                        <CardFooter>
+                            <Button>Save Settings</Button>
+                        </CardFooter>
+                    </>
+                )}
             </Card>
         </div>
     );

@@ -3,10 +3,14 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter }
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { LifeBuoy, Wrench, RefreshCw, Database } from 'lucide-react';
+import { LifeBuoy, Wrench, RefreshCw, Database, ChevronDown, ChevronUp } from 'lucide-react';
 import { toast } from "sonner";
+import { useState } from "react";
 
 const SupportMaintenance = () => {
+    const [isTicketsOpen, setIsTicketsOpen] = useState(true);
+    const [isMaintenanceOpen, setIsMaintenanceOpen] = useState(true);
+
     return (
         <div className="space-y-6 animate-fade-in">
             <div className="flex justify-between items-center">
@@ -19,13 +23,25 @@ const SupportMaintenance = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Support Tickets */}
                 <Card className="card-elevated border-none">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <LifeBuoy className="w-5 h-5" /> Active Support Tickets
-                        </CardTitle>
-                        <CardDescription>Recent issues reported by users.</CardDescription>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                        <div>
+                            <CardTitle className="flex items-center gap-2">
+                                <LifeBuoy className="w-5 h-5" /> Active Support Tickets
+                            </CardTitle>
+                            <CardDescription>Recent issues reported by users.</CardDescription>
+                        </div>
+                        <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => setIsTicketsOpen(!isTicketsOpen)}
+                            className="h-8 w-8 p-0"
+                        >
+                            {isTicketsOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                        </Button>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    {isTicketsOpen && (
+                        <>
+                            <CardContent className="space-y-4">
                         {[1, 2, 3].map(i => (
                             <div key={i} className="flex items-start justify-between p-3 border border-border rounded-lg hover:bg-muted/30 transition-colors">
                                 <div>
@@ -41,17 +57,30 @@ const SupportMaintenance = () => {
                     <CardFooter>
                         <Button variant="outline" className="w-full">View Helpdesk</Button>
                     </CardFooter>
+                        </>
+                    )}
                 </Card>
 
                 {/* Maintenance Controls */}
                 <Card className="card-elevated border-none">
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <Wrench className="w-5 h-5" /> System Maintenance
-                        </CardTitle>
-                        <CardDescription>Advanced system controls.</CardDescription>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                        <div>
+                            <CardTitle className="flex items-center gap-2">
+                                <Wrench className="w-5 h-5" /> System Maintenance
+                            </CardTitle>
+                            <CardDescription>Advanced system controls.</CardDescription>
+                        </div>
+                        <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => setIsMaintenanceOpen(!isMaintenanceOpen)}
+                            className="h-8 w-8 p-0"
+                        >
+                            {isMaintenanceOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                        </Button>
                     </CardHeader>
-                    <CardContent className="space-y-6">
+                    {isMaintenanceOpen && (
+                        <CardContent className="space-y-6">
                         <div className="flex items-center justify-between p-3 bg-orange-50 dark:bg-orange-950/20 rounded-lg border border-orange-200 dark:border-orange-800">
                             <div className="space-y-0.5">
                                 <Label className="text-base text-orange-900 dark:text-orange-100">Maintenance Mode</Label>
@@ -88,6 +117,7 @@ const SupportMaintenance = () => {
                             </div>
                         </div>
                     </CardContent>
+                    )}
                 </Card>
             </div>
         </div>
