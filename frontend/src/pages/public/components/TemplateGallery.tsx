@@ -239,20 +239,20 @@ const TemplateGallery = () => {
     const [activeIndex, setActiveIndex] = useState(0);
 
     return (
-        <section className="py-24 relative overflow-hidden">
+        <section className="py-24 bg-white overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid lg:grid-cols-2 gap-16 items-center">
 
                     {/* Left: Text Content */}
                     <div>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-semibold mb-6">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-100 text-purple-600 text-sm font-semibold mb-6">
                             <Palette size={16} />
                             <span>Library of 50+ Templates</span>
                         </div>
-                        <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-white mb-6">
-                            From <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-400">Essential</span> to <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Extraordinary</span>.
+                        <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-6">
+                            From <span className="text-orange-500">Essential</span> to <span className="text-indigo-600">Extraordinary</span>.
                         </h2>
-                        <p className="text-lg text-slate-400 mb-8 leading-relaxed">
+                        <p className="text-lg text-slate-600 mb-8 leading-relaxed">
                             Whether you need a simple, effective card for your business or a cutting-edge design to wow clients, we have it all.
                         </p>
 
@@ -267,8 +267,8 @@ const TemplateGallery = () => {
                                                 key={theme.id}
                                                 onClick={() => setActiveIndex(idx)}
                                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeIndex === idx
-                                                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/25'
-                                                    : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
+                                                        ? 'bg-indigo-900 text-white shadow-lg'
+                                                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                                                     }`}
                                             >
                                                 {theme.name}
@@ -279,7 +279,7 @@ const TemplateGallery = () => {
                             </div>
 
                             <div>
-                                <h4 className="text-sm font-bold text-orange-200 uppercase tracking-widest mb-3">Basic Styles</h4>
+                                <h4 className="text-sm font-bold text-orange-900 uppercase tracking-widest mb-3">Basic Styles</h4>
                                 <div className="flex flex-wrap gap-2">
                                     {themes.filter(t => t.category === 'Basic').map((theme) => {
                                         const idx = themes.indexOf(theme);
@@ -288,8 +288,8 @@ const TemplateGallery = () => {
                                                 key={theme.id}
                                                 onClick={() => setActiveIndex(idx)}
                                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeIndex === idx
-                                                    ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/25'
-                                                    : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
+                                                        ? 'bg-orange-500 text-white shadow-lg'
+                                                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                                                     }`}
                                             >
                                                 {theme.name}
@@ -304,7 +304,7 @@ const TemplateGallery = () => {
                     {/* Right: Phone Simulator */}
                     <div className="relative flex justify-center perspective-1000">
                         {/* Background Decor */}
-                        <div className={`absolute inset-0 rounded-[3rem] transform -rotate-6 scale-90 -z-10 transition-colors duration-500 ${themes[activeIndex].category === 'Premium' ? 'bg-indigo-500/20 blur-3xl' : 'bg-orange-500/20 blur-3xl'}`}></div>
+                        <div className={`absolute inset-0 rounded-[3rem] transform -rotate-6 scale-90 -z-10 transition-colors duration-500 ${themes[activeIndex].category === 'Premium' ? 'bg-indigo-100' : 'bg-orange-100'}`}></div>
 
                         <motion.div
                             key={activeIndex}
