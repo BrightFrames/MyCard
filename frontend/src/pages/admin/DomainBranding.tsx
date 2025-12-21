@@ -72,11 +72,11 @@ const DomainBranding = () => {
                         </div>
                         <div className="space-y-2">
                             <Label>Footer Branding Text</Label>
-                            <Input defaultValue="Powered by GoBix" />
+                            <Input defaultValue="Powered by MyCard" />
                         </div>
                         <div className="space-y-2">
                             <Label>Favicon URL</Label>
-                            <Input defaultValue="https://gobix.com/favicon.ico" />
+                            <Input defaultValue="https://mycard.com/favicon.ico" />
                         </div>
                     </CardContent>
                     <CardFooter>

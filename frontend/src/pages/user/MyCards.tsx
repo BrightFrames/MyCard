@@ -17,7 +17,7 @@ const MyCards = () => {
     const userCards = MOCK_CARDS.filter(c => c.userId === 'u2');
 
     const handleCopyLink = (slug: string) => {
-        navigator.clipboard.writeText(`https://gobix.com/c/${slug}`);
+        navigator.clipboard.writeText(`https://mycard.com/c/${slug}`);
         toast.success("Card link copied!");
     };
 
@@ -82,7 +82,7 @@ const MyCards = () => {
                                 <span className="font-medium">{card.stats.views}</span>
                             </div>
                             <div className="p-2 bg-muted/40 rounded-lg flex items-center justify-between text-xs text-muted-foreground font-mono">
-                                <span className="truncate">gobix.com/c/{card.slug}</span>
+                                <span className="truncate">mycard.com/c/{card.slug}</span>
                                 <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyLink(card.slug)}>
                                     <Copy className="w-3 h-3" />
                                 </Button>

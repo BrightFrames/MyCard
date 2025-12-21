@@ -42,7 +42,7 @@ export const MOCK_USERS: User[] = [
   {
     id: 'u1',
     name: 'Admin User',
-    email: 'admin@gobix.com',
+    email: 'admin@mycard.com',
     role: 'admin',
     status: 'active',
     joinedDate: '2023-01-01',
