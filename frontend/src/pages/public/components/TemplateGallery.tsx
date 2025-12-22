@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import {
     Phone,
@@ -13,7 +13,7 @@ import {
     Plane,
     Leaf
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 // --- Theme Renderers ---
 
@@ -237,14 +237,32 @@ const themes = [
 
 const TemplateGallery = () => {
     const [activeIndex, setActiveIndex] = useState(0);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"]
+    });
+
+    // Enhanced scale: Device enters larger (1.2) and settles to normal (1)
+    const rotate = useTransform(scrollYProgress, [0, 0.5, 1], [20, 0, -5]);
+    const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.2, 1, 0.95]);
+    
+    // Text animations: Starts off-screen left, fades in AFTER device appears
+    const textX = useTransform(scrollYProgress, [0, 0.3, 0.6], [-100, -100, 0]);
+    const textOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6], [0, 0, 1]);
 
     return (
-        <section className="py-24 bg-white overflow-hidden">
+        <section ref={containerRef} className="py-24 bg-white overflow-hidden" style={{ perspective: "1000px" }}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid lg:grid-cols-2 gap-16 items-center">
 
-                    {/* Left: Text Content */}
-                    <div>
+                    {/* Left: Text Content - Animates from left after device appears */}
+                    <motion.div
+                        style={{
+                            x: textX,
+                            opacity: textOpacity,
+                        }}
+                    >
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-100 text-purple-600 text-sm font-semibold mb-6">
                             <Palette size={16} />
                             <span>Library of 50+ Templates</span>
@@ -299,13 +317,16 @@ const TemplateGallery = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
 
-                    {/* Right: Phone Simulator */}
-                    <div className="relative flex justify-center perspective-1000">
-                        {/* Background Decor */}
-                        <div className={`absolute inset-0 rounded-[3rem] transform -rotate-6 scale-90 -z-10 transition-colors duration-500 ${themes[activeIndex].category === 'Premium' ? 'bg-indigo-100' : 'bg-orange-100'}`}></div>
-
+                    {/* Right: Phone Simulator with 3D Scroll Animation */}
+                    <motion.div 
+                        className="relative flex justify-center"
+                        style={{
+                            rotateX: rotate,
+                            scale: scale,
+                        }}
+                    >
                         <motion.div
                             key={activeIndex}
                             initial={{ opacity: 0, scale: 0.95 }}
@@ -330,7 +351,7 @@ const TemplateGallery = () => {
                             {/* Reflection Gloss */}
                             <div className="absolute inset-0 rounded-[3rem] pointer-events-none shadow-[inset_0_0_20px_rgba(255,255,255,0.1)] z-30"></div>
                         </motion.div>
-                    </div>
+                    </motion.div>
 
                 </div>
             </div>

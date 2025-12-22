@@ -19,7 +19,8 @@ import {
 import { useState } from 'react';
 import TemplateGallery from './components/TemplateGallery';
 import { Marquee } from '@/components/ui/marquee';
-import { Pricing } from '@/components/ui/pricing';
+import PricingSection3 from '@/components/ui/pricing-section-3';
+import FeaturedCrmDemoSection from '@/components/ui/featured-crm-demo-section';
 import { cn } from '@/lib/utils';
 
 const LandingPage = () => {
@@ -33,60 +34,6 @@ const LandingPage = () => {
             setMobileMenuOpen(false);
         }
     };
-
-    const pricingPlans = [
-        {
-            name: "Basic",
-            price: "0",
-            yearlyPrice: "0",
-            period: "month",
-            description: "Forever free",
-            features: [
-                "1 Digital Card",
-                "Basic Profile Info",
-                "QR Code",
-                "Standard Theme"
-            ],
-            buttonText: "Get Started",
-            href: "/signup",
-            isPopular: false
-        },
-        {
-            name: "Pro",
-            price: "2.92",
-            yearlyPrice: "29",
-            period: "month",
-            description: "For professionals",
-            features: [
-                "5 Digital Cards",
-                "Full Analytics Suite",
-                "Custom Domain Support",
-                "Remove Branding",
-                "Priority Support",
-                "NFC Write Support"
-            ],
-            buttonText: "Upgrade to Pro",
-            href: "/signup",
-            isPopular: true
-        },
-        {
-            name: "Business",
-            price: "9.92",
-            yearlyPrice: "99",
-            period: "month",
-            description: "For teams & agencies",
-            features: [
-                "Unlimited Cards",
-                "Team Management",
-                "Bulk Creation",
-                "API Access",
-                "Dedicated Account Manager"
-            ],
-            buttonText: "Contact Sales",
-            href: "#contact",
-            isPopular: false
-        }
-    ];
 
     return (
         <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-indigo-100 selection:text-indigo-900 overflow-x-hidden">
@@ -147,8 +94,8 @@ const LandingPage = () => {
             {/* Hero Section */}
             <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden px-4">
                 <div className="max-w-7xl mx-auto text-center relative z-10">
-                    <h1 className="text-5xl lg:text-8xl font-bold tracking-tight text-slate-900 mb-6 leading-[1.1]">
-                        Don’t just <span className="text-indigo-600 font-[Satisfy]">share</span> a link <br />
+                    <h1 className="text-4xl sm:text-5xl lg:text-8xl font-bold tracking-tight text-slate-900 mb-6 leading-[1.1]">
+                        Don't just <span className="text-indigo-600 font-[Satisfy]">share</span> a link <br className="hidden sm:block" />
                         start a relationship
                     </h1>
 
@@ -158,16 +105,16 @@ const LandingPage = () => {
                     </p>
 
                     {/* Claim Link Input */}
-                    <div className="max-w-md mx-auto relative group">
+                    <div className="max-w-md mx-auto relative group px-4 sm:px-0">
                         <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                        <div className="relative flex items-center bg-white rounded-lg p-1.5 shadow-xl border border-slate-200">
-                            <div className="pl-4 pr-2 text-slate-500 font-medium select-none">lea.link/</div>
+                        <div className="relative flex flex-col sm:flex-row items-stretch sm:items-center bg-white rounded-lg p-1.5 shadow-xl border border-slate-200 gap-2 sm:gap-0">
+                            <div className="pl-4 pr-2 text-slate-500 font-medium select-none text-sm sm:text-base">lea.link/</div>
                             <input
                                 type="text"
                                 placeholder="yourname"
-                                className="flex-1 bg-transparent border-none outline-none text-slate-900 placeholder:text-slate-300 font-semibold h-10"
+                                className="flex-1 bg-transparent border-none outline-none text-slate-900 placeholder:text-slate-300 font-semibold h-10 px-2 sm:px-0"
                             />
-                            <Button className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold rounded-md h-10 px-6 shadow-md transition-all hover:shadow-lg">
+                            <Button className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold rounded-md h-10 px-6 shadow-md transition-all hover:shadow-lg w-full sm:w-auto">
                                 Get Started
                             </Button>
                         </div>
@@ -234,7 +181,7 @@ const LandingPage = () => {
             <section id="features" className="py-20 bg-gradient-to-b from-white to-indigo-50/30 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* First Row - Left to Right */}
-                    <Marquee pauseOnHover className="[--duration:60s] mb-8">
+                    <Marquee pauseOnHover className="[--duration:40s] mb-8">
                         {[
                             { icon: Smartphone, title: 'Contactless Sharing', desc: 'Share via NFC, QR Code, or a simple link. No app required for receivers.', color: 'from-indigo-500 to-purple-600' },
                             { icon: BarChart3, title: 'Advanced Analytics', desc: 'Track views, clicks, and engagement to understand your networking performance.', color: 'from-blue-500 to-cyan-600' },
@@ -243,7 +190,7 @@ const LandingPage = () => {
                             <div 
                                 key={i} 
                                 className={cn(
-                                    "relative w-80 h-64 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl hover:scale-105"
+                                    "relative w-80 h-64 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl hover:scale-110"
                                 )}
                             >
                                 {/* Gradient Background on Hover */}
@@ -270,7 +217,7 @@ const LandingPage = () => {
                     </Marquee>
 
                     {/* Second Row - Right to Left */}
-                    <Marquee reverse pauseOnHover className="[--duration:60s]">
+                    <Marquee reverse pauseOnHover className="[--duration:40s]">
                         {[
                             { icon: QrCode, title: 'Smart QR Codes', desc: 'Download high-res QR codes for your physical marketing materials.', color: 'from-emerald-500 to-teal-600' },
                             { icon: ShieldCheck, title: 'Bank-Grade Security', desc: 'Your data is encrypted and secure. Control visibility with password protection.', color: 'from-rose-500 to-pink-600' },
@@ -279,7 +226,7 @@ const LandingPage = () => {
                             <div 
                                 key={i} 
                                 className={cn(
-                                    "relative w-80 h-64 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl hover:scale-105"
+                                    "relative w-80 h-64 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl hover:scale-110"
                                 )}
                             >
                                 {/* Gradient Background on Hover */}
@@ -310,20 +257,14 @@ const LandingPage = () => {
             {/* Template Showcase */}
             <TemplateGallery />
 
+            {/* Featured Demo Section */}
+            <section id="how-it-works" className="py-24 bg-gradient-to-b from-white to-slate-50 dark:from-black dark:to-zinc-900">
+                <FeaturedCrmDemoSection />
+            </section>
+
             {/* Pricing Section */}
-            <section id="pricing" className="py-24 bg-slate-50 relative">
-                <Pricing
-                    plans={pricingPlans}
-                    title="Simple, transparent pricing"
-                    description="Start for free, upgrade when you need to power up."
-                    onCTAClick={(plan) => {
-                        if (plan.name === 'Business') {
-                            scrollToSection('contact');
-                        } else {
-                            navigate('/signup');
-                        }
-                    }}
-                />
+            <section id="pricing" className="py-8 bg-white relative">
+                <PricingSection3 />
             </section>
 
             {/* Footer */}
