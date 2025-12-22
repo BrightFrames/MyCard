@@ -13,6 +13,8 @@ import BusinessHours from './BusinessHours';
 import ContactInfoEditor from './ContactInfoEditor';
 import ThemeEditor from './ThemeEditor';
 
+import SettingsEditor from './SettingsEditor';
+
 const CardManager = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -84,7 +86,7 @@ const CardManager = () => {
                             <BusinessHours />
                         </TabsContent>
                         <TabsContent value="settings">
-                            <div className="p-4 border rounded bg-card">Settings Mock</div>
+                            <SettingsEditor />
                         </TabsContent>
                     </div>
 

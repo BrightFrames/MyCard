@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { CreditCard, Plus, MoreVertical } from "lucide-react";
+import { CreditCard, Plus, MoreVertical, Link as LinkIcon, Lock } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,27 +25,81 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 const MyNFCCards = () => {
     const [search, setSearch] = useState("");
     const [entriesPerPage, setEntriesPerPage] = useState("10");
+    const [isActivateOpen, setIsActivateOpen] = useState(false);
+    const [isLinkOpen, setIsLinkOpen] = useState(false);
+    const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
 
-    const nfcCards = [
+    const [nfcCards, setNfcCards] = useState([
         { id: 1, date: 'May 16, 2025', cardName: 'Metal NFC Card', linkedCard: 'Sneha Digital Card', status: 'linked' },
         { id: 2, date: 'May 16, 2025', cardName: 'Metal NFC Card', linkedCard: '-', status: 'unlinked' },
         { id: 3, date: 'Feb 26, 2025', cardName: 'Wooden NFC Card', linkedCard: 'Rajesh Business Card', status: 'linked' },
         { id: 4, date: 'Feb 26, 2025', cardName: 'Metal NFC Card', linkedCard: '-', status: 'unlinked' },
-    ];
+    ]);
+
+    const handleActivate = (e: React.FormEvent) => {
+        e.preventDefault();
+        toast.success("NFC Card activated successfully!");
+        setIsActivateOpen(false);
+        // Mock addition
+        const newCard = { id: Date.now(), date: 'Just now', cardName: 'New NFC Card', linkedCard: '-', status: 'unlinked' };
+        setNfcCards([newCard, ...nfcCards]);
+    };
+
+    const handleLink = (e: React.FormEvent) => {
+        e.preventDefault();
+        toast.success("Card linked successfully!");
+        setIsLinkOpen(false);
+        setNfcCards(nfcCards.map(c => c.id === selectedCardId ? { ...c, status: 'linked', linkedCard: 'My Personal Card' } : c));
+    };
+
+    const openLinkModal = (id: number) => {
+        setSelectedCardId(id);
+        setIsLinkOpen(true);
+    };
 
     return (
-        <div className="space-y-6 max-w-7xl mx-auto">
+        <div className="space-y-6 max-w-7xl mx-auto animate-fade-in-up">
             <Card className="border-gray-200 shadow-sm">
                 <div className="p-6">
                     <div className="flex items-center justify-between mb-6">
-                        <Button className="bg-emerald-600 hover:bg-emerald-700">
-                            <Plus className="w-4 h-4 mr-2" />
-                            Activate NFC Card
-                        </Button>
+                        <Dialog open={isActivateOpen} onOpenChange={setIsActivateOpen}>
+                            <DialogTrigger asChild>
+                                <Button className="bg-emerald-600 hover:bg-emerald-700">
+                                    <Plus className="w-4 h-4 mr-2" />
+                                    Activate NFC Card
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Activate New NFC Card</DialogTitle>
+                                    <DialogDescription>Enter the activation code found on your physical card packaging.</DialogDescription>
+                                </DialogHeader>
+                                <form onSubmit={handleActivate} className="space-y-4 py-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="code">Activation Code</Label>
+                                        <Input id="code" placeholder="XXXX-XXXX-XXXX" required />
+                                    </div>
+                                    <DialogFooter>
+                                        <Button type="submit">Activate Card</Button>
+                                    </DialogFooter>
+                                </form>
+                            </DialogContent>
+                        </Dialog>
                     </div>
 
                     <div className="flex items-center justify-between mb-6">
@@ -106,9 +160,15 @@ const MyNFCCards = () => {
                                                     </Button>
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent align="end">
-                                                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                    <DropdownMenuItem>View</DropdownMenuItem>
-                                                    <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
+                                                    {card.status === 'unlinked' ? (
+                                                        <DropdownMenuItem onClick={() => openLinkModal(card.id)}>
+                                                            <LinkIcon className="mr-2 h-4 w-4" /> Link Card
+                                                        </DropdownMenuItem>
+                                                    ) : (
+                                                        <DropdownMenuItem onClick={() => toast.info('Unlink feature coming soon')}>
+                                                            <Lock className="mr-2 h-4 w-4" /> Unlink
+                                                        </DropdownMenuItem>
+                                                    )}
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </TableCell>
@@ -128,6 +188,33 @@ const MyNFCCards = () => {
                     </div>
                 </div>
             </Card>
+
+            {/* Link Card Modal */}
+            <Dialog open={isLinkOpen} onOpenChange={setIsLinkOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Link Digital Card</DialogTitle>
+                        <DialogDescription>Select a digital card to link with this NFC card.</DialogDescription>
+                    </DialogHeader>
+                    <form onSubmit={handleLink} className="space-y-4 py-4">
+                        <div className="space-y-2">
+                            <Label>Select Card</Label>
+                            <Select required>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Choose a card..." />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="card1">My Personal Card</SelectItem>
+                                    <SelectItem value="card2">Business Design Studio</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <DialogFooter>
+                            <Button type="submit">Link Card</Button>
+                        </DialogFooter>
+                    </form>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };
