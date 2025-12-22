@@ -18,6 +18,9 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import TemplateGallery from './components/TemplateGallery';
+import { Marquee } from '@/components/ui/marquee';
+import { Pricing } from '@/components/ui/pricing';
+import { cn } from '@/lib/utils';
 
 const LandingPage = () => {
     const navigate = useNavigate();
@@ -30,6 +33,60 @@ const LandingPage = () => {
             setMobileMenuOpen(false);
         }
     };
+
+    const pricingPlans = [
+        {
+            name: "Basic",
+            price: "0",
+            yearlyPrice: "0",
+            period: "month",
+            description: "Forever free",
+            features: [
+                "1 Digital Card",
+                "Basic Profile Info",
+                "QR Code",
+                "Standard Theme"
+            ],
+            buttonText: "Get Started",
+            href: "/signup",
+            isPopular: false
+        },
+        {
+            name: "Pro",
+            price: "2.92",
+            yearlyPrice: "29",
+            period: "month",
+            description: "For professionals",
+            features: [
+                "5 Digital Cards",
+                "Full Analytics Suite",
+                "Custom Domain Support",
+                "Remove Branding",
+                "Priority Support",
+                "NFC Write Support"
+            ],
+            buttonText: "Upgrade to Pro",
+            href: "/signup",
+            isPopular: true
+        },
+        {
+            name: "Business",
+            price: "9.92",
+            yearlyPrice: "99",
+            period: "month",
+            description: "For teams & agencies",
+            features: [
+                "Unlimited Cards",
+                "Team Management",
+                "Bulk Creation",
+                "API Access",
+                "Dedicated Account Manager"
+            ],
+            buttonText: "Contact Sales",
+            href: "#contact",
+            isPopular: false
+        }
+    ];
 
     return (
         <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-indigo-100 selection:text-indigo-900 overflow-x-hidden">
@@ -173,27 +230,80 @@ const LandingPage = () => {
                 </h2>
             </section>
 
-            {/* Features List */}
-            <section id="features" className="py-16 bg-white relative overflow-hidden">
+            {/* Features Marquee Section */}
+            <section id="features" className="py-20 bg-gradient-to-b from-white to-indigo-50/30 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {/* First Row - Left to Right */}
+                    <Marquee pauseOnHover className="[--duration:60s] mb-8">
                         {[
-                            { icon: Smartphone, title: 'Contactless Sharing', desc: 'Share via NFC, QR Code, or a simple link. No app required for receivers.' },
-                            { icon: BarChart3, title: 'Advanced Analytics', desc: 'Track views, clicks, and engagement to understand your networking performance.' },
-                            { icon: Globe, title: 'Custom Domain', desc: 'Connect your own domain (e.g., yourname.com) for a fully branded experience.' },
-                            { icon: QrCode, title: 'Smart QR Codes', desc: 'Download high-res QR codes for your physical marketing materials.' },
-                            { icon: ShieldCheck, title: 'Bank-Grade Security', desc: 'Your data is encrypted and secure. Control visibility with password protection.' },
-                            { icon: Zap, title: 'Instant Updates', desc: 'Update your details anytime. No need to reprint physical cards ever again.' }
+                            { icon: Smartphone, title: 'Contactless Sharing', desc: 'Share via NFC, QR Code, or a simple link. No app required for receivers.', color: 'from-indigo-500 to-purple-600' },
+                            { icon: BarChart3, title: 'Advanced Analytics', desc: 'Track views, clicks, and engagement to understand your networking performance.', color: 'from-blue-500 to-cyan-600' },
+                            { icon: Globe, title: 'Custom Domain', desc: 'Connect your own domain (e.g., yourname.com) for a fully branded experience.', color: 'from-violet-500 to-purple-600' },
                         ].map((feature, i) => (
-                            <div key={i} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-                                <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                                    <feature.icon size={24} />
+                            <div 
+                                key={i} 
+                                className={cn(
+                                    "relative w-80 h-64 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl hover:scale-105"
+                                )}
+                            >
+                                {/* Gradient Background on Hover */}
+                                <div className={cn(
+                                    "absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-500",
+                                    feature.color
+                                )}></div>
+                                
+                                <div className="relative z-10 p-8 h-full flex flex-col">
+                                    <div className={cn(
+                                        "w-16 h-16 bg-gradient-to-br rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500",
+                                        feature.color
+                                    )}>
+                                        <feature.icon size={32} />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">{feature.title}</h3>
+                                    <p className="text-slate-600 leading-relaxed text-sm">{feature.desc}</p>
                                 </div>
-                                <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
-                                <p className="text-slate-600 leading-relaxed">{feature.desc}</p>
+                                
+                                {/* Corner Accent */}
+                                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-100 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                             </div>
                         ))}
-                    </div>
+                    </Marquee>
+
+                    {/* Second Row - Right to Left */}
+                    <Marquee reverse pauseOnHover className="[--duration:60s]">
+                        {[
+                            { icon: QrCode, title: 'Smart QR Codes', desc: 'Download high-res QR codes for your physical marketing materials.', color: 'from-emerald-500 to-teal-600' },
+                            { icon: ShieldCheck, title: 'Bank-Grade Security', desc: 'Your data is encrypted and secure. Control visibility with password protection.', color: 'from-rose-500 to-pink-600' },
+                            { icon: Zap, title: 'Instant Updates', desc: 'Update your details anytime. No need to reprint physical cards ever again.', color: 'from-amber-500 to-orange-600' },
+                        ].map((feature, i) => (
+                            <div 
+                                key={i} 
+                                className={cn(
+                                    "relative w-80 h-64 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl hover:scale-105"
+                                )}
+                            >
+                                {/* Gradient Background on Hover */}
+                                <div className={cn(
+                                    "absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-500",
+                                    feature.color
+                                )}></div>
+                                
+                                <div className="relative z-10 p-8 h-full flex flex-col">
+                                    <div className={cn(
+                                        "w-16 h-16 bg-gradient-to-br rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500",
+                                        feature.color
+                                    )}>
+                                        <feature.icon size={32} />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">{feature.title}</h3>
+                                    <p className="text-slate-600 leading-relaxed text-sm">{feature.desc}</p>
+                                </div>
+                                
+                                {/* Corner Accent */}
+                                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-100 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            </div>
+                        ))}
+                    </Marquee>
                 </div>
             </section>
 
@@ -202,62 +312,18 @@ const LandingPage = () => {
 
             {/* Pricing Section */}
             <section id="pricing" className="py-24 bg-slate-50 relative">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center max-w-2xl mx-auto mb-16">
-                        <h2 className="text-3xl font-bold tracking-tight text-slate-900 mb-4">Simple, transparent pricing</h2>
-                        <p className="text-lg text-slate-600">Start for free, upgrade when you need to power up.</p>
-                    </div>
-
-                    <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                        {/* Free Tier */}
-                        <div className="bg-white p-8 rounded-3xl border border-slate-200 hover:border-indigo-200 transition-colors">
-                            <h3 className="text-xl font-bold text-slate-900 mb-2">Basic</h3>
-                            <div className="text-4xl font-bold text-slate-900 mb-1">$0</div>
-                            <p className="text-slate-500 mb-6">Forever free</p>
-                            <Button variant="outline" className="w-full rounded-full mb-8">Get Started</Button>
-                            <ul className="space-y-4 text-sm text-slate-600">
-                                {['1 Digital Card', 'Basic Profile Info', 'QR Code', 'Standard Theme'].map((item, i) => (
-                                    <li key={i} className="flex items-center gap-3">
-                                        <Check className="w-4 h-4 text-green-500 shrink-0" /> {item}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Pro Tier (Popular) */}
-                        <div className="p-8 rounded-3xl border-2 border-indigo-600 bg-slate-900 text-white relative shadow-2xl transform scale-105 z-10">
-                            <div className="absolute top-0 right-0 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl uppercase tracking-wider">
-                                Most Popular
-                            </div>
-                            <h3 className="text-xl font-bold mb-2">Pro</h3>
-                            <div className="text-4xl font-bold mb-1">$29<span className="text-lg font-normal text-slate-400">/year</span></div>
-                            <p className="text-slate-400 mb-6">For professionals</p>
-                            <Button className="w-full rounded-full mb-8 bg-indigo-500 hover:bg-indigo-400 text-white border-none shadow-lg shadow-indigo-900/50">Upgrade to Pro</Button>
-                            <ul className="space-y-4 text-sm text-slate-300">
-                                {['5 Digital Cards', 'Full Analytics Suite', 'Custom Domain Support', 'Remove Branding', 'Priority Support', 'NFC Write Support'].map((item, i) => (
-                                    <li key={i} className="flex items-center gap-3">
-                                        <Check className="w-4 h-4 text-indigo-400 shrink-0" /> {item}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Business Tier */}
-                        <div className="bg-white p-8 rounded-3xl border border-slate-200 hover:border-indigo-200 transition-colors">
-                            <h3 className="text-xl font-bold text-slate-900 mb-2">Business</h3>
-                            <div className="text-4xl font-bold text-slate-900 mb-1">$99<span className="text-lg font-normal text-slate-500">/year</span></div>
-                            <p className="text-slate-500 mb-6">For teams & agencies</p>
-                            <Button variant="outline" className="w-full rounded-full mb-8">Contact Sales</Button>
-                            <ul className="space-y-4 text-sm text-slate-600">
-                                {['Unlimited Cards', 'Team Management', 'Bulk Creation', 'API Access', 'Dedicated Account Manager'].map((item, i) => (
-                                    <li key={i} className="flex items-center gap-3">
-                                        <Check className="w-4 h-4 text-green-500 shrink-0" /> {item}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <Pricing
+                    plans={pricingPlans}
+                    title="Simple, transparent pricing"
+                    description="Start for free, upgrade when you need to power up."
+                    onCTAClick={(plan) => {
+                        if (plan.name === 'Business') {
+                            scrollToSection('contact');
+                        } else {
+                            navigate('/signup');
+                        }
+                    }}
+                />
             </section>
 
             {/* Footer */}
