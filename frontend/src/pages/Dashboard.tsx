@@ -2,6 +2,7 @@ import { Utensils, DollarSign, Users as UsersIcon, UserCheck } from "lucide-reac
 import { StatCard } from "@/components/dashboard/StatCard";
 import { RecentOrdersTable, Order } from "@/components/dashboard/RecentOrdersTable";
 import { ReportsOverview } from "@/components/dashboard/ReportsOverview";
+import { DashboardParallaxBackground } from "@/components/dashboard/DashboardParallaxBackground";
 
 const sampleOrders: Order[] = [
   {
@@ -48,45 +49,48 @@ const sampleOrders: Order[] = [
 
 const Dashboard = () => {
   return (
-    <div className="space-y-6">
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard
-          title="Total Orders"
-          value="0"
-          trend={{ value: "5% from last month", positive: false }}
-          icon={Utensils}
-          delay={0}
-        />
-        <StatCard
-          title="Revenue"
-          value="₹0"
-          trend={{ value: "+8% from last month", positive: true }}
-          icon={DollarSign}
-          delay={0.1}
-        />
-        <StatCard
-          title="Active Tables"
-          value="2"
-          subtitle="Current Occupancy"
-          icon={UsersIcon}
-          progress={100}
-          delay={0.2}
-        />
-        <StatCard
-          title="Staff Count"
-          value="2"
-          subtitle="Online: 2"
-          icon={UserCheck}
-          delay={0.3}
-        />
+    <div className="space-y-6 relative min-h-screen">
+      <DashboardParallaxBackground />
+      <div className="relative z-10 space-y-6">
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <StatCard
+            title="Total Orders"
+            value="0"
+            trend={{ value: "5% from last month", positive: false }}
+            icon={Utensils}
+            delay={0}
+          />
+          <StatCard
+            title="Revenue"
+            value="₹0"
+            trend={{ value: "+8% from last month", positive: true }}
+            icon={DollarSign}
+            delay={0.1}
+          />
+          <StatCard
+            title="Active Tables"
+            value="2"
+            subtitle="Current Occupancy"
+            icon={UsersIcon}
+            progress={100}
+            delay={0.2}
+          />
+          <StatCard
+            title="Staff Count"
+            value="2"
+            subtitle="Online: 2"
+            icon={UserCheck}
+            delay={0.3}
+          />
+        </div>
+
+        {/* Recent Orders */}
+        <RecentOrdersTable orders={sampleOrders} />
+
+        {/* Reports Overview */}
+        <ReportsOverview />
       </div>
-
-      {/* Recent Orders */}
-      <RecentOrdersTable orders={sampleOrders} />
-
-      {/* Reports Overview */}
-      <ReportsOverview />
     </div>
   );
 };

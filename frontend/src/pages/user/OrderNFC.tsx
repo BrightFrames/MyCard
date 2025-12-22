@@ -98,54 +98,55 @@ const OrderNFC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
                 {products.map((product) => (
                     <Card key={product.id} className="border-gray-200 shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer hover:scale-105 hover:-translate-y-2">
-                        <div className={`bg-gradient-to-br ${product.gradient} p-6 sm:p-8 aspect-[1.586/1] relative overflow-hidden`}>
+                        <div className={`bg-gradient-to-br ${product.gradient} p-6 sm:p-8 aspect-[1.586/1] relative overflow-hidden rounded-xl shadow-inner`}>
                             {/* Bank Logo */}
-                            <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10">
-                                <div className="flex items-center gap-2 text-white">
-                                    <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white/20 backdrop-blur-sm rounded"></div>
-                                    <span className="font-bold text-sm sm:text-base">BANK NAME</span>
+                            <div className="absolute top-6 left-6 z-10">
+                                <div className="flex items-center gap-3 text-white/90">
+                                    <div className="w-8 h-8 bg-white/20 backdrop-blur-md rounded-lg border border-white/10"></div>
+                                    <span className="font-bold text-sm tracking-wider opacity-90">MYCARD</span>
                                 </div>
                             </div>
 
                             {/* Chip and Contactless */}
-                            <div className="absolute top-16 sm:top-20 left-4 sm:left-6 flex items-center gap-3 z-10">
-                                <div className="w-10 h-8 sm:w-12 sm:h-10 bg-gradient-to-br from-yellow-300 to-yellow-400 rounded-md shadow-md">
-                                    <div className="w-full h-full rounded-md border border-yellow-500/30"></div>
+                            <div className="absolute top-20 left-6 flex items-center gap-4 z-10">
+                                <div className="w-12 h-9 bg-gradient-to-br from-yellow-200 to-yellow-500 rounded-md shadow-sm border border-yellow-600/20 relative overflow-hidden">
+                                    <div className="absolute inset-0 border-[0.5px] border-black/10 rounded-md" />
+                                    <div className="absolute top-1/2 left-0 w-full h-[1px] bg-black/10" />
+                                    <div className="absolute left-1/3 top-0 w-[1px] h-full bg-black/10" />
                                 </div>
-                                <div className="text-white text-lg sm:text-xl font-light">)))</div>
+                                <div className="text-white/80 text-2xl -rotate-90 origin-center translate-y-1">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10 10 10 0 0 1-10-10 10 10 0 0 1 10-10z" /><path d="M4.93 4.93a10 10 0 0 1 14.14 0" /><path d="M7.76 7.76a6 6 0 0 1 8.48 0" /><path d="M10.59 10.59a2 2 0 0 1 2.82 0" /></svg>
+                                </div>
                             </div>
 
                             {/* Card Number */}
-                            <div className="absolute top-28 sm:top-32 left-4 sm:left-6 right-4 sm:right-6 z-10">
-                                <p className="text-white text-base sm:text-xl font-light tracking-wider sm:tracking-widest">
+                            <div className="absolute top-[55%] left-6 right-6 z-10">
+                                <p className="text-white text-xl sm:text-2xl font-mono tracking-widest drop-shadow-md">
                                     4532 3100 9999 1048
                                 </p>
                             </div>
 
                             {/* Card Details */}
-                            <div className="absolute bottom-12 sm:bottom-14 left-4 sm:left-6 right-4 sm:right-6 flex justify-between items-end z-10">
+                            <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end z-10">
                                 <div>
-                                    <p className="text-white/70 text-[9px] sm:text-[10px] mb-0.5 sm:mb-1 uppercase tracking-wide">Member Since</p>
-                                    <p className="text-white font-light text-xs sm:text-sm">00</p>
+                                    <p className="text-white/60 text-[8px] sm:text-[9px] mb-1 uppercase tracking-widest font-semibold">Card Holder</p>
+                                    <p className="text-white font-medium text-sm sm:text-base tracking-wide uppercase drop-shadow-sm">John Doe</p>
                                 </div>
-                                <div>
-                                    <p className="text-white/70 text-[9px] sm:text-[10px] mb-0.5 sm:mb-1 uppercase tracking-wide">Valid Thru</p>
-                                    <p className="text-white font-light text-xs sm:text-sm">00-00</p>
+                                <div className="text-right">
+                                    <p className="text-white/60 text-[8px] sm:text-[9px] mb-1 uppercase tracking-widest font-semibold">Valid Thru</p>
+                                    <p className="text-white font-medium text-sm sm:text-base tracking-wider drop-shadow-sm">12/28</p>
                                 </div>
                             </div>
 
-                            {/* Cardholder Name */}
-                            <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 z-10">
-                                <p className="text-white text-xs sm:text-sm font-light tracking-wider uppercase">Cardholder Name</p>
-                            </div>
+                            {/* World Map Background Pattern */}
+                            <div className="absolute inset-0 opacity-10 z-0 pointer-events-none mix-blend-overlay"
+                                style={{
+                                    backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")'
+                                }}
+                            />
 
-                            {/* World Map */}
-                            <div className="absolute top-4 sm:top-6 right-12 sm:right-16 opacity-20 z-0">
-                                <div className="w-12 h-9 sm:w-16 sm:h-12 bg-white/30 rounded"></div>
-                            </div>
-
-                            {/* Price Tag */}
-                            <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-white text-gray-900 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-sm sm:text-base font-bold shadow-lg ring-2 ring-white/50 z-20">
+                            {/* Price Badge */}
+                            <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm text-gray-900 px-3 py-1 rounded-full text-sm font-bold shadow-lg z-20">
                                 ₹{product.price}
                             </div>
                         </div>
@@ -155,7 +156,7 @@ const OrderNFC = () => {
                                 <h3 className="text-lg font-bold text-gray-900">{product.name}</h3>
                             </div>
                             <p className="text-gray-500 mb-4 text-sm leading-relaxed">{product.description}</p>
-                            
+
                             <div className="space-y-2 mb-6">
                                 {product.features.map((feature, index) => (
                                     <div key={index} className="flex items-center gap-2">
@@ -187,7 +188,7 @@ const OrderNFC = () => {
                         {/* Order Details */}
                         <div className="space-y-6">
                             <h3 className="text-xl font-bold text-gray-900">Order Details</h3>
-                            
+
                             <Card className="border-gray-200">
                                 <CardContent className="p-6">
                                     <div className="space-y-4">
@@ -195,7 +196,7 @@ const OrderNFC = () => {
                                             <span className="text-gray-600 font-medium">Description</span>
                                             <span className="text-gray-600 font-medium">Price</span>
                                         </div>
-                                        
+
                                         <div className="flex justify-between items-center">
                                             <div>
                                                 <p className="font-medium text-gray-900">NFC Card Name</p>
@@ -208,9 +209,9 @@ const OrderNFC = () => {
 
                                         <div className="flex justify-between items-center py-2">
                                             <span className="text-gray-700">Quantity</span>
-                                            <Input 
-                                                type="number" 
-                                                min="1" 
+                                            <Input
+                                                type="number"
+                                                min="1"
                                                 value={quantity}
                                                 onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
                                                 className="w-20 text-center"
@@ -233,8 +234,8 @@ const OrderNFC = () => {
                                         </div>
 
                                         <div className="flex gap-2 mt-4">
-                                            <Input 
-                                                placeholder="COUPON CODE" 
+                                            <Input
+                                                placeholder="COUPON CODE"
                                                 value={couponCode}
                                                 onChange={(e) => setCouponCode(e.target.value)}
                                                 className="flex-1"
@@ -249,7 +250,7 @@ const OrderNFC = () => {
                         {/* Shipping Details */}
                         <div className="space-y-6">
                             <h3 className="text-xl font-bold text-gray-700">Shipping Details</h3>
-                            
+
                             <div className="space-y-4">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
