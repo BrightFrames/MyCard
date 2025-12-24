@@ -1,4 +1,5 @@
 import { Outlet, NavLink } from 'react-router-dom';
+import { ModeToggle } from "@/components/mode-toggle";
 import { useState } from 'react';
 import {
     LayoutDashboard,
@@ -30,7 +31,13 @@ import {
     Puzzle,
     Gift,
     BookOpen,
-    Users2
+    Users2,
+    Mail,
+    Coins,
+    Database,
+    Eraser,
+    RefreshCw,
+    UserCog
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -61,6 +68,13 @@ const AdminLayout = () => {
                 { to: "/admin/translations", icon: Languages, label: "Translations" },
                 { to: "/admin/marketing", icon: Megaphone, label: "Marketing" },
                 { to: "/admin/notifications", icon: Bell, label: "Web Notifications" },
+                { to: "/admin/email-templates", icon: Mail, label: "Email Templates" },
+                { to: "/admin/settings", icon: Settings, label: "Settings" },
+                { to: "/admin/currencies", icon: Coins, label: "Currencies" },
+                { to: "/admin/backups", icon: Database, label: "Backups" },
+                { to: "/admin/clear-cache", icon: Eraser, label: "Clear Cache" },
+                { to: "/admin/updates", icon: RefreshCw, label: "Software Update" },
+                { to: "/admin/account", icon: UserCog, label: "My Account" },
             ]
         }
     ];
@@ -169,6 +183,7 @@ const AdminLayout = () => {
                             <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
                             System Stable
                         </div>
+                        <ModeToggle />
                         <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
                             <Bell className="w-5 h-5" />
                         </Button>

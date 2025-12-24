@@ -1,5 +1,11 @@
-import { Outlet, NavLink } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { ModeToggle } from "@/components/mode-toggle";
 import {
+    Calendar,
+    DollarSign,
+    Share2,
+    Activity,
+    ShoppingBag,
     LayoutDashboard,
     Smartphone,
     Store,
@@ -36,25 +42,31 @@ import {
 const DashboardLayout = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { startTour } = useTour();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        // In a real app, clear tokens here
+        // localStorage.removeItem('token'); 
+        navigate('/login');
+    };
 
     const navItems = [
         { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard", end: true },
-        { to: "/dashboard/cards", icon: Smartphone, label: "My Links" },
-        { to: "/dashboard/media", icon: Image, label: "Media Library" },
-        { to: "/dashboard/enquiries", icon: BarChart3, label: "Analytics" }, // Enquiries -> Analytics (naming match)
-        // { to: "/dashboard/stores", icon: Store, label: "Store" }, // Keeping specific features maybe hidden for 'vCard' focus if needed, but keeping generally
-        { to: "/dashboard/profile", icon: Settings, label: "Settings" },
+        { to: "/dashboard/cards", icon: Smartphone, label: "Business Cards" },
+        { to: "/dashboard/stores", icon: Store, label: "Stores" },
+        { to: "/dashboard/order-nfc", icon: CreditCard, label: "Order NFC Card" },
+        { to: "/dashboard/orders", icon: ShoppingBag, label: "My Orders" },
+        { to: "/dashboard/nfc-cards", icon: Layers, label: "My NFC Cards" },
+        { to: "/dashboard/referral", icon: Share2, label: "Referral" },
+        { to: "/dashboard/media", icon: Image, label: "Media" },
+        { to: "/dashboard/appointments", icon: Calendar, label: "Appointments" },
+        { to: "/dashboard/plans", icon: Activity, label: "Plans" },
+        { to: "/dashboard/transactions", icon: DollarSign, label: "Transactions" },
+        { to: "/dashboard/profile", icon: User, label: "My Account" },
     ];
-
-    // Secondary more advanced items, maybe grouped
-    const advancedItems = [
-        { to: "/dashboard/stores", icon: Store, label: "Store" },
-        { to: "/dashboard/nfc-cards", icon: CreditCard, label: "NFC Cards" },
-    ];
-
 
     return (
-        <div className="flex h-screen bg-[#F9FAFB] font-sans text-slate-900">
+        <div className="flex h-screen bg-[#F9FAFB] dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100">
             {/* Mobile Menu Overlay */}
             {isMobileMenuOpen && (
                 <div
@@ -65,14 +77,14 @@ const DashboardLayout = () => {
 
             {/* Sidebar */}
             <aside className={`
-                w-64 bg-white border-r border-slate-200 flex-col z-50
+                w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex-col z-50
                 fixed md:static inset-y-0 left-0
                 transform transition-transform duration-300 ease-in-out
                 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
                 md:flex
             `}>
-                <div className="h-16 flex items-center px-6 border-b border-slate-100">
-                    <div className="flex items-center gap-2 font-bold text-xl tracking-tight text-slate-900">
+                <div className="h-16 flex items-center px-6 border-b border-slate-100 dark:border-slate-800">
+                    <div className="flex items-center gap-2 font-bold text-xl tracking-tight text-slate-900 dark:text-white">
                         <div className="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center shadow-sm">
                             <Zap className="w-5 h-5 fill-current" />
                         </div>
@@ -89,7 +101,6 @@ const DashboardLayout = () => {
                 <div className="flex-1 overflow-hidden flex flex-col pt-6 px-4">
                     <ScrollArea className="flex-1 -mr-2 pr-2">
                         <div className="space-y-1 mb-8">
-                            <p className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Platform</p>
                             {navItems.map((item) => (
                                 <NavLink
                                     key={item.to}
@@ -98,8 +109,8 @@ const DashboardLayout = () => {
                                     onClick={() => setIsMobileMenuOpen(false)}
                                     className={({ isActive }) =>
                                         `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
-                                            ? 'bg-indigo-50 text-indigo-600'
-                                            : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                                            ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
+                                            : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200'
                                         }`
                                     }
                                 >
@@ -109,41 +120,30 @@ const DashboardLayout = () => {
                             ))}
                         </div>
 
-                        <div className="space-y-1">
-                            <p className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Commerce & NFC</p>
-                            {advancedItems.map((item) => (
-                                <NavLink
-                                    key={item.to}
-                                    to={item.to}
-                                    end={item.end}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                    className={({ isActive }) =>
-                                        `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
-                                            ? 'bg-indigo-50 text-indigo-600'
-                                            : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-                                        }`
-                                    }
-                                >
-                                    <item.icon size={18} />
-                                    {item.label}
-                                </NavLink>
-                            ))}
+                        <div className="mt-auto pt-4 border-t border-slate-100 dark:border-slate-800">
+                            <div
+                                onClick={handleLogout}
+                                className="px-3 py-2 flex items-center gap-3 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg cursor-pointer transition-colors"
+                            >
+                                <LogOut size={18} />
+                                <span className="text-sm font-medium">Logout</span>
+                            </div>
                         </div>
                     </ScrollArea>
                 </div>
 
                 {/* Profile Section */}
-                <div className="p-4 border-t border-slate-100 bg-slate-50/50">
+                <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <div className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-white hover:shadow-sm cursor-pointer transition-all border border-transparent hover:border-slate-200">
-                                <Avatar className="h-9 w-9 border border-indigo-100">
+                            <div className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm cursor-pointer transition-all border border-transparent hover:border-slate-200 dark:hover:border-slate-700">
+                                <Avatar className="h-9 w-9 border border-indigo-100 dark:border-indigo-900">
                                     <AvatarImage src="https://github.com/shadcn.png" />
                                     <AvatarFallback className="bg-indigo-50 text-indigo-600">JD</AvatarFallback>
                                 </Avatar>
                                 <div className="flex-1 overflow-hidden text-left">
-                                    <p className="text-sm font-semibold text-slate-900 truncate">John Doe</p>
-                                    <p className="text-xs text-slate-500 truncate">Pro Plan</p>
+                                    <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">John Doe</p>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 truncate">Pro Plan</p>
                                 </div>
                                 <ChevronDown className="w-4 h-4 text-slate-400" />
                             </div>
@@ -164,7 +164,7 @@ const DashboardLayout = () => {
                                 <span>Settings</span>
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem className="text-red-600">
+                            <DropdownMenuItem className="text-red-600 cursor-pointer" onClick={handleLogout}>
                                 <LogOut className="mr-2 h-4 w-4" />
                                 <span>Log out</span>
                             </DropdownMenuItem>
@@ -176,7 +176,7 @@ const DashboardLayout = () => {
             {/* Main Content */}
             <main className="flex-1 flex flex-col overflow-hidden relative">
                 {/* Header */}
-                <header className="h-16 px-4 md:px-8 flex items-center justify-between bg-white border-b border-slate-200 sticky top-0 z-20">
+                <header className="h-16 px-4 md:px-8 flex items-center justify-between bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-20">
                     <div className="flex items-center gap-4">
                         <Button
                             variant="ghost"
@@ -190,16 +190,17 @@ const DashboardLayout = () => {
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 group-focus-within:text-indigo-500 transition-colors" />
                             <Input
                                 placeholder="Search..."
-                                className="pl-9 w-64 md:w-80 bg-slate-50 border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-indigo-500/20 transition-all h-9 text-sm rounded-full"
+                                className="pl-9 w-64 md:w-80 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 focus:bg-white dark:focus:bg-slate-900 focus:border-indigo-500 focus:ring-indigo-500/20 transition-all h-9 text-sm rounded-full"
                             />
                         </div>
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <div className="hidden md:flex items-center gap-2 mr-4 bg-indigo-50 px-3 py-1.5 rounded-full border border-indigo-100">
-                            <Zap className="w-3 h-3 text-indigo-600 fill-current" />
-                            <span className="text-xs font-semibold text-indigo-700">Pro Active</span>
+                        <div className="hidden md:flex items-center gap-2 mr-4 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1.5 rounded-full border border-indigo-100 dark:border-indigo-800">
+                            <Zap className="w-3 h-3 text-indigo-600 dark:text-indigo-400 fill-current" />
+                            <span className="text-xs font-semibold text-indigo-700 dark:text-indigo-300">Pro Active</span>
                         </div>
+                        <ModeToggle />
                         <Button variant="ghost" size="icon" className="text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-full" onClick={startTour}>
                             <HelpCircle className="w-5 h-5" />
                         </Button>
@@ -213,7 +214,7 @@ const DashboardLayout = () => {
                     </div>
                 </header>
 
-                <div className="flex-1 overflow-auto p-4 md:p-8 bg-[#F9FAFB]">
+                <div className="flex-1 overflow-auto p-4 md:p-8 bg-[#F9FAFB] dark:bg-slate-950">
                     <Outlet />
                 </div>
             </main>

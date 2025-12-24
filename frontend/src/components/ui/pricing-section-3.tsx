@@ -1,7 +1,7 @@
 "use client";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { TimelineContent } from "@/components/ui/timeline-animation";
-import {VerticalCutReveal} from "@/components/ui/vertical-cut-reveal";
+import { VerticalCutReveal } from "@/components/ui/vertical-cut-reveal";
 import { cn } from "@/lib/utils";
 import NumberFlow from "@number-flow/react";
 import { Briefcase, CheckCheck, Database, Server } from "lucide-react";
@@ -167,7 +167,7 @@ export default function PricingSection3() {
     >
       <article className="flex sm:flex-row flex-col sm:pb-0 pb-4 sm:items-center items-start justify-between gap-4 sm:gap-0">
         <div className="text-left mb-6">
-          <h2 className="text-3xl sm:text-4xl font-medium leading-[130%] text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-medium leading-[130%] text-gray-900 dark:text-white mb-4">
             <VerticalCutReveal
               splitBy="words"
               staggerDuration={0.15}
@@ -190,7 +190,7 @@ export default function PricingSection3() {
             animationNum={0}
             timelineRef={pricingRef}
             customVariants={revealVariants}
-            className="text-gray-600 w-full sm:w-[80%]"
+            className="text-gray-600 dark:text-gray-400 w-full sm:w-[80%]"
           >
             Trusted by millions, We help teams all around the world, Explore
             which option is right for you.
@@ -223,11 +223,10 @@ export default function PricingSection3() {
             customVariants={revealVariants}
           >
             <Card
-              className={`relative flex-col flex justify-between h-full ${
-                plan.popular
+              className={`relative flex-col flex justify-between h-full ${plan.popular
                   ? "scale-105 ring-2 ring-neutral-900 bg-gradient-to-t from-black to-neutral-900 text-white shadow-2xl"
-                  : "bg-white border-2 border-neutral-200 shadow-lg hover:shadow-xl transition-shadow text-gray-900"
-              }`}
+                  : "bg-white dark:bg-slate-900 border-2 border-neutral-200 dark:border-slate-800 shadow-lg hover:shadow-xl transition-shadow text-gray-900 dark:text-white"
+                }`}
             >
               <CardContent className="pt-0">
                 <div className="space-y-2 pb-3">
@@ -269,7 +268,7 @@ export default function PricingSection3() {
                   className={
                     plan.popular
                       ? "text-sm text-neutral-200 mb-4"
-                      : "text-sm text-gray-600 mb-4"
+                      : "text-sm text-gray-600 dark:text-gray-400 mb-4"
                   }
                 >
                   {plan.description}
@@ -286,7 +285,7 @@ export default function PricingSection3() {
                           className={
                             plan.popular
                               ? "text-white h-6 w-6 bg-neutral-600 border border-neutral-500 rounded-full grid place-content-center mt-0.5 mr-3"
-                              : "text-black h-6 w-6 bg-white border border-black rounded-full grid place-content-center mt-0.5 mr-3"
+                              : "text-black dark:text-white h-6 w-6 bg-white dark:bg-slate-800 border border-black dark:border-slate-600 rounded-full grid place-content-center mt-0.5 mr-3"
                           }
                         >
                           <CheckCheck className="h-4 w-4  " />
@@ -295,7 +294,7 @@ export default function PricingSection3() {
                           className={
                             plan.popular
                               ? "text-sm text-neutral-100"
-                              : "text-sm text-gray-600"
+                              : "text-sm text-gray-600 dark:text-gray-400"
                           }
                         >
                           {feature}
@@ -307,13 +306,12 @@ export default function PricingSection3() {
               </CardContent>
               <CardFooter>
                 <button
-                  className={`w-full mb-6 p-4 text-xl rounded-xl ${
-                    plan.popular
+                  className={`w-full mb-6 p-4 text-xl rounded-xl ${plan.popular
                       ? "bg-gradient-to-t from-neutral-100 to-neutral-300 font-semibold shadow-lg shadow-neutral-500 border border-neutral-400 text-black"
                       : plan.buttonVariant === "outline"
                         ? "bg-gradient-to-t from-neutral-900 to-neutral-600  shadow-lg shadow-neutral-900 border border-neutral-700 text-white"
                         : ""
-                  }`}
+                    }`}
                 >
                   {plan.buttonText}
                 </button>

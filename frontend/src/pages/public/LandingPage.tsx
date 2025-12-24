@@ -22,6 +22,7 @@ import { Marquee } from '@/components/ui/marquee';
 import PricingSection3 from '@/components/ui/pricing-section-3';
 import FeaturedCrmDemoSection from '@/components/ui/featured-crm-demo-section';
 import { cn } from '@/lib/utils';
+import { ModeToggle } from '@/components/mode-toggle';
 
 const LandingPage = () => {
     const navigate = useNavigate();
@@ -36,10 +37,10 @@ const LandingPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-indigo-100 selection:text-indigo-900 overflow-x-hidden">
+        <div className="min-h-screen bg-white dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-50 selection:bg-indigo-100 selection:text-indigo-900 overflow-x-hidden">
 
             {/* Navbar */}
-            <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md transition-all duration-300 py-4">
+            <nav className="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md transition-all duration-300 py-4 border-b border-transparent dark:border-slate-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-12">
                         {/* Logo */}
@@ -52,16 +53,17 @@ const LandingPage = () => {
 
                         {/* Desktop Nav */}
                         <div className="hidden md:flex items-center gap-10">
-                            <button onClick={() => scrollToSection('features')} className="text-sm font-semibold text-slate-900 hover:text-indigo-600 transition-colors">Feature</button>
-                            <button onClick={() => scrollToSection('how-it-works')} className="text-sm font-semibold text-slate-900 hover:text-indigo-600 transition-colors">How It Work</button>
-                            <button onClick={() => scrollToSection('personas')} className="text-sm font-semibold text-slate-900 hover:text-indigo-600 transition-colors">Personas</button>
-                            <button onClick={() => scrollToSection('pricing')} className="text-sm font-semibold text-slate-900 hover:text-indigo-600 transition-colors">Pricing</button>
-                            <button onClick={() => scrollToSection('contact')} className="text-sm font-semibold text-slate-900 hover:text-indigo-600 transition-colors">Contact Us</button>
+                            <button onClick={() => scrollToSection('features')} className="text-sm font-semibold text-slate-900 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Feature</button>
+                            <button onClick={() => scrollToSection('how-it-works')} className="text-sm font-semibold text-slate-900 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">How It Work</button>
+                            <button onClick={() => scrollToSection('personas')} className="text-sm font-semibold text-slate-900 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Personas</button>
+                            <button onClick={() => scrollToSection('pricing')} className="text-sm font-semibold text-slate-900 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Pricing</button>
+                            <button onClick={() => scrollToSection('contact')} className="text-sm font-semibold text-slate-900 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Contact Us</button>
                         </div>
 
                         {/* Actions */}
                         <div className="hidden md:flex items-center gap-6">
-                            <button onClick={() => navigate('/login')} className="text-sm font-bold text-slate-900 hover:text-indigo-600 transition-colors">Login</button>
+                            <ModeToggle />
+                            <button onClick={() => navigate('/login')} className="text-sm font-bold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Login</button>
                             <Button onClick={() => navigate('/register')} className="bg-black hover:bg-slate-800 text-white font-bold rounded-full px-8 h-10 transition-all">Sign Up</Button>
                         </div>
 
@@ -94,7 +96,7 @@ const LandingPage = () => {
             {/* Hero Section */}
             <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden px-4">
                 <div className="max-w-7xl mx-auto text-center relative z-10">
-                    <h1 className="text-4xl sm:text-5xl lg:text-8xl font-bold tracking-tight text-slate-900 mb-6 leading-[1.1]">
+                    <h1 className="text-4xl sm:text-5xl lg:text-8xl font-bold tracking-tight text-slate-900 dark:text-white mb-6 leading-[1.1]">
                         Don't just <span className="text-indigo-600 font-[Satisfy]">share</span> a link <br className="hidden sm:block" />
                         start a relationship
                     </h1>
@@ -170,15 +172,15 @@ const LandingPage = () => {
             </section>
 
             {/* Unmatchable Features Title */}
-            <section className="py-20 bg-white text-center pb-0">
-                <h2 className="text-4xl lg:text-6xl font-bold tracking-tight text-slate-900 mb-4">
+            <section className="py-20 bg-white dark:bg-slate-950 text-center pb-0">
+                <h2 className="text-4xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">
                     Unmatchable features <br />
                     <span className="font-[Satisfy] text-indigo-600 lowercase transform -rotate-2 inline-block">free, forever</span>
                 </h2>
             </section>
 
             {/* Features Marquee Section */}
-            <section id="features" className="py-20 bg-gradient-to-b from-white to-indigo-50/30 relative overflow-hidden">
+            <section id="features" className="py-20 bg-gradient-to-b from-white to-indigo-50/30 dark:from-slate-950 dark:to-slate-900 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* First Row - Left to Right */}
                     <Marquee pauseOnHover className="[--duration:40s] mb-8">
@@ -187,10 +189,10 @@ const LandingPage = () => {
                             { icon: BarChart3, title: 'Advanced Analytics', desc: 'Track views, clicks, and engagement to understand your networking performance.', color: 'from-blue-500 to-cyan-600' },
                             { icon: Globe, title: 'Custom Domain', desc: 'Connect your own domain (e.g., yourname.com) for a fully branded experience.', color: 'from-violet-500 to-purple-600' },
                         ].map((feature, i) => (
-                            <div 
-                                key={i} 
+                            <div
+                                key={i}
                                 className={cn(
-                                    "relative w-80 h-64 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl hover:scale-110"
+                                    "relative w-80 h-64 bg-white dark:bg-slate-900 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl hover:scale-110"
                                 )}
                             >
                                 {/* Gradient Background on Hover */}
@@ -198,7 +200,7 @@ const LandingPage = () => {
                                     "absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-500",
                                     feature.color
                                 )}></div>
-                                
+
                                 <div className="relative z-10 p-8 h-full flex flex-col">
                                     <div className={cn(
                                         "w-16 h-16 bg-gradient-to-br rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500",
@@ -206,10 +208,10 @@ const LandingPage = () => {
                                     )}>
                                         <feature.icon size={32} />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">{feature.title}</h3>
-                                    <p className="text-slate-600 leading-relaxed text-sm">{feature.desc}</p>
+                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{feature.title}</h3>
+                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">{feature.desc}</p>
                                 </div>
-                                
+
                                 {/* Corner Accent */}
                                 <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-100 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                             </div>
@@ -223,10 +225,10 @@ const LandingPage = () => {
                             { icon: ShieldCheck, title: 'Bank-Grade Security', desc: 'Your data is encrypted and secure. Control visibility with password protection.', color: 'from-rose-500 to-pink-600' },
                             { icon: Zap, title: 'Instant Updates', desc: 'Update your details anytime. No need to reprint physical cards ever again.', color: 'from-amber-500 to-orange-600' },
                         ].map((feature, i) => (
-                            <div 
-                                key={i} 
+                            <div
+                                key={i}
                                 className={cn(
-                                    "relative w-80 h-64 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl hover:scale-110"
+                                    "relative w-80 h-64 bg-white dark:bg-slate-900 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl hover:scale-110"
                                 )}
                             >
                                 {/* Gradient Background on Hover */}
@@ -234,7 +236,7 @@ const LandingPage = () => {
                                     "absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-500",
                                     feature.color
                                 )}></div>
-                                
+
                                 <div className="relative z-10 p-8 h-full flex flex-col">
                                     <div className={cn(
                                         "w-16 h-16 bg-gradient-to-br rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500",
@@ -242,10 +244,10 @@ const LandingPage = () => {
                                     )}>
                                         <feature.icon size={32} />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">{feature.title}</h3>
-                                    <p className="text-slate-600 leading-relaxed text-sm">{feature.desc}</p>
+                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{feature.title}</h3>
+                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">{feature.desc}</p>
                                 </div>
-                                
+
                                 {/* Corner Accent */}
                                 <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-100 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                             </div>
@@ -263,7 +265,7 @@ const LandingPage = () => {
             </section>
 
             {/* Pricing Section */}
-            <section id="pricing" className="py-8 bg-white relative">
+            <section id="pricing" className="py-8 bg-white dark:bg-slate-950 relative">
                 <PricingSection3 />
             </section>
 
