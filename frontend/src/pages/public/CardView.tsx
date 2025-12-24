@@ -21,7 +21,7 @@ const CardView = () => {
 
     // Check for preview query param ?theme=... or use card's theme
     const searchParams = new URLSearchParams(window.location.search);
-    const themeId = searchParams.get('theme') || card.templateId || 'minimal';
+    const themeId = searchParams.get('theme') || card.themeId || 'minimal';
 
     // Find component in registry
     const ThemeComponent = THEMES.find(t => t.id === themeId)?.component || THEMES[0].component;

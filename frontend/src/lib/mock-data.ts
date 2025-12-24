@@ -11,7 +11,7 @@ export interface User {
 export interface Card {
   id: string;
   userId: string;
-  templateId: 'modern-1' | 'classic-1';
+  themeId: string;
   slug: string;
   data: {
     name: string;
@@ -69,7 +69,7 @@ export const MOCK_CARDS: Card[] = [
   {
     id: 'c1',
     userId: 'u2',
-    templateId: 'modern-1',
+    themeId: 'dark',
     slug: 'john-doe',
     data: {
       name: 'John Doe',
@@ -91,7 +91,7 @@ export const MOCK_CARDS: Card[] = [
   {
     id: 'c2',
     userId: 'u3',
-    templateId: 'classic-1',
+    themeId: 'creative',
     slug: 'sarah-design',
     data: {
       name: 'Sarah Smith',

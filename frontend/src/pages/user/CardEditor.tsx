@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
-import { MOCK_CARDS, MOCK_TEMPLATES } from '@/lib/mock-data';
+import { MOCK_CARDS } from '@/lib/mock-data';
+import { THEMES } from '@/lib/themes';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
 
 const CardEditor = () => {
     // Simulating logged in user u2
@@ -15,7 +17,7 @@ const CardEditor = () => {
     const [formData, setFormData] = useState(initialCard?.data || {
         name: '', title: '', company: '', bio: '', email: '', phone: '', website: '', avatarUrl: ''
     });
-    const [selectedTemplate, setSelectedTemplate] = useState(initialCard?.templateId);
+    const [selectedTheme, setSelectedTheme] = useState(initialCard?.themeId || 'minimal');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -28,6 +30,9 @@ const CardEditor = () => {
     };
 
     if (!initialCard) return <div>Data not found</div>;
+
+    // Get active theme component
+    const ActiveTheme = THEMES.find(t => t.id === selectedTheme)?.component || THEMES[0].component;
 
     return (
         <div className="space-y-6">
@@ -104,17 +109,17 @@ const CardEditor = () => {
                                 </CardHeader>
                                 <CardContent>
                                     <div className="grid grid-cols-2 gap-4">
-                                        {MOCK_TEMPLATES.map(template => (
+                                        {THEMES.map(theme => (
                                             <div
-                                                key={template.id}
-                                                className={`cursor-pointer border-2 rounded-lg overflow-hidden relative ${selectedTemplate === template.id ? 'border-blue-600 ring-2 ring-blue-100' : 'border-gray-200 hover:border-gray-300'}`}
-                                                onClick={() => setSelectedTemplate(template.id as any)}
+                                                key={theme.id}
+                                                className={`cursor-pointer border-2 rounded-lg p-4 relative flex flex-col items-center justify-center gap-2 h-32 text-center transition-all ${selectedTheme === theme.id ? 'border-blue-600 ring-2 ring-blue-100 bg-blue-50' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'}`}
+                                                onClick={() => setSelectedTheme(theme.id)}
                                             >
-                                                <img src={template.thumbnail} alt={template.name} className="w-full h-32 object-cover" />
-                                                <div className="p-2 text-center text-sm font-medium">{template.name}</div>
-                                                {selectedTemplate === template.id && (
+                                                <div className="text-sm font-bold">{theme.name}</div>
+                                                <Badge variant="secondary" className="text-[10px]">{theme.category}</Badge>
+                                                {selectedTheme === theme.id && (
                                                     <div className="absolute top-2 right-2 bg-blue-600 text-white p-1 rounded-full">
-                                                        <div className="w-2 h-2 bg-white rounded-full" />
+                                                        <div className="w-1.5 h-1.5 bg-white rounded-full" />
                                                     </div>
                                                 )}
                                             </div>
@@ -132,12 +137,20 @@ const CardEditor = () => {
                 </div>
 
                 {/* Live Preview Sidebar */}
-                <div className="hidden lg:block">
+                <div className="hidden lg:block relative">
                     <div className="sticky top-24">
-                        <h3 className="text-lg font-medium text-gray-900 mb-4">Live Preview</h3>
-                        <div className="border border-gray-200 rounded-2xl overflow-hidden bg-gray-50 h-[600px] flex items-center justify-center shadow-inner">
-                            <p className="text-gray-400 text-sm">Preview of {selectedTemplate}</p>
-                            {/* Actual Card Preview Component could be embedded here later */}
+                        <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center justify-between">
+                            Live Preview
+                            <Badge variant="outline" className="text-xs uppercase">{selectedTheme}</Badge>
+                        </h3>
+                        <div className="border-[8px] border-slate-900 rounded-[2.5rem] overflow-hidden bg-white h-[600px] shadow-2xl relative ring-1 ring-slate-900/50">
+                            {/* Notch */}
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-black rounded-b-xl z-20"></div>
+
+                            {/* Card content */}
+                            <div className="w-full h-full overflow-y-auto no-scrollbar relative z-10 selection:bg-transparent">
+                                <ActiveTheme />
+                            </div>
                         </div>
                     </div>
                 </div>

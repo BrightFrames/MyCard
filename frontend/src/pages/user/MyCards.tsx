@@ -1,152 +1,112 @@
 import { Button } from '@/components/ui/button';
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Smartphone, Plus, MoreVertical, Eye, Edit, Trash2, Search } from 'lucide-react';
+import { Plus, Edit2, Eye, Trash2, MoreVertical, Globe, Smartphone } from 'lucide-react';
 import { MOCK_CARDS } from "@/lib/mock-data";
+import { THEMES } from "@/lib/themes";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 
 const MyCards = () => {
     const navigate = useNavigate();
-    const [search, setSearch] = useState("");
-    const [entriesPerPage, setEntriesPerPage] = useState("10");
     const userCards = MOCK_CARDS.filter(c => c.userId === 'u2');
 
     return (
-        <div className="space-y-6 max-w-7xl mx-auto">
-            <div className="flex justify-between items-center">
-                <div>
-                    <p className="text-sm text-gray-500 dark:text-slate-400 uppercase tracking-wide mb-1">Overview</p>
-                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Business Cards</h2>
-                </div>
-                <Button onClick={() => navigate('/dashboard/cards/new')} className="bg-indigo-600 hover:bg-indigo-700">
-                    Create new vcard
-                </Button>
+        <div className="space-y-8 max-w-7xl mx-auto px-4 pb-20">
+            <div>
+                <p className="text-sm text-gray-500 dark:text-slate-400 uppercase tracking-wide mb-1">Overview</p>
+                <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Business Cards</h2>
             </div>
 
-            <Card className="border-gray-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-900">
-                <div className="p-6">
-                    <div className="flex items-center justify-between mb-6">
-                        <div className="flex items-center gap-2">
-                            <span className="text-sm text-gray-600 dark:text-slate-400">Show</span>
-                            <Select value={entriesPerPage} onValueChange={setEntriesPerPage}>
-                                <SelectTrigger className="w-20 h-9 bg-white dark:bg-slate-950 border-gray-200 dark:border-slate-800 text-slate-900 dark:text-slate-100">
-                                    <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="10">10</SelectItem>
-                                    <SelectItem value="25">25</SelectItem>
-                                    <SelectItem value="50">50</SelectItem>
-                                </SelectContent>
-                            </Select>
-                            <span className="text-sm text-gray-600 dark:text-slate-400">entries</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <span className="text-sm text-gray-600 dark:text-slate-400">Search:</span>
-                            <Input
-                                type="search"
-                                placeholder=""
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                                className="w-48 h-9 bg-white dark:bg-slate-950 border-gray-200 dark:border-slate-800 text-slate-900 dark:text-slate-100"
-                            />
-                        </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                {/* Create New Card */}
+                <button
+                    onClick={() => navigate('/dashboard/cards/new')}
+                    className="group relative flex flex-col items-center justify-center h-[500px] rounded-[2.5rem] border-2 border-dashed border-gray-300 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-900/50 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all duration-300 cursor-pointer"
+                >
+                    <div className="w-16 h-16 rounded-full bg-white dark:bg-slate-800 shadow-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <Plus className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
                     </div>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Create New Card</h3>
+                    <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">Start from scratch</p>
+                </button>
 
-                    <div className="overflow-x-auto">
-                        <Table>
-                            <TableHeader>
-                                <TableRow className="bg-gray-50 dark:bg-slate-800/50 hover:bg-gray-50 dark:hover:bg-slate-800/50">
-                                    <TableHead className="font-semibold text-gray-700 dark:text-slate-300">#</TableHead>
-                                    <TableHead className="font-semibold text-gray-700 dark:text-slate-300">Date</TableHead>
-                                    <TableHead className="font-semibold text-gray-700 dark:text-slate-300">Type</TableHead>
-                                    <TableHead className="font-semibold text-gray-700 dark:text-slate-300">Name</TableHead>
-                                    <TableHead className="font-semibold text-gray-700 dark:text-slate-300">Views</TableHead>
-                                    <TableHead className="font-semibold text-gray-700 dark:text-slate-300">Status</TableHead>
-                                    <TableHead className="font-semibold text-gray-700 dark:text-slate-300">Actions</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {userCards.map((card, idx) => (
-                                    <TableRow key={card.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/50 border-gray-200 dark:border-slate-800">
-                                        <TableCell className="font-medium text-gray-900 dark:text-slate-100">{idx + 1}</TableCell>
-                                        <TableCell className="text-gray-600 dark:text-slate-400">Nov 24, 2025 08:05 AM</TableCell>
-                                        <TableCell>
-                                            <Badge className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1">
-                                                BUSINESS
-                                            </Badge>
-                                        </TableCell>
-                                        <TableCell>
-                                            <div>
-                                                <p className="font-medium text-gray-900 dark:text-slate-100">{card.data.name}</p>
-                                                <p className="text-sm text-gray-500 dark:text-slate-500">{card.data.title}</p>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell className="font-medium text-gray-900 dark:text-slate-100">{card.stats.views}</TableCell>
-                                        <TableCell>
-                                            <Badge className="bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1">
-                                                Enabled
-                                            </Badge>
-                                        </TableCell>
-                                        <TableCell>
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger asChild>
-                                                    <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900 dark:text-slate-400 dark:hover:text-slate-100">
-                                                        Actions
-                                                        <MoreVertical className="w-4 h-4 ml-1" />
-                                                    </Button>
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent align="end">
-                                                    <DropdownMenuItem onClick={() => navigate(`/dashboard/cards/${card.id}/edit`)}>
-                                                        <Edit className="w-4 h-4 mr-2" /> Edit
-                                                    </DropdownMenuItem>
-                                                    <DropdownMenuItem onClick={() => window.open(`/c/${card.slug}`, '_blank')}>
-                                                        <Eye className="w-4 h-4 mr-2" /> View
-                                                    </DropdownMenuItem>
-                                                    <DropdownMenuItem className="text-red-600 focus:text-red-600">
-                                                        <Trash2 className="w-4 h-4 mr-2" /> Delete
-                                                    </DropdownMenuItem>
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </div>
+                {/* Existing Cards */}
+                {userCards.map((card) => {
+                    // Find the theme component for this card, default to first if not found
+                    const ThemeComponent = THEMES.find(t => t.id === card.themeId)?.component || THEMES[0].component;
 
-                    <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-200 dark:border-slate-800">
-                        <p className="text-sm text-gray-600 dark:text-slate-400">Showing 1 to {userCards.length} of {userCards.length} entries</p>
-                        <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm" disabled className="text-gray-400">Previous</Button>
-                            <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700">1</Button>
-                            <Button variant="outline" size="sm" disabled className="text-gray-400">Next</Button>
+                    return (
+                        <div key={card.id} className="relative group perspective-1000">
+                            {/* Phone Frame container */}
+                            <div className="relative h-[500px] rounded-[2.5rem] border-[8px] border-slate-900 bg-slate-900 overflow-hidden shadow-xl transition-transform duration-300 group-hover:-translate-y-2">
+                                {/* Notch */}
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-black rounded-b-xl z-20"></div>
+
+                                {/* Screen Content / Theme Preview */}
+                                <div className="w-full h-full bg-white overflow-hidden relative z-10 pointer-events-none">
+                                    <ThemeComponent />
+                                </div>
+
+                                {/* Overlay Actions (appear on hover) */}
+                                <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-center justify-center gap-4">
+                                    <Button
+                                        onClick={() => navigate(`/dashboard/cards/${card.id}/edit`)}
+                                        className="w-32 bg-white text-slate-900 hover:bg-gray-100 font-semibold rounded-full"
+                                    >
+                                        <Edit2 className="w-4 h-4 mr-2" /> Edit
+                                    </Button>
+                                    <Button
+                                        onClick={() => window.open(`/c/${card.slug}`, '_blank')}
+                                        variant="outline"
+                                        className="w-32 border-white/30 text-white hover:bg-white/10 rounded-full"
+                                    >
+                                        <Eye className="w-4 h-4 mr-2" /> Preview
+                                    </Button>
+                                    <Button
+                                        variant="destructive"
+                                        className="w-32 rounded-full opacity-80 hover:opacity-100"
+                                    >
+                                        <Trash2 className="w-4 h-4 mr-2" /> Delete
+                                    </Button>
+                                </div>
+                            </div>
+
+                            {/* Details Below Card */}
+                            <div className="mt-4 flex items-start justify-between px-2">
+                                <div>
+                                    <h3 className="font-bold text-gray-900 dark:text-white truncate max-w-[150px]">{card.data.name}</h3>
+                                    <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-slate-400 mt-1">
+                                        <Badge variant="secondary" className="px-1.5 py-0 h-5 text-[10px] font-medium bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 border-0">
+                                            BUSINESS
+                                        </Badge>
+                                        <span>• {card.stats.views} views</span>
+                                    </div>
+                                </div>
+
+                                {/* Three dots menu for extra actions if needed, or mobile usage */}
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-500 hover:text-gray-900 dark:text-slate-400 dark:hover:text-white">
+                                            <MoreVertical className="w-4 h-4" />
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                        <DropdownMenuItem onClick={() => navigate(`/dashboard/cards/${card.id}/edit`)}>Edit</DropdownMenuItem>
+                                        <DropdownMenuItem onClick={() => window.open(`/c/${card.slug}`, '_blank')}>View Public Link</DropdownMenuItem>
+                                        <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </Card>
+                    );
+                })}
+            </div>
         </div>
     );
 };

@@ -5,13 +5,14 @@ import { Palette, CheckCircle, Info } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
 
-const ThemeEditor = () => {
-    // Mock state. In real app, this would come from the card prop
-    const [selectedThemeId, setSelectedThemeId] = useState('photographer');
+const ThemeEditor = ({ card, currentTheme, onThemeChange }: any) => {
+    // State is now managed by parent (CardManager)
 
     const handleSelectTheme = (id: string) => {
-        setSelectedThemeId(id);
-        toast.success(`Theme updated to ${THEMES.find(t => t.id === id)?.name}`);
+        if (onThemeChange) {
+            onThemeChange(id);
+            toast.success(`Theme preview: ${THEMES.find(t => t.id === id)?.name}`);
+        }
     };
 
     return (
@@ -32,9 +33,9 @@ const ThemeEditor = () => {
                         <div
                             key={theme.id}
                             onClick={() => handleSelectTheme(theme.id)}
-                            className={`group cursor-pointer rounded-2xl border-2 transition-all duration-200 overflow-hidden relative flex flex-col ${selectedThemeId === theme.id
-                                    ? 'border-indigo-600 ring-2 ring-indigo-200'
-                                    : 'border-slate-100 hover:border-slate-300 hover:shadow-lg'
+                            className={`group cursor-pointer rounded-2xl border-2 transition-all duration-200 overflow-hidden relative flex flex-col ${currentTheme === theme.id
+                                ? 'border-indigo-600 ring-2 ring-indigo-200'
+                                : 'border-slate-100 hover:border-slate-300 hover:shadow-lg'
                                 }`}
                         >
                             {/* Mini Preview */}
@@ -46,7 +47,7 @@ const ThemeEditor = () => {
 
                             <div className="p-3 bg-white border-t border-slate-100 flex items-center justify-between">
                                 <span className="font-semibold text-sm text-slate-900">{theme.name}</span>
-                                {selectedThemeId === theme.id && <CheckCircle className="text-indigo-600 w-5 h-5 fill-indigo-100" />}
+                                {currentTheme === theme.id && <CheckCircle className="text-indigo-600 w-5 h-5 fill-indigo-100" />}
                             </div>
                         </div>
                     ))}
@@ -64,9 +65,9 @@ const ThemeEditor = () => {
                         <div
                             key={theme.id}
                             onClick={() => handleSelectTheme(theme.id)}
-                            className={`group cursor-pointer rounded-2xl border-2 transition-all duration-200 overflow-hidden relative flex flex-col ${selectedThemeId === theme.id
-                                    ? 'border-orange-500 ring-2 ring-orange-200'
-                                    : 'border-slate-100 hover:border-slate-300 hover:shadow-lg'
+                            className={`group cursor-pointer rounded-2xl border-2 transition-all duration-200 overflow-hidden relative flex flex-col ${currentTheme === theme.id
+                                ? 'border-orange-500 ring-2 ring-orange-200'
+                                : 'border-slate-100 hover:border-slate-300 hover:shadow-lg'
                                 }`}
                         >
                             <div className="h-48 bg-slate-50 relative pointer-events-none">
@@ -76,7 +77,7 @@ const ThemeEditor = () => {
                             </div>
                             <div className="p-3 bg-white border-t border-slate-100 flex items-center justify-between">
                                 <span className="font-semibold text-sm text-slate-900">{theme.name}</span>
-                                {selectedThemeId === theme.id && <CheckCircle className="text-orange-500 w-5 h-5 fill-orange-100" />}
+                                {currentTheme === theme.id && <CheckCircle className="text-orange-500 w-5 h-5 fill-orange-100" />}
                             </div>
                         </div>
                     ))}

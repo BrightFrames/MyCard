@@ -22,14 +22,13 @@ const CardManager = () => {
 
     if (!card) return <div>Card not found</div>;
 
+    const [previewTheme, setPreviewTheme] = useState(card.themeId || 'minimal');
+
     const sections = [
         { id: 'links', label: 'Links & Content', icon: LinkIcon, component: LinksManager },
         { id: 'appearance', label: 'Appearance', icon: Palette, component: ThemeEditor },
         { id: 'basic', label: 'Profile Details', icon: User, component: BasicInfoEditor },
         { id: 'contact', label: 'Contact Info', icon: Smartphone, component: ContactInfoEditor },
-        // { id: 'services', label: 'Services', icon: Briefcase, component: ServicesManager },
-        // { id: 'gallery', label: 'Gallery', icon: ImageIcon, component: GalleryManager },
-        // { id: 'hours', label: 'Business Hours', icon: Clock, component: BusinessHours },
         { id: 'settings', label: 'Settings', icon: Settings, component: SettingsEditor },
     ];
 
@@ -65,8 +64,8 @@ const CardManager = () => {
                                 key={section.id}
                                 onClick={() => setActiveSection(section.id)}
                                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${activeSection === section.id
-                                        ? 'bg-indigo-50 text-indigo-600 shadow-sm ring-1 ring-indigo-100'
-                                        : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                                    ? 'bg-indigo-50 text-indigo-600 shadow-sm ring-1 ring-indigo-100'
+                                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
                                     }`}
                             >
                                 <section.icon size={18} className={activeSection === section.id ? "text-indigo-600" : "text-slate-400"} />
@@ -99,13 +98,12 @@ const CardManager = () => {
                 {/* Content Scroll Area */}
                 <div className="flex-1 overflow-y-auto p-4 md:p-8">
                     <div className="max-w-3xl mx-auto">
-                        {/* We pass a specific 'isCompact' or similar prop if needed, 
-                             or just render the component. 
-                             Most specific editors might need slight styling adjustments 
-                             to fit the 'white card' look rather than being full page.
-                         */}
                         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 min-h-[500px]">
-                            <ActiveComponent card={card} />
+                            <ActiveComponent
+                                card={card}
+                                currentTheme={previewTheme}
+                                onThemeChange={setPreviewTheme}
+                            />
                         </div>
                     </div>
                 </div>
@@ -129,7 +127,7 @@ const CardManager = () => {
                     <div className="relative w-[300px] h-[600px] border-[8px] border-slate-900 rounded-[3rem] shadow-2xl bg-white overflow-hidden transform transition-all hover:scale-[1.02]">
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-900 rounded-b-xl z-20" />
                         <iframe
-                            src={`/c/${card.slug}?preview=true`}
+                            src={`/c/${card.slug}?preview=true&theme=${previewTheme}`}
                             className="w-full h-full border-0"
                             title="Card Preview"
                         />
