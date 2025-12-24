@@ -14,6 +14,8 @@ import ContactInfoEditor from './ContactInfoEditor';
 import ThemeEditor from './ThemeEditor';
 import SettingsEditor from './SettingsEditor';
 
+import { toast } from 'sonner';
+
 const CardManager = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -23,6 +25,15 @@ const CardManager = () => {
     if (!card) return <div>Card not found</div>;
 
     const [previewTheme, setPreviewTheme] = useState(card.themeId || 'minimal');
+
+    const handleSave = () => {
+        // Update the mock data in memory
+        if (card) {
+            card.themeId = previewTheme;
+            // card.data = ... (if we were editing other fields)
+            toast.success("Changes saved successfully!");
+        }
+    };
 
     const sections = [
         { id: 'links', label: 'Links & Content', icon: LinkIcon, component: LinksManager },
@@ -91,7 +102,7 @@ const CardManager = () => {
                     </h2>
                     <div className="flex items-center gap-2">
                         <Button variant="outline" size="sm" className="hidden sm:flex">Discard</Button>
-                        <Button size="sm" className="bg-slate-900 text-white hover:bg-slate-800">Save Changes</Button>
+                        <Button size="sm" onClick={handleSave} className="bg-slate-900 text-white hover:bg-slate-800">Save Changes</Button>
                     </div>
                 </div>
 

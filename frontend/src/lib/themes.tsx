@@ -21,7 +21,10 @@ import {
     Gavel,
     Send,
     Settings,
-    User
+    User,
+    Zap,
+    Star,
+    Award
 } from 'lucide-react';
 
 // --- Theme Components ---
@@ -173,30 +176,70 @@ export const ThemeMinimal = () => (
 );
 
 export const ThemeGlass = () => (
-    <div className="h-full bg-slate-900 text-white font-sans p-6 relative overflow-hidden">
-        {/* Gradient Orbs */}
-        <div className="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] bg-[conic-gradient(from_0deg,transparent_0_340deg,white_360deg)] animate-spin opacity-10 blur-3xl"></div>
-        <div className="absolute top-10 left-10 w-32 h-32 bg-blue-500 rounded-full blur-[80px] opacity-40"></div>
-        <div className="absolute bottom-10 right-10 w-32 h-32 bg-purple-500 rounded-full blur-[80px] opacity-40"></div>
+    <div className="h-full bg-[#0a0a0a] text-white font-sans relative overflow-hidden flex flex-col">
+        {/* Background Gradients */}
+        <div className="absolute top-[-20%] left-[-20%] w-[150%] h-[150%] bg-[radial-gradient(circle_at_50%_50%,rgba(76,29,149,0.15),transparent_70%)] animate-pulse hover:bg-[#1a1a1a] transition duration-500"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-[80px]"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-fuchsia-500/10 rounded-full blur-[80px]"></div>
 
-        <div className="relative z-10 backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-6 h-full flex flex-col items-center">
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-400 to-purple-600 mb-4 shadow-lg shadow-purple-500/20"></div>
-            <h3 className="text-xl font-bold mb-1">Alex Chen</h3>
-            <p className="text-blue-200 text-sm mb-6">Full Stack Developer</p>
+        {/* Glass Overlay Card */}
+        <div className="flex-1 m-4 p-6 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex flex-col items-center relative z-10">
 
-            <div className="w-full grid grid-cols-2 gap-3 mb-6">
-                <div className="bg-white/5 border border-white/10 p-3 rounded-xl text-center hover:bg-white/10 transition">
-                    <div className="font-bold text-lg">15+</div>
-                    <div className="text-[10px] text-slate-400">Projects</div>
+            {/* Header / Status */}
+            <div className="w-full flex justify-between items-center mb-8">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 p-[1px]">
+                    <div className="w-full h-full bg-black rounded-full flex items-center justify-center">
+                        <span className="text-xs">⌘</span>
+                    </div>
                 </div>
-                <div className="bg-white/5 border border-white/10 p-3 rounded-xl text-center hover:bg-white/10 transition">
-                    <div className="font-bold text-lg">5yr</div>
-                    <div className="text-[10px] text-slate-400">Exp</div>
+                <div className="px-3 py-1 bg-white/5 rounded-full border border-white/10 text-[10px] font-medium tracking-wider uppercase text-white/60">
+                    Available
                 </div>
             </div>
 
-            <Button className="w-full mb-3 bg-blue-600 hover:bg-blue-500 border-none">GitHub Profile</Button>
-            <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10">Download CV</Button>
+            {/* Profile */}
+            <div className="relative mb-6 group cursor-pointer">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-fuchsia-500 rounded-full opacity-75 group-hover:opacity-100 blur transition duration-500"></div>
+                <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-black/50">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Profile" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                </div>
+            </div>
+
+            {/* Identity */}
+            <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold tracking-tight mb-2 bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">Alex Chen</h3>
+                <p className="text-indigo-300/80 text-sm font-medium tracking-wide">Product Designer</p>
+            </div>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-2 gap-3 w-full mb-8">
+                <div className="bg-white/[0.02] border border-white/[0.05] p-3 rounded-2xl text-center hover:bg-white/[0.05] transition-colors cursor-default">
+                    <div className="text-lg font-bold text-white">45+</div>
+                    <div className="text-[10px] text-white/40 uppercase tracking-widest">Clients</div>
+                </div>
+                <div className="bg-white/[0.02] border border-white/[0.05] p-3 rounded-2xl text-center hover:bg-white/[0.05] transition-colors cursor-default">
+                    <div className="text-lg font-bold text-white">12</div>
+                    <div className="text-[10px] text-white/40 uppercase tracking-widest">Awards</div>
+                </div>
+            </div>
+
+            {/* Actions */}
+            <div className="w-full space-y-3 mt-auto">
+                <Button className="w-full bg-white text-black hover:bg-gray-200 border-none rounded-xl h-11 font-semibold tracking-wide">
+                    Connect
+                </Button>
+                <div className="flex gap-2">
+                    <Button variant="outline" className="flex-1 border-white/10 text-white hover:bg-white/5 hover:text-white rounded-xl bg-transparent">
+                        <Mail size={18} />
+                    </Button>
+                    <Button variant="outline" className="flex-1 border-white/10 text-white hover:bg-white/5 hover:text-white rounded-xl bg-transparent">
+                        <Linkedin size={18} />
+                    </Button>
+                    <Button variant="outline" className="flex-1 border-white/10 text-white hover:bg-white/5 hover:text-white rounded-xl bg-transparent">
+                        <Globe size={18} />
+                    </Button>
+                </div>
+            </div>
         </div>
     </div>
 );
@@ -679,6 +722,120 @@ export const ThemeMonochrome = () => (
     </div>
 );
 
+export const ThemeLuxury = () => (
+    <div className="h-full bg-slate-950 text-amber-50 font-serif relative overflow-hidden flex flex-col items-center p-6">
+        {/* Abstract Gold Dust */}
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-50"></div>
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-50"></div>
+
+        {/* Profile Section */}
+        <div className="relative mt-8 mb-6 group">
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-300 to-amber-600 rounded-full blur opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-28 h-28 rounded-full p-[2px] bg-gradient-to-br from-amber-200 via-amber-400 to-amber-700">
+                <div className="w-full h-full rounded-full border-4 border-slate-950 overflow-hidden bg-slate-900">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop" alt="Profile" className="w-full h-full object-cover" />
+                </div>
+            </div>
+            <div className="absolute -bottom-2 -right-2 bg-gradient-to-br from-amber-300 to-amber-600 p-2 rounded-full text-slate-900 shadow-lg border-2 border-slate-950">
+                <Award size={16} />
+            </div>
+        </div>
+
+        {/* Name & Title */}
+        <h3 className="text-3xl font-bold bg-gradient-to-r from-amber-100 via-amber-300 to-amber-100 bg-clip-text text-transparent mb-1 text-center">
+            Alexander Sterling
+        </h3>
+        <p className="text-amber-500/80 text-xs tracking-[0.2em] font-sans uppercase mb-8 text-center bg-slate-900/50 px-3 py-1 rounded-full border border-amber-500/20">
+            Executive Director
+        </p>
+
+        {/* Actions */}
+        <div className="w-full space-y-4 mb-8">
+            <div className="flex items-center gap-4 p-3 rounded-xl bg-slate-900/50 border border-amber-900/30 hover:border-amber-500/50 hover:bg-slate-900/80 transition-all cursor-pointer group/item text-left">
+                <div className="p-2 rounded-lg bg-gradient-to-br from-amber-900/20 to-amber-900/10 text-amber-400 border border-amber-500/20 group-hover/item:text-amber-200 transition-colors">
+                    <Phone size={20} />
+                </div>
+                <div>
+                    <div className="text-[10px] text-amber-500/60 uppercase tracking-wider font-sans">Mobile</div>
+                    <div className="text-sm font-medium text-amber-50">+1 (555) 123-4567</div>
+                </div>
+            </div>
+
+            <div className="flex items-center gap-4 p-3 rounded-xl bg-slate-900/50 border border-amber-900/30 hover:border-amber-500/50 hover:bg-slate-900/80 transition-all cursor-pointer group/item text-left">
+                <div className="p-2 rounded-lg bg-gradient-to-br from-amber-900/20 to-amber-900/10 text-amber-400 border border-amber-500/20 group-hover/item:text-amber-200 transition-colors">
+                    <Mail size={20} />
+                </div>
+                <div>
+                    <div className="text-[10px] text-amber-500/60 uppercase tracking-wider font-sans">Email</div>
+                    <div className="text-sm font-medium text-amber-50">alex@sterling.com</div>
+                </div>
+            </div>
+        </div>
+
+        {/* Footer Socials */}
+        <div className="mt-auto flex justify-center gap-6 pb-6">
+            {[Linkedin, Globe, Share2].map((Icon, i) => (
+                <div key={i} className="p-3 rounded-full bg-slate-900 border border-amber-900/30 text-amber-500/60 hover:text-amber-300 hover:border-amber-500/50 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all cursor-pointer">
+                    <Icon size={18} />
+                </div>
+            ))}
+        </div>
+    </div>
+);
+
+export const ThemeNeo = () => (
+    <div className="h-full bg-[#E0E7FF] font-mono text-black relative overflow-hidden flex flex-col p-4">
+        {/* Background Elements */}
+        <div className="absolute -right-12 -top-12 w-48 h-48 bg-[#FFB5E8] rounded-full border-4 border-black"></div>
+        <div className="absolute -left-12 bottom-20 w-32 h-32 bg-[#AFF8DB] rounded-full border-4 border-black"></div>
+
+        {/* Main Card Container */}
+        <div className="flex-1 bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rounded-2xl relative z-10 overflow-hidden flex flex-col">
+            {/* Header Pattern */}
+            <div className="h-24 bg-[#B28DFF] border-b-4 border-black relative overflow-hidden">
+                <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.1)_25%,rgba(0,0,0,0.1)_50%,transparent_50%,transparent_75%,rgba(0,0,0,0.1)_75%,rgba(0,0,0,0.1)_100%)] bg-[length:20px_20px]"></div>
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 p-4 text-center -mt-12 flex flex-col items-center">
+                <div className="w-24 h-24 bg-white border-4 border-black rounded-xl overflow-hidden mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                    <img src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?q=80&w=600&auto=format&fit=crop" alt="Profile" className="w-full h-full object-cover" />
+                </div>
+
+                <div className="bg-black text-white px-4 py-1 text-sm font-bold rotate-[-2deg] mb-2 inline-block">
+                    JESSICA JONES
+                </div>
+                <div className="text-xs font-bold bg-[#FFFCB6] px-2 py-1 border-2 border-black inline-block transform rotate-1 mb-6">
+                    DIGITAL ARTIST
+                </div>
+
+                {/* Links */}
+                <div className="w-full space-y-3 mb-6">
+                    <div className="w-full bg-white border-4 border-black p-3 font-bold text-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer flex items-center justify-between hover:bg-[#B5FFFC]">
+                        <span className="flex items-center gap-2"><Globe size={16} /> PORTFOLIO</span>
+                        <ArrowRight size={16} />
+                    </div>
+                    <div className="w-full bg-white border-4 border-black p-3 font-bold text-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer flex items-center justify-between hover:bg-[#FFB5E8]">
+                        <span className="flex items-center gap-2"><Zap size={16} /> COMMISSIONS</span>
+                        <ArrowRight size={16} />
+                    </div>
+                </div>
+
+                {/* Socials */}
+                <div className="mt-auto flex gap-3">
+                    <div className="w-10 h-10 bg-black text-white flex items-center justify-center border-2 border-transparent hover:bg-white hover:text-black hover:border-black transition-all cursor-pointer">
+                        <Instagram size={20} />
+                    </div>
+                    <div className="w-10 h-10 bg-black text-white flex items-center justify-center border-2 border-transparent hover:bg-white hover:text-black hover:border-black transition-all cursor-pointer">
+                        <Twitter size={20} />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
 export const THEMES = [
     // Premium Styles
     { id: 'glassmorphism', name: 'Glassmorphism', component: ThemeGlass, category: 'Premium' },
@@ -688,6 +845,8 @@ export const THEMES = [
     { id: 'elegant-luxury', name: 'Elegant Luxury', component: ThemeElegant, category: 'Premium' },
     { id: 'business-coach', name: 'Business Coach', component: ThemeIndustrial, category: 'Premium' },
     { id: 'digital-creator', name: 'Digital Creator', component: ThemeMonochrome, category: 'Premium' },
+    { id: 'luxury-gold', name: 'Luxury Gold', component: ThemeLuxury, category: 'Premium' },
+    { id: 'neo-brutalist', name: 'Neo Pop', component: ThemeNeo, category: 'Premium' },
 
     // Basic Styles
     { id: 'photographer', name: 'Photographer', component: ThemePhotographer, category: 'Basic' },
