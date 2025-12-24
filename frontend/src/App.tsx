@@ -9,6 +9,12 @@ import PublicLayout from "./layouts/PublicLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import UserManagement from "./pages/admin/UserManagement";
 import TemplateManager from "./pages/admin/TemplateManager";
+import ThemesModule from "./pages/admin/ThemesModule";
+import CustomersPage from "./pages/admin/CustomersPage";
+import NFCCardsPage from "./pages/admin/NFCCardsPage";
+import ReferralSystemPage from "./pages/admin/ReferralSystemPage";
+import PluginsPage from "./pages/admin/PluginsPage";
+import CouponsModule from "./pages/admin/CouponsModule";
 import UserDashboard from "./pages/user/UserDashboard";
 import ProfileSettings from "./pages/user/ProfileSettings";
 import CardView from "./pages/public/CardView";
@@ -69,16 +75,16 @@ const App = () => (
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="users" element={<UserManagement />} />
-              <Route path="themes" element={<div className="p-8">Themes Module (Dummy)</div>} />
+              <Route path="themes" element={<ThemesModule />} />
               <Route path="plans" element={<PlansPricing />} />
-              <Route path="customers" element={<div className="p-8">Customers Management (Dummy)</div>} />
+              <Route path="customers" element={<CustomersPage />} />
               <Route path="vcards" element={<VCardManagement />} />
               <Route path="domains" element={<DomainBranding />} />
-              <Route path="nfc-cards" element={<div className="p-8">NFC Cards Management (Dummy)</div>} />
-              <Route path="referrals" element={<div className="p-8">Referral System (Dummy)</div>} />
-              <Route path="plugins" element={<div className="p-8">Plugins Module (Dummy)</div>} />
+              <Route path="nfc-cards" element={<NFCCardsPage />} />
+              <Route path="referrals" element={<ReferralSystemPage />} />
+              <Route path="plugins" element={<PluginsPage />} />
               <Route path="payments" element={<PaymentManagement />} />
-              <Route path="coupons" element={<div className="p-8">Coupons Module (Dummy)</div>} />
+              <Route path="coupons" element={<CouponsModule />} />
               <Route path="web-templates" element={<div className="p-8">Web Templates Module (Dummy)</div>} />
               <Route path="blogs" element={<div className="p-8">Blog Management (Dummy)</div>} />
               <Route path="iap" element={<div className="p-8">In-App Purchases (Dummy)</div>} />

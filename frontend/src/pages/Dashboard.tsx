@@ -49,11 +49,11 @@ const sampleOrders: Order[] = [
 
 const Dashboard = () => {
   return (
-    <div className="space-y-6 relative min-h-screen">
+    <div className="space-y-6 md:space-y-8 relative min-h-screen p-4 sm:p-6 lg:p-8">
       <DashboardParallaxBackground />
-      <div className="relative z-10 space-y-6">
+      <div className="relative z-10 space-y-6 md:space-y-8">
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           <StatCard
             title="Total Orders"
             value="0"
