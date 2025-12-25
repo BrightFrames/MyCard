@@ -1,42 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, Smartphone, CreditCard, Activity, ArrowUpRight, MoreHorizontal, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import {
-    Area,
-    AreaChart,
-    ResponsiveContainer,
-    Tooltip,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    BarChart,
-    Bar
-} from 'recharts';
+import { Download, Calendar } from "lucide-react";
+import { DashboardStats } from "@/components/dashboard/admin/DashboardStats";
+import { DashboardRevenueChart } from "@/components/dashboard/admin/DashboardRevenueChart";
+import { DashboardActivity } from "@/components/dashboard/admin/DashboardActivity";
 
 const AdminDashboard = () => {
-    const [isStatsOpen, setIsStatsOpen] = useState(true);
-    const [isRevenueOpen, setIsRevenueOpen] = useState(true);
-    const [isActivityOpen, setIsActivityOpen] = useState(true);
-    const [isAlertsOpen, setIsAlertsOpen] = useState(true);
-
-    const revenueData = [
-        { name: 'Jan', value: 4000 },
-        { name: 'Feb', value: 3000 },
-        { name: 'Mar', value: 6000 },
-        { name: 'Apr', value: 8000 },
-        { name: 'May', value: 5000 },
-        { name: 'Jun', value: 9000 },
-        { name: 'Jul', value: 10000 },
-    ];
-
-    const stats = [
-        { label: "Total Revenue", value: "$45,231", change: "+20.1%", icon: CreditCard },
-        { label: "Active Users", value: "+2350", change: "+180.1%", icon: Users },
-        { label: "vCards Created", value: "+12,234", change: "+19%", icon: Smartphone },
-        { label: "Active Now", value: "+573", change: "+201", icon: Activity },
-    ];
-
     return (
         <div className="space-y-8 animate-fade-in-up pb-10">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
